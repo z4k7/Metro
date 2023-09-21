@@ -2,13 +2,15 @@ const userRouter = require("./routes/userRoute");
 const adminRouter = require("./routes/adminRoute");
 const mongoose = require("mongoose");
 const flash = require('express-flash');
+const nocache = require('nocache')
 const morgan = require('morgan')
-const {err404, err500 ,routeDifferentiator} = require('./middleware/errorHandler')
-
-// Connecting with mongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/metro");
-const crypto = require("crypto");
 require("dotenv").config();
+const {err404, err500 ,routeDifferentiator} = require('./middleware/errorHandler')
+const mongoURI = process.env.mongoURI
+// Connecting with mongoDB
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, w: 'majority' });
+const crypto = require("crypto");
+
 
 const express = require("express");
 const path = require("path");
@@ -21,6 +23,7 @@ app.use(express.json());
 
 app.use(morgan('dev'))
 
+app.use(nocache())
 
 app.use(express.urlencoded({ extended: true }));
 
