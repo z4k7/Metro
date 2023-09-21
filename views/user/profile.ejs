@@ -1,0 +1,94 @@
+
+<%- include('../user/header') %>
+
+
+<section class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div class="card card-style1 border-0">
+                    <div class="card-body bg-dark p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 mb-4 mb-lg-0">
+                                <img src="/user/img/arthur.png" alt="User image">
+                            </div>
+                            <div class="col-lg-6 px-xl-10">
+                                 <div class="bg-primary  p-3 mb-4 rounded">   <!-- py-1-9 px-1-9 px-sm-6 mb-1-9 -->
+                                    <% const fullName = userData.fname+' '+userData.lname %>
+                                    <h3 class="h2 text-dark  mb-0"><%= fullName %></h3>
+                                </div>
+                                <ul class="list-unstyled mb-1-9">
+                                    <li class="mb-2 mb-xl-3 display-28">
+                                        <span class="display-26 text-primary me-2 font-weight-600">Email:</span>
+                                        <span class="text-white"><%= userData.email %></span>
+                                        <!-- <a class="ms-3" href="/profile/passConfirmToChangeMail"> -->
+                                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"> -->
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                            </svg>
+                                        </a>
+
+                                    </li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-primary me-2 font-weight-600">Mobile:</span> <span class="text-white"><%= userData.mobile %></span></li>
+                                    <% 
+                                    const dd = userData.dob.getDate();
+                                    const mm = userData.dob.getMonth() + 1;
+                                    const yyyy = userData.dob.getFullYear();
+                                    
+                                    const formattedDate = `${dd}-${mm}-${yyyy}`; 
+                                    %>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-primary me-2 font-weight-600">Date of Birth:</span>  <span class="text-white"><%= formattedDate %></span></li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-primary me-2 font-weight-600">Wallet Amount:</span>  <span class="text-white">&#8377;<%= userData.wallet %></span></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div class="d-flex justify-content-around">
+                    <a href="/profile/myOrders" class="btn btn-primary rounded" >
+                        My Orders
+                    </a>
+
+                    <a href="/profile/edit" class="btn btn-primary rounded" >
+                        Edit Profile
+                    </a>
+                    <a href="/profile/changePassword" class="btn btn-primary rounded" >
+                        Change Password
+                    </a>
+                    <a href="/profile/walletHistory" class="btn btn-primary rounded" >
+                        Wallet History
+                    </a>
+                    <div>
+                        <input type="hidden" id="referralCode" value="<%= userData.referralCode %>" readonly>
+                        <button onclick="copyReferralCode()" class="btn btn-primary rounded">Click here to copy refferal code</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+    // Function to copy the referral code to clipboard
+    function copyReferralCode() {
+        const referralCodeValue = document.getElementById('referralCode').value;
+
+        const tempInput = document.createElement('input');
+        document.body.appendChild(tempInput);
+        tempInput.value = referralCodeValue;
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        // Optionally, you can show a notification to indicate the code has been copied
+        alert('Referral code copied to clipboard!');
+    }
+  </script>
+
+

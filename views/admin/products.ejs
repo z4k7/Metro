@@ -1,0 +1,329 @@
+<%- include('../admin/header.ejs') %>
+
+
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+
+
+                 
+
+
+                    <!-- Table start -->
+
+
+
+
+
+
+                    <div class="col-12">
+                        <div class="card my-4 bg-secondary">
+                            <div class="card-header  p-0 position-relative mt-n4 mx-3 z-index-2">
+                                <div
+                                    class="bg-success rounded  shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between">
+                                    <h5 class="text-white  ps-2">PRODUCTS LIST</h5>
+
+                                    <form class="d-none d-md-flex ms-4" style="padding-left: 470px;"  method="get">
+                                        <input class="form-control bg-dark border-0" type="search" placeholder="Search" name="searchQuery">
+                                    </form>
+
+                                    <div>
+                                        <a class="btn bg-warning text-dark me-3" href="/admin/addProduct">Add
+                                            Product</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body px-0 pb-2 ">
+                                <div class="table-responsive p-0 ">
+
+                                    <table class="table align-items-center mb-0 ">
+
+                                        <thead>
+                                            <tr>
+                                                <th
+                                                    class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">
+                                                    Image</th>
+                                                <th
+                                                    class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    Product</th>
+                                                <th
+                                                    class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">
+                                                    Stock</th>
+                                                <th
+                                                    class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">
+                                                    Category</th>
+                                                <th
+                                                    class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">
+                                                    Price</th>
+                                                <th
+                                                    class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">
+                                                    Action</th>
+                                                <th
+                                                    class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">
+                                                    Apply Offer</th>    
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            <% if(pdtsData && pdtsData.length> 0){
+                                                for(let i=0; i<pdtsData.length; i++){ %>
+                                                    <% if(pdtsData[i].category!==null){%>
+
+                                                    <tr>
+
+                                                        <td>
+                                                            <img style="width: 5rem;" class="bg-white"
+                                                                src="/multerImg/<%= pdtsData[i].images[0]  %>"
+                                                                alt="">
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="d-flex px-2 py-1">
+                                                                <div class="d-flex flex-column justify-content-center">
+
+                                                                    <h6 class="mb-0 text-light text-sm">
+                                                                        <%= pdtsData[i].name %>
+                                                                    </h6>
+                                                                    <p class="text-xs text-primary mb-0">
+                                                                        <%= pdtsData[i].brand %>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+
+                                                        <td class="align-middle text-center text-sm">
+                                                            <span class="text-body text-xs font-weight-bold">
+                                                                <%= pdtsData[i].quantity %>
+                                                            </span>
+                                                        </td>
+
+                                                        <td class="align-middle text-center text-sm">
+                                                            <p class="text-xs font-weight-bold mb-0">
+                                                                
+                                                                <%= pdtsData[i].category.name %>
+                                                            </p>
+                                                        </td>
+
+                                                        <td class="align-middle text-center text-sm">
+                                                            <span class="text-body text-xs font-weight-bold">
+                                                                <%= pdtsData[i].price %>
+                                                            </span>
+                                                        </td>
+
+
+                                                        <td class="align-middle text-center ">
+
+                                                            <a href="/admin/editProduct/<%= pdtsData[i]._id %>"
+                                                                class="btn btn-sm btn-info mx-3">Edit</a>
+
+                                                            <% if(pdtsData[i].isListed===true){ %>
+                                                                <a href="#confirmationPopUp" data-id="<%= pdtsData[i]._id %>"
+                                                                    class="btn btn-sm btn-primary modalBTN"
+                                                                    data-bs-toggle="modal">Unlist</a>
+                                                                <% }else{ %>
+                                                                    <a href="#confirmationPopUp" data-id="<%= pdtsData[i]._id %>"
+                                                                        class="btn btn-success modalBTN" data-bs-toggle="modal">List</a>
+                                                                    <% } %>
+
+                                                                 <!-- Modal Start  -->
+                                                                 <div class="modal fade" id="confirmationPopUp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                      <div class="modal-content">
+                                                                          <div class="modal-header">
+                                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure?</h1>
+                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                          </div>
+                                                                          <div class="modal-body">
+                                                                                  <strong> Are you sure? Do you want to Delete/Add this product ?</strong>
+                                                                                  <div class="modal-footer mt-2">
+                                                                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                      <a id="confirmBTN" class="btn btn-primary">Confirm</a>
+                                                                                  </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div> 
+                                                                <!-- Modal End  -->   
+
+                                                        </td>
+                                                        <% 
+                              if(pdtsData[i].offerAppliedBy && pdtsData[i].offerAppliedBy === 'Category'){
+                                %>
+                                <td>
+                                  <small>Offer Already Applied <br> to Category</small>
+                                  
+                                  <button class="btn btn-secondary applyOfferBTN" data-bs-toggle="modal" data-bs-target="#offerModal" data-id="<%= pdtsData[i]._id %>">
+                                    <i class="bi bi-arrow-left-right"></i>
+                                  </button>
+                                </td>
+                                <%  
+
+                              }else if(pdtsData[i].offerAppliedBy && pdtsData[i].offerAppliedBy === 'Product'){
+                                %>
+                                <td class="align-middle text-center">
+                                  <form action="/admin/removeProductOffer/<%= pdtsData[i]._id %>" method="post">
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                      Remove
+                                    </button>
+                                  </form>
+                                </td>
+                                <%  
+                              }else{
+                                %>
+                                <td class="align-middle text-center">
+                                  <button class="btn btn-sm btn-success applyOfferBTN " id="applyPdtOfferBTN" data-bs-toggle="modal"
+                                          data-bs-target="#offerModal" data-id="<%= pdtsData[i]._id %>">Apply</button>
+                                </td>
+                                <% 
+                              }
+                              %>
+                              <!-- Modal to apply offer to product start -->
+                              <div class="modal fade" id="offerModal"
+                              tabindex="-1" aria-labelledby="exampleModalLabel"
+                              aria-hidden="true">
+                              <div class="modal-dialog">
+                                  <div class="modal-content">
+
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">
+                                            APPLY OFFER
+                                          </h5>
+                                          <button type="button" class="btn-close"
+                                              data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+
+                                      <form action="/admin/applyOfferToProduct"  method="post">
+                                          <div class="modal-body">
+                                              <input type="hidden" name="productId" value="" id="offerProductId">
+                                              <label for="offer">Select Offer </label>
+                                              <select name="offerId" id="offer" class="form-control">
+                                                  <% 
+                                                  offerData.forEach( (offer) => {
+                                                    %>
+                                                    <option value="<%= offer._id %>">
+                                                      <%= offer.name %>
+                                                    </option>
+                                                    <%  
+                                                  })
+                                                  %>
+                                              </select>
+
+                                          </div>
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              <button type="submit" class="btn btn-primary">APPLY</button>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                              </div>
+                              <!-- Modal to apply offer to product end -->
+
+                                                    </tr>
+                                                   <%  } %>
+
+                                                    <% } } %>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    <!-- Table end -->
+                </div>
+            </div>
+            <!-- Form End -->
+
+            <div class="mx-3 d-flex justify-content-between">
+
+                <div>
+                  <ul class="list-unstyled d-flex justify-content-center">
+                    <li class="mx-1 p-2 rounded-pill">Limit : </li>
+            
+                    <li class="mx-1 p-2 rounded-pill"
+                      <% if(limit == 10){  %> style="color: black; background-color: lightblue;"  <% } %> >
+                      <a href="?limit=10">10</a>
+                    </li>
+            
+                    <li class="mx-1 p-2 rounded-pill"
+                    <% if(limit == 25){  %> style="color: black; background-color: lightblue;"  <% } %> >
+                    <a href="?limit=25">25</a>
+                    </li>  
+            
+                    <li class="mx-1 p-2 rounded-pill"
+                      <% if(limit == 50){  %> style="color: black; background-color: lightblue;"  <% } %> >
+                      <a href="?limit=50">50</a>
+                    </li>
+            
+                    <li class="mx-1 p-2 rounded-pill"
+                    <% if(limit == 100){  %> style="color: black; background-color: lightblue;"  <% } %> >
+                    <a href="?limit=100">100</a>
+                    </li>
+            
+                  </ul>
+                </div>
+            
+                                                      <!-- Pagination  -->
+                                                      <div class="row">
+                                                        <div class="col-lg-12 d-flex  align-items-center">
+                                                            <div class="product__pagination  d-flex justify-content-end">
+                                                                <% 
+                                                                if(pageNum > 1){
+                                                                  %>
+                                                                  <a class="mx-1 btn" 
+                                                                    href="?pageNum=<%= pageNum-1 %>&limit=<%= limit %>">Prev
+                                                                  </a>
+                                                                  <% 
+                                                                }
+                                                                for(let i=1; i<= pageCount; i++){
+                                                                    %>
+                                                                    <a class="mx-1 btn p-2 rounded-pill" 
+                                                                    <% if(pageNum === i){ %> 
+                                                                      style="color: black; background-color: lightblue;"
+                                                                    <% } %>
+                                                                      href="?pageNum=<%= i %>&limit=<%= limit %>"><%= i %>
+                                                                    </a>
+                                                                    <%  
+                                                                }
+                                                                if(pageNum < pageCount){
+                                                                  %>
+                                                                  <a class="mx-1 btn" 
+                                                                    href="?pageNum=<%= pageNum+1 %>&limit=<%= limit %>">Next
+                                                                  </a>
+                                                                  <% 
+                                                                }
+                                                                %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+              </div>
+
+
+            <%- include('../admin/footer.ejs') %>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+    $('.modalBTN').click( function () {
+        var productId = $(this).data('id');
+        var routeURL = '/admin/deleteProduct/'+productId
+        $(".modal-footer #confirmBTN").attr('href', routeURL);
+    });
+
+    $('.applyOfferBTN').click( function () {
+      console.log('apply offer btn clicked');
+      let pdtId = $(this).data('id');
+      console.log('pdtId : '+pdtId);
+      $('#offerProductId').val(pdtId)
+    })
+</script>

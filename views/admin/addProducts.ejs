@@ -1,0 +1,153 @@
+<%- include('../admin/header.ejs') %>
+
+
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+
+
+
+
+
+                    <!-- Table start -->
+
+
+
+
+
+
+
+                    <div class="container-fluid py-4  ">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card my-4 bg-secondary">
+                                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                        <div
+                                            class="bg-success rounded shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between">
+                                            <h3 class="text-white text-capitalize ps-3">Add Product</h3>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body px-0 pb-2">
+                                        <div class="table-responsive p-0">
+
+                                            <!-- Copeid Code Start -->
+
+
+
+                                            <form class="p-4" action="/admin/addProduct" method="post"
+                                                enctype="multipart/form-data">
+                                                <div class="row input-group input-group-outline mb-3">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="brand">Brand</label>
+                                                        <input type="brand" class="form-control " name="brand"
+                                                            id="brand" placeholder="Brand">
+                                                        <small id="brandErr" class="error"></small>
+                                                    </div>
+                                                    <div class="form-group col-md-8">
+                                                        <label for="name">Product Name</label>
+                                                        <input type="name" class="form-control" name="productName"
+                                                            id="name" placeholder="Product name">
+                                                        <small id="nameErr" class="error"></small>
+                                                    </div>
+                                                </div>
+                                                <div class="row input-group input-group-outline mb-3">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="category">Category</label>
+                                                            <select id="category" name="category" class="form-control">
+                                                                <% if(categories.length>0){
+                                                                    for(let i=0;i<categories.length;i++){%>
+                                                                        <option>
+                                                                            <%= categories[i].name %>
+                                                                        </option>
+                                                                        <% } %>
+                                                                            <% }else{ %>
+                                                                                <option value="">No categories</option>
+                                                                                <% } %>
+                                                            </select>
+                                                        </div>
+
+                                                        <!-- Sizes as check box code  -->
+
+                                                        <!-- Sizes as check box code end  -->
+
+                                                    </div>
+                                                    <div class="form-group col-md-8">
+                                                        <label for="inputAddress">Description</label>
+                                                        <textarea type="text" rows="4" class="form-control"
+                                                            name="description" id="description"
+                                                            placeholder="Enter Product Description"></textarea>
+                                                        <small id="descriptionErr" class="error"></small>
+                                                    </div>
+                                                </div>
+                                                <div class="row input-group input-group-outline mb-3">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="quantity">Quantity</label>
+                                                        <input type="Number" name="quantity" class="form-control"
+                                                            id="quantity" placeholder="Quantity">
+                                                        <small id="quantityErr" class="error"></small>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="price">Price</label>
+                                                        <input type="number" name="price" id="price"
+                                                            class="form-control" placeholder="price">
+                                                        <small id="priceErr" class="error"></small>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="dprice">Discount Price</label>
+                                                        <input type="number" name="dprice" id="dprice"
+                                                            class="form-control" placeholder="Discount price">
+                                                        <small id="dpriceErr" class="error"></small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Choose product images</label>
+                                                </div>
+                                             
+
+                                                <!-- Add image start -->
+                                                
+
+                                                <div class="mb-3">
+                                                    
+                                                    <input class="form-control bg-dark" type="file"
+                                                        id="image" name="image" multiple>
+                                                        <small id="imageErr" class="error"></small>
+                                                </div>
+                                        
+
+                                                <!-- Add image end -->
+
+                                                <br>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-primary"
+                                                        onclick="return validateProduct()">Add Product</button>
+                                                </div>
+                                            </form>
+
+                                            <!-- Copeid Code End -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script src="/validations/productValidation.js"></script>
+
+
+
+
+
+
+
+                    <!-- Table end -->
+                </div>
+            </div>
+            <!-- Form End -->
+
+
+            <%- include('../admin/footer.ejs') %>

@@ -1,0 +1,244 @@
+<%- include('../admin/header.ejs') %>
+
+     
+
+<!-- Cropper Link  -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css"> -->
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+
+ <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4 bg-secondary">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <small id="catErr" class="error ms-3"></small>
+            <div
+                  class="bg-success rounded shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between">
+              <h3 class="text-white text-capitalize ps-3">CATEGORIES</h3>
+              
+              <form class="fixed-end d-flex align-content-center" action="/admin/category" method="POST">
+                <input id="newCatName" class="rounded" type="text" name="categoryName" placeholder="Category Name" style="margin-right: 9px; margin-bottom: 17px;">
+                <button type="submit" class="btn text-dark bg-warning me-3" style="margin-right: 9px; margin-bottom: 17px;" onclick="return validateCategory()">Add</button>
+              </form>
+              
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-3">
+
+              <table class="table align-items-center  mb-0" id="sortTable">
+
+                <thead>
+                  <tr>
+                    
+                    <th class="text-uppercase text-primary text-xxs text-center font-weight-bolder opacity-7">Name</th>
+                    <th class="text-uppercase text-primary text-xxs text-center font-weight-bolder opacity-7 ps-2">Edit</th>
+                    <th class="text-uppercase text-primary text-xxs text-center font-weight-bolder opacity-7 ps-2">List / Unlist</th>
+                    <th class="text-uppercase text-primary text-xxs text-center font-weight-bolder opacity-7 ps-2">Apply Offer</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <% 
+                    if(category.length > 0){
+                      for(let i=0; i<category.length; i++){
+                         %>
+                            <tr>
+
+                                
+                              <!-- <td class="align-middle text-center text-sm">
+                                <img style="width: 5rem;" src="/multerImg/<%=  locals.category[i].image %>" alt="Category Image">
+                              </td> -->
+
+                                <td class="align-middle text-center text-sm">
+                                    <p class="text-xs font-weight-bold mb-0"><%= category[i].name %></p>
+                                </td>
+
+                                <td class="align-middle text-center">
+
+                                    <a type="button" class="btn btn-info popupBTN" data-id="<%= category[i]._id %>" data-val="<%= category[i].name %>" data-bs-toggle="modal" href="#editCouponModal"> Edit</a>
+                                    
+                                    <!-- Edit Modal Start  -->
+                                    <div class="modal fade" id="editCouponModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Category Name</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/admin/category/edit" method="post"  enctype="multipart/form-data" >
+                                                    <input id="catID" value="" type="hidden" name="categoryId">
+                                                    <!-- <div>
+                                                      <img height="300px" width="300px" src="" id="catImgPreview" alt="Category image preview">
+                                                    </div> -->
+                                                    <!-- <input type="file" class="input-group mb-2" name="categoryImage" id="categoryImage" single accept="image/*"> -->
+                                                    <!-- <button id="cropBTN" onclick="sendData()">Crop</button> -->
+                                                    <input id="catName" class="input-group"  type="text" name="categoryName" placeholder="Enter new name">
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" id="editSubmitBTN" class="btn btn-primary" onclick="return validateModalCategory() ">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                            
+                                        </div>
+                                        </div>
+                                    </div> 
+                                    <!--Edit Modal End  -->
+    
+                                </td>
+
+                                <td class="align-middle text-center">
+                                    <% 
+                                        if(category[i].isListed === true){
+                                        %>
+                                            <a href="#unlistModal" class="btn btn-primary unlistModalBTN"  data-bs-toggle="modal" data-id="<%= category[i]._id %>">Unlist</a>
+                                        <%
+                                        }else{
+                                            %>
+                                            <a href="#unlistModal" class="btn btn-success unlistModalBTN" data-bs-toggle="modal" data-id="<%= category[i]._id %>">List</a>
+                                            <%
+                                        }
+                                    %>
+                                                                  <!-- Unlist/List Modal Start  -->
+                                                                  <div class="modal fade" id="unlistModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                      <div class="modal-content">
+                                                                          <div class="modal-header">
+                                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure?</h1>
+                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                          </div>
+                                                                          <div class="modal-body">
+                                                                                  <strong> Do you want to List/Unlist this category ?</strong>
+                                                                                  <div class="modal-footer mt-2">
+                                                                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                      <a id="confirmUnlistBTN" class="btn btn-primary">Confirm</a>
+                                                                                  </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div> 
+                                                                <!-- Unlist/List Modal End  -->
+                                </td>
+
+                                <td class="align-middle text-center">
+                                  <% 
+                                  if(offerData && offerData.length){
+                                    if(category[i].offer && category[i].offer!=''){
+                                      %>
+                                      <form action="/admin/removeCategoryOffer/<%= category[i]._id %>" method="post">
+                                        <input type="hidden" name="offerId" value="<%= category[i].offer._id %>">
+                                        <button type="submit" class="btn btn-primary"><%= category[i].offer.name %> <span style="color: white;">x</span></button>
+                                      </form>
+                                      <%  
+                                    }else{
+                                      %>
+                                      <button class="btn btn-success offerBTN" data-bs-toggle="modal"  data-bs-target="#offerModal" data-id="<%= category[i]._id %>">Apply</button>
+                                      <%  
+                                    }
+                                  }else{
+                                    %>
+                                    <p>No Offer Available</p>
+                                    <%  
+                                  }
+                                  %>
+                                  <!-- <a href="#applyOfferModal" class="btn btn-danger applyOfferModal"  data-bs-toggle="modal" data-id="<%=// categories[i]._id %>">Apply</a> -->
+                                </td>
+
+                                <!--OFFER Modal -->
+                                <div class="modal fade" id="offerModal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">ADD OFFER</h5>
+                                            <button type="button" class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <form action="/admin/applyOfferToCategory" method="post">
+                                            <div class="modal-body">
+                                                <input type="hidden" name="categoryId" value="" id="offerCategoryId">
+                                                <label for="offer">Select an offer to apply: </label>
+                                                <select name="offerId" id="offer" class="form-control">
+                                                    <% 
+                                                    offerData.forEach((offer) => {
+                                                      %>
+                                                      <option value="<%= offer._id  %>"> <%= offer.name %> </option>
+                                                      <%  
+                                                    })
+                                                    %>
+                                                </select>
+
+                                                <input type="checkbox" name="override" class="my-1" value="Override Product Offers">
+                                                <small class="my-1">Override Product Offers</small>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit"
+                                                    class="btn btn-primary">ADD</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </tr>
+                         <% 
+                      }
+                    }
+                  %>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../admin/footer.ejs') %>   
+
+</main>
+
+<script src="/validations/categoryValidation.js"></script>
+
+<!-- Cropper Script  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<script>
+    $(document).on("click", ".popupBTN", function () {
+        var cId = $(this).data('id');
+        var cVal = $(this).data('val');
+        $(".modal-body #catID").val(cId);
+        $(".modal-body #catName").val(cVal);
+    });
+
+    $('.unlistModalBTN').click( function () {
+        var catId = $(this).data('id');
+        var routeURL = '/admin/category/list/'+catId
+        $(".modal-footer #confirmUnlistBTN").attr('href', routeURL);
+    });
+
+    $('.offerBTN').click( function () {
+      let catId = $(this).data('id');
+      $('#offerCategoryId').val(catId)
+    })
+</script>
+
+
+
+
+
+
+      

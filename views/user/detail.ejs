@@ -1,0 +1,164 @@
+<%- include('../user/header.ejs') %>
+
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-dark rounded mb-30">
+                    <a class="breadcrumb-item text-primary" href="#">Home</a>
+                    <a class="breadcrumb-item text-primary" href="#">Shop</a>
+                    <span class="breadcrumb-item text-primary">Shop Detail</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Shop Detail Start -->
+    <div class="container-fluid pb-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light rounded ">
+                        <% 
+                        for(let i=0; i<pdtData.images.length; i++){
+                        %>
+                        <div class="carousel-item <% if(i==0 ){  %> active <% } %>  main-image ">
+                            <a href="">
+                                <img class="w-100 h-100 main-img" src="/multerImg/<%= pdtData.images[i] %>" alt="Image" >
+                            </a>
+                        </div>
+
+
+                        <% 
+                    }
+                    %>
+                       
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-dark p-30 rounded">
+                    <h3 class="text-primary"><%= pdtData.name %></h3>
+                    <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star-half-alt"></small>
+                            <small class="far fa-star"></small>
+                        </div>
+                        <!-- <small class="pt-1">(99 Reviews)</small> -->
+                    </div>
+                    <h3 class="font-weight-semi-bold mb-4 text-primary">₹<%= pdtData.discountPrice %></h3>
+                   
+                    <h4 class="mb-3 text-primary">Product Description</h4>
+                    
+                    <p class="mb-4 text-light "><%= pdtData.description %></p>
+                    
+                    
+                    
+                    
+                    <div class="d-flex align-items-center mb-4 pt-2 ">
+                        
+                       <a href="/shop/addToCart/<%= pdtData._id %>"> <button class="btn btn-primary px-3 rounded "><i class="fa fa-shopping-cart mr-1 "></i> Add To
+                            Cart</button> </a>
+                    </div>
+
+
+
+
+                    <div class="d-flex pt-2">
+                        <strong class="text-white mr-2">Share on:</strong>
+                        <div class="d-inline-flex">
+                            <a class="text-white px-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="text-white px-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="text-white px-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="text-white px-2" href="">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+
+
+    <!-- Shop Detail End -->
+
+
+
+<%- include('../user/footer') %>
+
+<script>
+ function updateCart(operation, prodId, spanId){
+            let quantity = document.getElementById(spanId)
+            let parsedQuantity = parseInt(quantity.innerText)
+
+            let minQuantity = 1 
+            let maxQuantity = parseInt(quantity.dataset.maxQuantity)
+
+            maxQuantity = Math.min(maxQuantity,10)
+
+            if(operation == 1 && parsedQuantity < maxQuantity){
+                parsedQuantity++
+            }else if(operation == -1 && parsedQuantity>1){
+                parsedQuantity--
+            }
+
+            quantity.innerText = parsedQuantity
+
+            ajaxConnection(parsedQuantity, prodId, spanId)
+
+            // btn dis
+            var plusBtn = document.getElementById(`${spanId}plus`)
+            var minusBtn = document.getElementById(`${spanId}minus`)
+            plusBtn.disabled = true
+            minusBtn.disabled = true
+
+            if(!parsedQuantity=== 1){
+                plusBtn.disabled = true
+            }else{
+                plusBtn.disabled = false
+            }
+
+            if(!parsedQuantity == 10 || !parsedQuantity == maxQuantity){
+                minusBtn.disabled = true
+            }else{
+                minusBtn.disabled = false 
+            }
+
+            // Error Message
+            let messageElement = document.getElementById(`${spanId}msg`)
+
+            if(parsedQuantity == 10){
+                messageElement.innerText = "Max quantity reached"
+            }else if( parsedQuantity == maxQuantity){
+                messageElement.innerText= "Stock limit reached"
+            }else{
+                messageElement.innerText =""
+            }
+        }
+
+
+  
+</script>

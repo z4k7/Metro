@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Metro-Shop</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/user/css/style.css" rel="stylesheet">
+  
+</head>
+
+<body>
+
+     <!-- Spinner Start -->
+     <!-- <div id="spinner"
+            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div> -->
+ <!-- Spinner End -->
+ 
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <div class="row bg-dark d-lg-none py-1 px-xl-5">
+            <div class="col-lg-6 d-none d-lg-block">
+                <!-- <div class="d-inline-flex align-items-center h-100">
+                    <a class="text-body mr-3" href="">About</a>
+                    <a class="text-body mr-3" href="">Contact</a>
+                    <a class="text-body mr-3" href="">Help</a>
+                    <a class="text-body mr-3" href="">FAQs</a>
+                </div> -->
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-dark d-lg-none dropdown-toggle" data-toggle="dropdown"><i class="fas fa-solid fa-user text-primary "></i></button>
+                        <div class="dropdown-menu bg-dark  dropdown-menu-right">
+                            <a href="/login"> <button class="dropdown-item text-secondary"  type="button"> Sign in</button></a> 
+                            <a href="/signup"><button class="dropdown-item text-secondary" type="button">Sign up</button></a>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="d-inline-flex align-items-center d-block d-lg-none">
+                    <a href="" class="btn px-0 ml-2">
+                        <i class="fas fa-heart text-primary"></i>
+                        <span class="badge text-primary border border-primary rounded-circle"
+                            style="padding-bottom: 2px;">0</span>
+                    </a>
+                    <a href="" class="btn px-0 ml-2">
+                        <i class="fas fa-shopping-cart text-dark"></i>
+                        <span class="badge text-primary border border-primary rounded-circle"
+                            style="padding-bottom: 2px;">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center bg-dark py-3 px-xl-5 d-none d-lg-flex">
+            <div class="col-lg-6">
+                <a href="" class="text-decoration-none">
+                    <span class="h1 text-uppercase text-primary bg-dark px-2">Metro</span>
+                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Enterprises</span>
+                </a>
+            </div>
+            <div class="col-lg-4 col-6 text-left ">
+                <form action="/shop" method="get">
+                    <div class="input-group ">
+                        <input type="text" class="form-control bg-dark text-white rounded" placeholder="Search for products" name="searchQuery">
+                        <div class="input-group-append text-white">
+                            <span class="input-group-text bg-transparent text-primary rounded">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-2 col-6 text-right">
+                <p class="m-0 text-light">Customer Service</p>
+                <h5 class="m-0 text-light">+91 9447315839</h5>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-dark mb-30">
+        <div class="row px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse"
+                    href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+                    <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
+                    <i class="fa fa-angle-down text-dark"></i>
+                </a>
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-warning"
+                    id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                    <div class="navbar-nav w-100">
+                        
+                        <a href="/shop?category=BILL+PRINTING" class="nav-item nav-link">Bill Printing</a>
+                        <a href="/shop?category=FLOOR+SCALE" class="nav-item nav-link">Floor Scale</a>
+                        <a href="/shop?category=HANGING" class="nav-item nav-link">Hanging</a>
+                        <a href="/shop?category=INDICATOR" class="nav-item nav-link">Indicator</a>
+                        <a href="/shop?category=LABEL+PRINTING" class="nav-item nav-link">Label Printing</a>
+                        <a href="/shop?category=ORDER+PRINTER" class="nav-item nav-link">Order Printing</a>
+                        <a href="/shop?category=PALLET" class="nav-item nav-link">Pallet</a>
+                        <a href="/shop?category=PLATFORM" class="nav-item nav-link">Platform</a>
+                        <a href="/shop?category=PORTABLE" class="nav-item nav-link">Portable</a>
+                        <a href="/shop?category=PRECISION" class="nav-item nav-link">Precision</a>
+                        <a href="/shop?category=TABLE+TOP" class="nav-item nav-link">Table Top</a>
+                        <a href="/shop?category=TERMINAL" class="nav-item nav-link">Terminal</a>
+
+
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <span class="h1 text-uppercase text-dark bg-light px-2">Metro </span>
+                        <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Enterprises</span>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="/" class="nav-item nav-link">Home</a>
+                            <a href="/shop" class="nav-item nav-link ">Shop</a>
+                            <!-- <a href="detail.html" class="nav-item nav-link">Shop Detail</a> -->
+                            <!-- <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i
+                                        class="fa fa-angle-down mt-1"></i></a>
+                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                    <a href="/shoppingCart" class="dropdown-item">Shopping Cart</a>
+                                    <a href="/shoppingCart/proceedToCheckout" class="dropdown-item">Checkout</a>
+                                </div>
+                            </div> -->
+                            <!-- <a href="contact.html" class="nav-item nav-link">Contact</a> -->
+                        </div>
+
+                        <!-- <div class="col-lg-4 col-6 text-left">
+                            <form action="/shop" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for products" name="searchQuery">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text bg-transparent text-primary">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> -->
+
+
+
+
+                        <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                            <a href="/wishlist" class="btn px-0">
+                                <i class="fas fa-heart text-primary"></i>
+                                       <% 
+                                        if(locals.wishCount){
+                                           %>
+                                <span class="badge text-secondary border border-secondary rounded-circle"
+                                    style="padding-bottom: 2px;"><%= wishCount %></span>
+                                    <%  
+                                }
+                                %>
+                            </a>
+                           
+                           
+                           
+                            <a href="/shoppingCart" class="btn px-0 ml-3">
+                                <i class="fas fa-shopping-cart text-primary"></i>
+                                <% 
+                                if(locals.cartCount){
+                                    %>
+
+                                <span class="badge text-secondary border border-secondary rounded-circle"
+                                    style="padding-bottom: 2px;"><%=cartCount %></span>
+                                    <%  
+                                }
+                                %>
+
+                            </a>
+
+
+
+
+                            <a href="/profile" class="btn px-0 ml-3 mr-3">
+                                <i class="fas fa-solid fa-user text-primary"></i>
+                                
+                            </a>
+
+                            <div class="btn-group">
+                                <% 
+                                if(isLoggedIn){
+                                    %>
+                                    <a href="/logout">Sign Out</a>
+                                    <%
+                                }else{
+                                    %>
+                                    <a href="/login">Sign in</a>
+                                    <%
+                                }
+                                %>
+                            </div>
+
+
+
+                            <!-- <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-dark dropdown-toggle show " data-toggle="dropdown"><i class="fas fa-solid fa-user text-primary"></i> <i class="fa fa-angle-down" ></i></button>
+                                <div class="dropdown-menu bg-dark dropdown-menu-right">
+                                    <a href="/login"> <button class="dropdown-item text-secondary"  type="button"> Sign In</button></a> 
+                                    <a href="/logout"><button class="dropdown-item text-secondary" type="button">Sign Out</button></a>
+                                </div>
+                            </div> -->
+
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navbar End -->

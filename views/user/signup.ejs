@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/signup.css">
+</head>
+
+<body>
+
+    <!-- Navbar-->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light py-3">
+            <div class="container">
+                <!-- Navbar Brand -->
+                <a href="#" class="navbar-brand">
+                    <img src="/user/img/METRO_LOGO-removebg-preview.png" alt="logo" width="150">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <div class="row py-5 mt-4 align-items-center">
+            <!-- Photo -->
+            <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+                <img src="/user/img/weigh.jpg" alt="" class="img-fluid mb-3 d-none d-md-block">
+                <h1>Create an Account</h1>
+
+            </div>
+
+            <!-- Registeration Form -->
+            <div class="col-md-7 col-lg-6 ml-auto">
+                <form action="/signup" method="post">
+                    <div class="row">
+
+                        <div class="text-center ">
+                            <% if(typeof message !=='undefined' ){ %>
+                                <p class="text-danger fw-bold">
+                                    <%=message%>
+                                </p>
+                                <% } %>
+                        </div>
+
+                        <!-- First Name -->
+                        <div class="text-danger text-center"><small id="fnameErr" class="error"></small></div>
+
+                        <div class="input-group col-lg-6 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text  border-px   bg-white px-4 border-md border-right-0"
+                                    style="padding: 1.375rem .75rem;">
+                                    <i class="fa fa-user text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="fname" type="text" name="fname" placeholder="First Name"
+                                class="form-control bg-white border-left-0 border-md border-change">
+                            <div></div>
+                        </div>
+
+
+
+
+                        <!-- Last Name -->
+                        <div class="text-danger text-center"><small id="lnameErr" class="error"></small></div>
+
+                        <div class="input-group col-lg-6 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-px  bg-white px-4 border-md border-right-0"
+                                    style="padding: 1.375rem .75rem;">
+                                    <i class="fa fa-user text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="lname" type="text" name="lname" placeholder="Last Name"
+                                class="form-control bg-white border-left-0 border-md border-change ">
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="text-danger text-center"><small id="emailErr" class="error"></small></div>
+                        <div class="input-group col-lg-12 mb-3">
+                            <div class="input-group-prepend">
+                                <span class=" border-px  input-group-text bg-white px-4 border-md border-right-0"
+                                    style="padding: 1.375rem .75rem;">
+                                    <i class="fa fa-envelope text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="email" type="email" name="email" placeholder="Email Address"
+                                class="form-control bg-white border-left-0 border-md  border-change ">
+
+
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="text-danger text-center"><small id="mobileErr" class="error"></small></div>
+                        <div class="input-group col-lg-12 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="  border-px  input-group-text bg-white px-4 border-md border-right-0"
+                                    style="padding: 1.375rem .75rem;">
+                                    <i class="fa fa-phone-square text-muted"></i>
+                                </span>
+                            </div>
+
+                            <input id="mobile" type="" name="mobile" placeholder="Phone Number"
+                                class="form-control bg-white border-md border-left-0 pl-3  border-change ">
+
+                        </div>
+
+
+
+
+                        <!-- Password -->
+                        <div class="text-danger text-center"><small id="passwordErr" class="error"></small></div>
+                        <div class="input-group col-lg-6 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="  border-px  input-group-text bg-white px-4 border-md border-right-0"
+                                    style="padding: 1.375rem .75rem;">
+                                    <i class="fa fa-lock text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="password" type="password" name="password" placeholder="Password"
+                                class="form-control bg-white border-left-0 border-md  border-change ">
+
+                        </div>
+
+                        <!-- Password Confirmation -->
+                        <div class="text-danger text-center"> <small id="confirmPasswordErr" class="error"></small>
+                        </div>
+                        <div class="input-group col-lg-6 mb-3">
+                            <div class="input-group-prepend">
+                                <span class=" border-px  input-group-text bg-white px-4 border-md border-right-0"
+                                    style="padding: 1.375rem .75rem;">
+                                    <i class="fa fa-lock text-muted"></i>
+                                </span>
+                            </div>
+                            <input id="confirmpassword" type="password" name="confirmPassword"
+                                placeholder="Confirm Password"
+                                class="form-control bg-white border-left-0 border-md  border-change ">
+
+                        </div>
+
+                        <!-- Referral Code -->
+                        <div class="form-outline mb-3 row">
+                            <div class=" col-12 mb-3">
+                                <label class="form-label" for="referral">Referral Code</label>
+                                <input type="referral" id="referral"
+                                    class="form-control form-control-md rounded-0" value="<%= locals.referral %>" placeholder="Enter Referral (Optional)" name="referral"/>
+                                    <small id="referralErr" class="error"></small>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group text-center col-lg-12 mx-auto mb-0">
+                            <button type="submit" class="rounded btn btn-success"
+                                onclick="return validateSignUp()">Register</button>
+                        </div>
+
+
+
+                        <!-- Already Registered -->
+                        <div class="text-center w-100">
+                            <p class="text-muted font-weight-bold">Already Registered? <a href="/login"
+                                    class="text-primary ml-2">Login</a></p>
+                        </div>
+
+                    </div>
+                </form>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+
+    <script src="/validations/signupValidation.js"></script>
+</body>
+
+</html>
