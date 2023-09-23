@@ -22,20 +22,17 @@
             <div class="col-lg-5 mb-30">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light rounded ">
-                        <% 
-                        for(let i=0; i<pdtData.images.length; i++){
-                        %>
-                        <div class="carousel-item <% if(i==0 ){  %> active <% } %>  main-image ">
-                            <a href="">
-                                <img class="w-100 h-100 main-img" src="/multerImg/<%= pdtData.images[i] %>" alt="Image" >
-                            </a>
-                        </div>
+                        <% for(let i=0; i<pdtData.images.length; i++){ %>
+                            <div class="carousel-item <% if(i==0 ){  %> active <% } %>  main-image ">
+                                <a href="">
+                                    <img class="w-100 h-100 main-img" src="/multerImg/<%= pdtData.images[i] %>"
+                                        alt="Image">
+                                </a>
+                            </div>
 
 
-                        <% 
-                    }
-                    %>
-                       
+                            <% } %>
+
                     </div>
                     <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                         <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -48,7 +45,9 @@
 
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-dark p-30 rounded">
-                    <h3 class="text-primary"><%= pdtData.name %></h3>
+                    <h3 class="text-primary">
+                        <%= pdtData.name %>
+                    </h3>
                     <div class="d-flex mb-3">
                         <div class="text-primary mr-2">
                             <small class="fas fa-star"></small>
@@ -59,19 +58,23 @@
                         </div>
                         <!-- <small class="pt-1">(99 Reviews)</small> -->
                     </div>
-                    <h3 class="font-weight-semi-bold mb-4 text-primary">₹<%= pdtData.discountPrice %></h3>
-                   
+                    <h3 class="font-weight-semi-bold mb-4 text-primary">₹<%= pdtData.discountPrice %>
+                    </h3>
+
                     <h4 class="mb-3 text-primary">Product Description</h4>
-                    
-                    <p class="mb-4 text-light "><%= pdtData.description %></p>
-                    
-                    
-                    
-                    
+
+                    <p class="mb-4 text-light ">
+                        <%= pdtData.description %>
+                    </p>
+
+
+
+
                     <div class="d-flex align-items-center mb-4 pt-2 ">
-                        
-                       <a href="/shop/addToCart/<%= pdtData._id %>"> <button class="btn btn-primary px-3 rounded "><i class="fa fa-shopping-cart mr-1 "></i> Add To
-                            Cart</button> </a>
+
+                        <a href="/shop/addToCart/<%= pdtData._id %>"> <button class="btn btn-primary px-3 rounded "><i
+                                    class="fa fa-shopping-cart mr-1 "></i> Add To
+                                Cart</button> </a>
                     </div>
 
 
@@ -97,7 +100,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 
 
@@ -107,58 +110,58 @@
 
 
 
-<%- include('../user/footer') %>
+    <%- include('../user/footer') %>
 
-<script>
- function updateCart(operation, prodId, spanId){
-            let quantity = document.getElementById(spanId)
-            let parsedQuantity = parseInt(quantity.innerText)
+        <script>
+            function updateCart(operation, prodId, spanId) {
+                let quantity = document.getElementById(spanId)
+                let parsedQuantity = parseInt(quantity.innerText)
 
-            let minQuantity = 1 
-            let maxQuantity = parseInt(quantity.dataset.maxQuantity)
+                let minQuantity = 1
+                let maxQuantity = parseInt(quantity.dataset.maxQuantity)
 
-            maxQuantity = Math.min(maxQuantity,10)
+                maxQuantity = Math.min(maxQuantity, 10)
 
-            if(operation == 1 && parsedQuantity < maxQuantity){
-                parsedQuantity++
-            }else if(operation == -1 && parsedQuantity>1){
-                parsedQuantity--
-            }
+                if (operation == 1 && parsedQuantity < maxQuantity) {
+                    parsedQuantity++
+                } else if (operation == -1 && parsedQuantity > 1) {
+                    parsedQuantity--
+                }
 
-            quantity.innerText = parsedQuantity
+                quantity.innerText = parsedQuantity
 
-            ajaxConnection(parsedQuantity, prodId, spanId)
+                ajaxConnection(parsedQuantity, prodId, spanId)
 
-            // btn dis
-            var plusBtn = document.getElementById(`${spanId}plus`)
-            var minusBtn = document.getElementById(`${spanId}minus`)
-            plusBtn.disabled = true
-            minusBtn.disabled = true
-
-            if(!parsedQuantity=== 1){
+                // btn dis
+                var plusBtn = document.getElementById(`${spanId}plus`)
+                var minusBtn = document.getElementById(`${spanId}minus`)
                 plusBtn.disabled = true
-            }else{
-                plusBtn.disabled = false
-            }
-
-            if(!parsedQuantity == 10 || !parsedQuantity == maxQuantity){
                 minusBtn.disabled = true
-            }else{
-                minusBtn.disabled = false 
+
+                if (!parsedQuantity === 1) {
+                    plusBtn.disabled = true
+                } else {
+                    plusBtn.disabled = false
+                }
+
+                if (!parsedQuantity == 10 || !parsedQuantity == maxQuantity) {
+                    minusBtn.disabled = true
+                } else {
+                    minusBtn.disabled = false
+                }
+
+                // Error Message
+                let messageElement = document.getElementById(`${spanId}msg`)
+
+                if (parsedQuantity == 10) {
+                    messageElement.innerText = "Max quantity reached"
+                } else if (parsedQuantity == maxQuantity) {
+                    messageElement.innerText = "Stock limit reached"
+                } else {
+                    messageElement.innerText = ""
+                }
             }
 
-            // Error Message
-            let messageElement = document.getElementById(`${spanId}msg`)
-
-            if(parsedQuantity == 10){
-                messageElement.innerText = "Max quantity reached"
-            }else if( parsedQuantity == maxQuantity){
-                messageElement.innerText= "Stock limit reached"
-            }else{
-                messageElement.innerText =""
-            }
-        }
 
 
-  
-</script>
+        </script>

@@ -1,103 +1,90 @@
-<link
-  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-  rel="stylesheet"
-  id="bootstrap-css"
-/>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>User-Login</title>
-    <!--Made with love by Mutiullah Samim -->
 
-    <!--Bootsrap 4 CDN-->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
+<head>
+  <title>User-Login</title>
+  <!--Made with love by Mutiullah Samim -->
 
-    <!--Fontawesome CDN-->
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-      crossorigin="anonymous"
-    />
+  <!--Bootsrap 4 CDN-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
 
-    <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="/user/css/login.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="d-flex justify-content-center h-100">
-        <div class="card">
-          <div class="bg-dark rounded p-4 p-sm-10 my-4 mx-3">
-            <div class="card-header text-center">
-              <h3>OTP Verification</h3>
-            </div>
-            <div class="card-body">
-              <form action="/verifyotp" method="post">
-                <div class="input-group form-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fas fa-key"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="otp"
-                    placeholder="Enter OTP"
-                  />
-                  <input type="hidden" name="referral" value="<%= referral %>">
+  <!--Fontawesome CDN-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+
+  <!--Custom styles-->
+  <link rel="stylesheet" type="text/css" href="/user/css/login.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card">
+        <div class="bg-dark rounded p-4 p-sm-10 my-4 mx-3">
+          <div class="card-header text-center">
+            <h3>OTP Verification</h3>
+          </div>
+          <div class="card-body">
+            <form action="/verifyotp" method="post">
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
-
-                <div class="form-group text-center">
-                  <input type="submit" value="Submit" class="btn login_btn" />
-                  <p><%= message %></p>
-                </div>
-              </form>
-            </div>
-            <div class="card-footer">
-              <div class="d-flex justify-content-center links" id="resendOTPmsg">
-                Still didn't receive?<button class="border-0" style="color: blue;" onclick="resendOTP('<%= email %>')">Resend OTP</button>
+                <input type="text" class="form-control" name="otp" placeholder="Enter OTP" />
+                <input type="hidden" name="referral" value="<%= referral %>">
               </div>
+
+              <div class="form-group text-center">
+                <input type="submit" value="Submit" class="btn login_btn" />
+                <p>
+                  <%= message %>
+                </p>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-center links" id="resendOTPmsg">
+              Still didn't receive?<button class="border-0" style="color: blue;"
+                onclick="resendOTP('<%= email %>')">Resend OTP</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
 
-    <script>
-        function resendOTP(email){
-            $.ajax({
-                url:'/resendOTP',
-                method: 'post',
-                data:{ email },
-                success: (res) => {
-                    if(res.isResend){
-                        $('#resendOTPmsg').html('OTP Resent Successfully :)')
-                    }else{
-                        $('#resendOTPmsg').html('Error Occured while resending :( ')
-                    }
-                }
-            })
+  <script>
+    function resendOTP(email) {
+      $.ajax({
+        url: '/resendOTP',
+        method: 'post',
+        data: { email },
+        success: (res) => {
+          if (res.isResend) {
+            $('#resendOTPmsg').html('OTP Resent Successfully :)')
+          } else {
+            $('#resendOTPmsg').html('Error Occured while resending :( ')
+          }
         }
-        // $('#resendOTPBTN').click(() => {
+      })
+    }
+    // $('#resendOTPBTN').click(() => {
 
-        // })
-    </script>
+    // })
+  </script>
 
-  </body>
+</body>
+
 </html>

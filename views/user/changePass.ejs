@@ -1,164 +1,173 @@
 <%- include('../user/header') %>
 
-<style>
-    small.error {
-        color: red;
-    }
+    <style>
+        small.error {
+            color: red;
+        }
 
 
 
-    .field-icon {
-  float: right;
-  margin-left: 0px;
-  margin-top: -25px;
-  position: relative;
-  z-index: 2;
-}
+        .field-icon {
+            float: right;
+            margin-left: 0px;
+            margin-top: -25px;
+            position: relative;
+            z-index: 2;
+        }
 
-.container{
-  padding-top:50px;
-  margin: auto;
-}
+        .container {
+            padding-top: 50px;
+            margin: auto;
+        }
+    </style>
+
+    <body>
+
+        <!-- Breadcrumb Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <nav class="breadcrumb bg-dark mb-30 rounded">
+                        <a class="breadcrumb-item text-primary" href="/">Home</a>
+                        <a class="breadcrumb-item text-primary" href="/profile">Profile</a>
+                        <a class="breadcrumb-item text-primary" href="#">Change Password</a>
 
 
-</style>
-
-<body>
-
-    <!-- Breadcrumb Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <div class="col-12">
-                <nav class="breadcrumb bg-dark mb-30 rounded">
-                    <a class="breadcrumb-item text-primary" href="/">Home</a>
-                    <a class="breadcrumb-item text-primary" href="/profile">Profile</a>
-                    <a class="breadcrumb-item text-primary" href="#">Change Password</a>
-
-                    
-                </nav>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Breadcrumb End -->
+        <!-- Breadcrumb End -->
 
-    <section class="vh-100">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-sm-12 ">
-                    <div class="card shadow-2-strong bg-dark rounded">
-                        <div class=" p-5 bg-dark rounded ">
-                            <div class="text-center">
-                                <h3 class="mb-3 text-primary">Change Password</h3>
-                               
-                            </div>
-                            <form action="/profile/changePassword" method="post">
-                                <div class="form-outline mb-3 row ">
-                                    <div class=" col-md-6 col-12 mb-3">
-                                        <label class="form-label text-light" for="fname">Old Password</label>
-                                        <input type="password" id="oldPassword" class="form-control form-control-md rounded" placeholder="Enter Old Password" name="oldPassword" required/>
-                                        <span toggle="#oldPassword" class="fa fa-fw fa-eye field-icon toggle-password " ></span>
-                                        <small id="oldPasswordErr" class="error"></small>
-                                    </div>
-                                </div>
-                                <div class="form-outline mb-3 row">
-                                    <div class="col-md-6 col-12">
-                                        <label class="form-label text-light" for="newPassword">New Password</label>
-                                        <input type="password" id="newPassword" class="form-control form-control-md rounded" placeholder="Enter New Password" name="newPassword" required/>
-                                        <span toggle="#newPassword" class="fa fa-fw fa-eye field-icon toggle-password " ></span>
-
-
-
-                                        <small id="newPasswordErr" class="error"></small>
-                                    </div>
-                                </div>
-                                <div class="form-outline mb-3 row">
-                                    <div class=" col-md-6 col-12 mb-3">
-                                        <label class="form-label text-light" for="mobile">Confirm Password</label>
-                                        <input type="password" id="confirmPassword" class="form-control form-control-md rounded" placeholder="Enter New Password Again" name="confirmPassword" required/>
-                                        <span toggle="#confirmPassword" class="fa fa-fw fa-eye field-icon toggle-password " ></span>
-                                        <small id="confirmPasswordErr" class="error"></small>
-                                    </div>
-                                </div>
-
+        <section class="vh-100">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-sm-12 ">
+                        <div class="card shadow-2-strong bg-dark rounded">
+                            <div class=" p-5 bg-dark rounded ">
                                 <div class="text-center">
-                                    <button class="btn btn-primary btn-md rounded-pill px-5 py-2 login-btn" type="submit" onclick="return validatePassword()">Change Password</button>
-                                    <p class="text-light">forgot password? <a href="/forgot-password">reset</a></p>
+                                    <h3 class="mb-3 text-primary">Change Password</h3>
+
                                 </div>
-                            </form>
+                                <form action="/profile/changePassword" method="post">
+                                    <div class="form-outline mb-3 row ">
+                                        <div class=" col-md-6 col-12 mb-3">
+                                            <label class="form-label text-light" for="fname">Old Password</label>
+                                            <input type="password" id="oldPassword"
+                                                class="form-control form-control-md rounded"
+                                                placeholder="Enter Old Password" name="oldPassword" required />
+                                            <span toggle="#oldPassword"
+                                                class="fa fa-fw fa-eye field-icon toggle-password "></span>
+                                            <small id="oldPasswordErr" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="form-outline mb-3 row">
+                                        <div class="col-md-6 col-12">
+                                            <label class="form-label text-light" for="newPassword">New Password</label>
+                                            <input type="password" id="newPassword"
+                                                class="form-control form-control-md rounded"
+                                                placeholder="Enter New Password" name="newPassword" required />
+                                            <span toggle="#newPassword"
+                                                class="fa fa-fw fa-eye field-icon toggle-password "></span>
+
+
+
+                                            <small id="newPasswordErr" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="form-outline mb-3 row">
+                                        <div class=" col-md-6 col-12 mb-3">
+                                            <label class="form-label text-light" for="mobile">Confirm Password</label>
+                                            <input type="password" id="confirmPassword"
+                                                class="form-control form-control-md rounded"
+                                                placeholder="Enter New Password Again" name="confirmPassword"
+                                                required />
+                                            <span toggle="#confirmPassword"
+                                                class="fa fa-fw fa-eye field-icon toggle-password "></span>
+                                            <small id="confirmPasswordErr" class="error"></small>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button class="btn btn-primary btn-md rounded-pill px-5 py-2 login-btn"
+                                            type="submit" onclick="return validatePassword()">Change Password</button>
+                                        <p class="text-light">forgot password? <a href="/forgot-password">reset</a></p>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
 
 
 
-    </section>
+        </section>
 
 
-    
 
 
-    <script>
 
-const oldPasswordError = document.getElementById("oldPasswordErr")
-const newPasswordError = document.getElementById("newPasswordErr")
-const confirmPasswordError = document.getElementById("confirmPasswordErr")
+        <script>
 
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
+            const oldPasswordError = document.getElementById("oldPasswordErr")
+            const newPasswordError = document.getElementById("newPasswordErr")
+            const confirmPasswordError = document.getElementById("confirmPasswordErr")
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
 
 
-function validatePassword() {
+            function validatePassword() {
 
-    let oldPassword = document.getElementById("oldPassword").value.trim()
-    let newPassword = document.getElementById("newPassword").value.trim()
-    let confirmPassword = document.getElementById("confirmPassword").value.trim()
+                let oldPassword = document.getElementById("oldPassword").value.trim()
+                let newPassword = document.getElementById("newPassword").value.trim()
+                let confirmPassword = document.getElementById("confirmPassword").value.trim()
 
-    if (oldPassword.length === 0) {
-        oldPasswordError.innerHTML = "Enter Password!";
-        return false;
-    }else if(oldPassword.length < 8 ){
-        oldPasswordError.innerHTML = "Password must contain 8 characters";
-        return false;
-    }else if(!oldPassword.match(passwordRegex)){
-        oldPasswordError.innerHTML = "Invalid Password";
-        return false;
-    }else{
-        oldPasswordError.innerHTML = '';
-    }
-    
-    if (newPassword.length === 0) {
-        newPasswordError.innerHTML = "Enter Password!";
-        return false;
-    }else if(newPassword.length < 8 ){
-        newPasswordError.innerHTML = "Password must contain 8 characters";
-        return false;
-    }else if(!newPassword.match(passwordRegex)){
-        newPasswordError.innerHTML = "Invalid Password";
-        return false;
-    }else{
-        newPasswordError.innerHTML = "";
-    }
+                if (oldPassword.length === 0) {
+                    oldPasswordError.innerHTML = "Enter Password!";
+                    return false;
+                } else if (oldPassword.length < 8) {
+                    oldPasswordError.innerHTML = "Password must contain 8 characters";
+                    return false;
+                } else if (!oldPassword.match(passwordRegex)) {
+                    oldPasswordError.innerHTML = "Invalid Password";
+                    return false;
+                } else {
+                    oldPasswordError.innerHTML = '';
+                }
 
-    
-    if (confirmPassword.length === 0) {
-        confirmPasswordError.innerHTML = "Enter Password!";
-        return false;
-    }else if(confirmPassword.length < 8 ){
-        confirmPasswordError.innerHTML = "Password must contain 8 characters";
-        return false;
-    }else if(newPassword !== confirmPassword){
-        confirmPasswordError.innerHTML = "Password not matching";
-        return false;
-    }else{
-        confirmPasswordError.innerHTML = "";
-    }
-    
+                if (newPassword.length === 0) {
+                    newPasswordError.innerHTML = "Enter Password!";
+                    return false;
+                } else if (newPassword.length < 8) {
+                    newPasswordError.innerHTML = "Password must contain 8 characters";
+                    return false;
+                } else if (!newPassword.match(passwordRegex)) {
+                    newPasswordError.innerHTML = "Invalid Password";
+                    return false;
+                } else {
+                    newPasswordError.innerHTML = "";
+                }
 
-    return true
-}
 
-    </script>
-<%- include('../user/footer') %>
+                if (confirmPassword.length === 0) {
+                    confirmPasswordError.innerHTML = "Enter Password!";
+                    return false;
+                } else if (confirmPassword.length < 8) {
+                    confirmPasswordError.innerHTML = "Password must contain 8 characters";
+                    return false;
+                } else if (newPassword !== confirmPassword) {
+                    confirmPasswordError.innerHTML = "Password not matching";
+                    return false;
+                } else {
+                    confirmPasswordError.innerHTML = "";
+                }
+
+
+                return true
+            }
+
+        </script>
+        <%- include('../user/footer') %>

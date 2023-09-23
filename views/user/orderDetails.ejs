@@ -1,121 +1,122 @@
 <%- include('../user/header') %>
-<style>
-    .card {
-        z-index: 0;
-    }
-
-    .top {
-        padding-top: 40px;
-        padding-left: 13% !important;
-        padding-right: 13% !important;
-    }
-
-    /* Icon progressbar */
-
-    #progressbar {
-        margin-bottom: 30px;
-        overflow: hidden;
-        color: #455a64;
-        padding-left: 0;
-        margin-top: 30px;
-    }
-
-    #progressbar li {
-        list-style-type: none;
-        /* font-size: 9px; */
-        width: 25%;
-        float: left;
-        position: relative;
-        /* font-weight: 400; */
-    }
-
-    #progressbar .step0::before {
-        font-family: FontAwesome;
-        content: '\f10c';
-        color: #fff;
-    }
-
-    #progressbar li::before {
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        display: block;
-        font-size: 10px;
-        background: #c5cae9;
-        border-radius: 50%;
-        margin: auto;
-        padding: 0;
-    }
-
-    /* Progressbar connector */
-    #progressbar li::after {
-        content: '';
-        width: 100%;
-        height: 4px;
-        background-color: #c5cae9;
-        position: absolute;
-        top: 8px;
-        left: 0;
-        z-index: -1;
-    }
-
-    #progressbar li:last-child::after {
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
-        position: absolute;
-        left: -50%;
-    }
-
-    #progressbar li:nth-child(2)::after,
-    #progressbar li:nth-child(3)::after {
-        left: -50%;
-    }
-
-    #progressbar li:first-child::after {
-        border-top-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        position: absolute;
-        left: 50%;
-    }
-
-    /* Color number of the step and the connect tor before it */
-
-    #progressbar li.active::before,
-    #progressbar li.active::after {
-        background-color: #0ac419;
-    }
-
-    #progressbar li.active::before {
-        font-family: FontAwesome;
-        content: '\f00c';
-    }
-
-    @media screen and (max-width: 992px) {
-        .icon-content {
-            width: 50%;
+    <style>
+        .card {
+            z-index: 0;
         }
-    }
-</style>
+
+        .top {
+            padding-top: 40px;
+            padding-left: 13% !important;
+            padding-right: 13% !important;
+        }
+
+        /* Icon progressbar */
+
+        #progressbar {
+            margin-bottom: 30px;
+            overflow: hidden;
+            color: #455a64;
+            padding-left: 0;
+            margin-top: 30px;
+        }
+
+        #progressbar li {
+            list-style-type: none;
+            /* font-size: 9px; */
+            width: 25%;
+            float: left;
+            position: relative;
+            /* font-weight: 400; */
+        }
+
+        #progressbar .step0::before {
+            font-family: FontAwesome;
+            content: '\f10c';
+            color: #fff;
+        }
+
+        #progressbar li::before {
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            display: block;
+            font-size: 10px;
+            background: #c5cae9;
+            border-radius: 50%;
+            margin: auto;
+            padding: 0;
+        }
+
+        /* Progressbar connector */
+        #progressbar li::after {
+            content: '';
+            width: 100%;
+            height: 4px;
+            background-color: #c5cae9;
+            position: absolute;
+            top: 8px;
+            left: 0;
+            z-index: -1;
+        }
+
+        #progressbar li:last-child::after {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position: absolute;
+            left: -50%;
+        }
+
+        #progressbar li:nth-child(2)::after,
+        #progressbar li:nth-child(3)::after {
+            left: -50%;
+        }
+
+        #progressbar li:first-child::after {
+            border-top-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position: absolute;
+            left: 50%;
+        }
+
+        /* Color number of the step and the connect tor before it */
+
+        #progressbar li.active::before,
+        #progressbar li.active::after {
+            background-color: #0ac419;
+        }
+
+        #progressbar li.active::before {
+            font-family: FontAwesome;
+            content: '\f00c';
+        }
+
+        @media screen and (max-width: 992px) {
+            .icon-content {
+                width: 50%;
+            }
+        }
+    </style>
 
 
 
-<section>
-    <div class="container">
-        <div class="mt-5">
-            <div class="card mb-4 bg-dark rounded">
-                <div class="card-body ">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4 class="card-title text-light">Delivery Address</h4>
-                            <h6 class="card-text text-primary style="font-size: 1.2rem;"><strong><%= orderData.deliveryAddress.userName %></strong></h6>
-                            <span class="card-text text-primary">
-                                <%= orderData.deliveryAddress.address %>
-                            </span><br>
-                            
-                            
-                            
-                            <% 
-                            let location = orderData.deliveryAddress.town+' '+orderData.deliveryAddress.state+' '+orderData.deliveryAddress.zip
+    <section>
+        <div class="container">
+            <div class="mt-5">
+                <div class="card mb-4 bg-dark rounded">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title text-light">Delivery Address</h4>
+                                <h6 class="card-text text-primary style=" font-size: 1.2rem;"><strong>
+                                        <%= orderData.deliveryAddress.userName %>
+                                    </strong></h6>
+                                <span class="card-text text-primary">
+                                    <%= orderData.deliveryAddress.address %>
+                                </span><br>
+
+
+
+                                <% let location=orderData.deliveryAddress.town+' '+orderData.deliveryAddress.state+' '+orderData.deliveryAddress.zip
                             %>
                         
                             <span class="text-primary"><%= location %></span>
@@ -222,68 +223,64 @@
                                             
                                             <div class="col-md-4 d-flex mb-3 pt-2 justify-content-center align-items-center">
                                                 <% 
-                                                if(pdt.status == 'Order Confirmed' || pdt.status == 'Shipped' || pdt.status == 'Out For Delivery'){
-                                                    %>
-                                                    <a href="/cancelSinglePrdt/<%= orderData._id %>/<%= pdt._id %>?cancelledBy=user" class="btn btn-danger rounded"> Cancel </a>
-                                                    <%  
-                                                }else if(pdt.status == 'Delivered'){
-                                                    %>
-                                                    <a href="/returnSinglePrdt/<%= orderData._id %>/<%= pdt._id %>" class="btn btn-warning rounded"> Return </a>
-                                                    <%  
-                                                }
-                                                %>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-        
-                                </div>
+                                                if(pdt.status == ' Order Confirmed' || pdt.status=='Shipped' ||
+                                    pdt.status=='Out For Delivery' ){ %>
+                                    <a href="/cancelSinglePrdt/<%= orderData._id %>/<%= pdt._id %>?cancelledBy=user"
+                                        class="btn btn-danger rounded"> Cancel </a>
+                                    <% }else if(pdt.status=='Delivered' ){ %>
+                                        <a href="/returnSinglePrdt/<%= orderData._id %>/<%= pdt._id %>"
+                                            class="btn btn-warning rounded"> Return </a>
+                                        <% } %>
                             </div>
+
+
                         </div>
-                    <%  
-                }
-                %>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <% } %>
             </div>
 
 
 
 
 
-        </div>
-    </div>
-</section>
+            </div>
+            </div>
+    </section>
 
-  <!-- Modal -->
-  <div class="modal fade" id="cancelOrderPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div  id="myInput" class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"> Are you sure? </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="tru">&times;</span>
-          </button>
-        </div> 
-        <div class="modal-body">
-            <strong> Are you sure? Do you want to Cancel this Order!?</strong>
-            <div class="modal-footer mt-2">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a id="confirmOrderCancellationBTN" href="" class="btn btn-danger">Confirm Cancellation</a>
+    <!-- Modal -->
+    <div class="modal fade" id="cancelOrderPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div id="myInput" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Are you sure? </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="tru">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <strong> Are you sure? Do you want to Cancel this Order!?</strong>
+                    <div class="modal-footer mt-2">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a id="confirmOrderCancellationBTN" href="" class="btn btn-danger">Confirm Cancellation</a>
+                    </div>
+                </div>
             </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <script>
-    $(document).ready(function() {
-        $('#cancelOrderBTN').click(function() {
-            var orderId = $(this).data('id');
-            var routeURL = `/cancelOrder/${orderId}?cancelledBy=user`;
-            $("#confirmOrderCancellationBTN").attr('href', routeURL);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#cancelOrderBTN').click(function () {
+                var orderId = $(this).data('id');
+                var routeURL = `/cancelOrder/${orderId}?cancelledBy=user`;
+                $("#confirmOrderCancellationBTN").attr('href', routeURL);
+            });
         });
-    });
-</script>
-    
-<%- include('../user/footer') %>
+    </script>
+
+    <%- include('../user/footer') %>

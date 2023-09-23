@@ -1,72 +1,71 @@
 <%- include('../admin/header.ejs') %>
 
-      <!-- Widget Start -->
+  <!-- Widget Start -->
+  <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+      <!-- Recent Sales Start -->
       <div class="container-fluid pt-4 px-4">
-        <div class="row g-4">
-          <!-- Recent Sales Start -->
-          <div class="container-fluid pt-4 px-4">
-            <div class="bg-secondary text-center rounded p-4">
-              <div class="d-flex align-items-center justify-content-between mb-4">
-                <h3 class="mb-0">User Details</h3>
-                <form class="d-none d-md-flex ms-4" style="padding-left: 470px;" method="get">
-                  <input class="form-control bg-dark border-0" type="search" placeholder="Search" name="searchQuery">
-              </form>
-                
-              </div>
-              <div class="table-responsive">
-                <table class="table text-start align-middle table-bordered table-hover mb-0">
-                  <thead>
-                    <tr class="text-white">
-                      <th scope="col">Name</th>
-                      <th scope="col">email</th>
-                      <th scope="col">Mobile</th>
+        <div class="bg-secondary text-center rounded p-4">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="mb-0">User Details</h3>
+            <form class="d-none d-md-flex ms-4" style="padding-left: 470px;" method="get">
+              <input class="form-control bg-dark border-0" type="search" placeholder="Search" name="searchQuery">
+            </form>
 
-                      <th scope="col">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                    <!-- Adding user data from DB start -->
-                    <% if (users.length> 0) { for (let i = 0; i < users.length; i++) { %>
-                        <tr>
-                          <td>
-                            <%= users[i].fname + ' ' + users[i].lname %>
-                          </td>
-                          <td>
-                            <%= users[i].email %>
-                          </td>
-                          <td>
-                            <%= users[i].mobile %>
-                          </td>
-                          <!-- For Blocking/Unblocking -->
-                          <td class="ps-3 pe-3 text-center">
-                            <% if (users[i].blocked) { %>
-                              <a href="/admin/users/status/<%= users[i]._id %>">
-                                <button class="btn btn-success">UNBLOCK</button>
-                              </a>
-                              <% } else { %>
-                                <a href="/admin/users/status/<%= users[i]._id %>">
-                                  <button class="btn btn-danger">BLOCK</button>
-                                </a>
-                                <% } %>
-                          </td>
-                        </tr>
-                        <% } } %>
-
-                          <!-- Adding user data from DB end-->
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
-          <!-- Recent Sales End -->
+          <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+              <thead>
+                <tr class="text-white">
+                  <th scope="col">Name</th>
+                  <th scope="col">email</th>
+                  <th scope="col">Mobile</th>
+
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- Adding user data from DB start -->
+                <% if (users.length> 0) { for (let i = 0; i < users.length; i++) { %>
+                    <tr>
+                      <td>
+                        <%= users[i].fname + ' ' + users[i].lname %>
+                      </td>
+                      <td>
+                        <%= users[i].email %>
+                      </td>
+                      <td>
+                        <%= users[i].mobile %>
+                      </td>
+                      <!-- For Blocking/Unblocking -->
+                      <td class="ps-3 pe-3 text-center">
+                        <% if (users[i].blocked) { %>
+                          <a href="/admin/users/status/<%= users[i]._id %>">
+                            <button class="btn btn-success">UNBLOCK</button>
+                          </a>
+                          <% } else { %>
+                            <a href="/admin/users/status/<%= users[i]._id %>">
+                              <button class="btn btn-danger">BLOCK</button>
+                            </a>
+                            <% } %>
+                      </td>
+                    </tr>
+                    <% } } %>
+
+                      <!-- Adding user data from DB end-->
+
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-      <!-- Widget End -->
-      <!-- Back to Top -->
-      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
-          ><i class="bi bi-arrow-up"></i>
-        </a>
+      <!-- Recent Sales End -->
+    </div>
+  </div>
+  <!-- Widget End -->
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i>
+  </a>
 
-        <%- include('../admin/footer.ejs') %>
+  <%- include('../admin/footer.ejs') %>

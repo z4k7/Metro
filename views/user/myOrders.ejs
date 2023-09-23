@@ -3,90 +3,78 @@
         <div class="container">
             <div class="mt-5">
 
-                <% 
-                if(orderData && orderData.length>0){
-                    //console.log(orderData)
+                <% if(orderData && orderData.length>0){
+
                     orderData.forEach((order) => {
-                        %>
-                        <div class="card mb-5 p-2 bg-dark  rounded">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-5 my-2  ">
+                    %>
+                    <div class="card mb-5 p-2 bg-dark  rounded">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5 my-2  ">
 
-                                        <% 
-                                        order.products.forEach((pdt) => {
-                                            %>
-                                            <div class="d-flex my-2">
-                                                <div class="mx-3">
-                                                    <img src="/multerImg/<%= pdt.productId.images[0] %>" class="img-fluid"
-                                                        style="width: 3rem;">
-                                                </div>
-                                                <div>
-                                                    <h6 class="card-title text-primary"><%= pdt.productName %></h6>
-                                                    <span class="text-secondary" style="color: rgb(99, 99, 99);">Quantity : <%= pdt.quantity %></span>
-                                                </div>
+                                    <% order.products.forEach((pdt)=> {
+                                        %>
+                                        <div class="d-flex my-2">
+                                            <div class="mx-3">
+                                                <img src="/multerImg/<%= pdt.productId.images[0] %>" class="img-fluid"
+                                                    style="width: 3rem;">
                                             </div>
-                                            <%  
-                                        })
-                                        %>
+                                            <div>
+                                                <h6 class="card-title text-primary">
+                                                    <%= pdt.productName %>
+                                                </h6>
+                                                <span class="text-secondary" style="color: rgb(99, 99, 99);">Quantity :
+                                                    <%= pdt.quantity %></span>
+                                            </div>
+                                        </div>
+                                        <% }) %>
 
-                                    </div>
-                                    <% 
-                                    //let totalPaid = order.productPrice*order.quantity // - (order.discountPrice*order.quantity)
-                                    %>
-                                    <div class="col-md-3 text-center mt-3 d-flex flex-column justify-content-center  align-items-center">
-                                        <h6 class="card-text text-light">Amount: ₹ <%= order.totalPrice %></h6>
-                                        <h6 class="card-text text-light">via : <%= order.paymentMethod %></h6>
-                                    </div>
-                                    <div class="col-md-2 text-center mt-3 d-flex flex-column justify-content-center align-items-center">
-                                        <% 
-                                        const dd = order.date.getDate();
-                                        const mm = order.date.getMonth() + 1;
-                                        const yyyy = order.date.getFullYear();
-                                        
-                                        const formattedDate = `${dd}-${mm}-${yyyy}`; 
-                                        %>
-                                        <h6 class="card-text text-light">Date: <%= formattedDate %></h6>
-                                        <h6 class="card-text" 
-                                        
-                                        <% 
-                                        if(order.status == 'Order Confirmed' || order.status == 'Shipped' || order.status == 'Out For Delivery' || order.status == 'Delivered'){
-                                            %>
-                                            style='color: green;'
-                                            <%  
-                                        }else if(order.status == 'Cancelled' || order.status == 'Cancelled By Admin'){
-                                            %>
-                                            style='color: red;'
-                                            <%  
-                                        }else{
-                                            %>
-                                            style='color: orange;'
-                                            <%  
-                                        }
-                                        %>
-
-                                        ><%= order.status %></h6>
-                                    </div>
-                                    <div class="col-md-2 text-center mt-3 justify-content-center d-flex align-items-center">
-                                        <a href="/viewOrderDetails/<%= order._id %>" class="btn btn-primary rounded">View Details</a>
-                                    </div>
                                 </div>
+                                <% //let totalPaid=order.productPrice*order.quantity // -
+                                    (order.discountPrice*order.quantity) %>
+                                    <div
+                                        class="col-md-3 text-center mt-3 d-flex flex-column justify-content-center  align-items-center">
+                                        <h6 class="card-text text-light">Amount: ₹ <%= order.totalPrice %>
+                                        </h6>
+                                        <h6 class="card-text text-light">via : <%= order.paymentMethod %>
+                                        </h6>
+                                    </div>
+                                    <div
+                                        class="col-md-2 text-center mt-3 d-flex flex-column justify-content-center align-items-center">
+                                        <% const dd=order.date.getDate(); const mm=order.date.getMonth() + 1; const
+                                            yyyy=order.date.getFullYear(); const formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                            <h6 class="card-text text-light">Date: <%= formattedDate %>
+                                            </h6>
+                                            <h6 class="card-text" <% if(order.status=='Order Confirmed' ||
+                                                order.status=='Shipped' || order.status=='Out For Delivery' ||
+                                                order.status=='Delivered' ){ %>
+                                                style='color: green;'
+                                                <% }else if(order.status=='Cancelled' ||
+                                                    order.status=='Cancelled By Admin' ){ %>
+                                                    style='color: red;'
+                                                    <% }else{ %>
+                                                        style='color: orange;'
+                                                        <% } %>
+
+                                                            ><%= order.status %>
+                                            </h6>
+                                    </div>
+                                    <div
+                                        class="col-md-2 text-center mt-3 justify-content-center d-flex align-items-center">
+                                        <a href="/viewOrderDetails/<%= order._id %>"
+                                            class="btn btn-primary rounded">View Details</a>
+                                    </div>
                             </div>
                         </div>
-                        <%  
-
-                    })
-                }else{
-                    %>
-                    <h3 class="text-primary">You ordered nothing yet </h3>
-                    <%  
-                }
-                %>
+                    </div>
+                    <% }) }else{ %>
+                        <h3 class="text-primary">You ordered nothing yet </h3>
+                        <% } %>
 
             </div>
         </div>
     </section>
 
 
-    
+
     <%- include('../user/footer') %>

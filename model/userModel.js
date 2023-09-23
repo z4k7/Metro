@@ -7,9 +7,8 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     mobile: { type: String, required: true },
-    dob: { type:Date,
-      default: new Date('1990-01-01')},
- 
+    dob: { type: Date, default: new Date("1990-01-01") },
+
     cart: [
       {
         productId: {
@@ -34,21 +33,25 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    walletHistory : [{
-      date : {
-        type: Date
+    walletHistory: [
+      {
+        date: {
+          type: Date,
+        },
+        amount: {
+          type: Number,
+        },
+        message: {
+          type: String,
+        },
       },
-      amount : {
-        type: Number
+    ],
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Products",
       },
-      message: {
-        type : String
-      },
-    }],
-    wishlist:[{
-      type: mongoose.Schema.Types.ObjectId,
-      ref:'Products'
-    }],
+    ],
     referralCode: {
       type: String,
       // required: true,

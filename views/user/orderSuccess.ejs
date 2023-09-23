@@ -1,42 +1,36 @@
 <%- include('../user/header') %>
-<style>
-    .mainDiv {
-        height: 70vh;
-        display: grid;
-        place-content: center;
-        align-items: center;
-    }
-</style>
+    <style>
+        .mainDiv {
+            height: 70vh;
+            display: grid;
+            place-content: center;
+            align-items: center;
+        }
+    </style>
 
 
 
 
 
-<div class="mainDiv text-center container">
-    <% 
-    if(result == 'success'){
-        %>
-        <h1   style="color: green;  -webkit-text-stroke-width: 1px;   
+    <div class="mainDiv text-center container">
+        <% if(result=='success' ){ %>
+            <h1 style="color: green;  -webkit-text-stroke-width: 1px;   
         -webkit-text-stroke-color: white;   ">Order Success &#10003;</h1>
-        <span class="text-primary">Your order will be delivered soon!</span><br>
-        <% 
-    }else if(result == 'failed'){
-        %>
-        <h1 style="color: red; -webkit-text-stroke-width: 1px;   
+            <span class="text-primary">Your order will be delivered soon!</span><br>
+            <% }else if(result=='failed' ){ %>
+                <h1 style="color: red; -webkit-text-stroke-width: 1px;   
         -webkit-text-stroke-color: white; ">Order Failed &#10060;</h1>
-        <span class="text-primary">Sorry, something gone wrong </span><br>
-        <% 
-    }
-    %>
+                <span class="text-primary">Sorry, something gone wrong </span><br>
+                <% } %>
 
-    <img src="/extras/delivery.jpg" width="400rem" class="img-fluid" alt="">
-    <div class="mt-4">
-        <a href="/profile/myOrders" class="btn btn-dark me-2 mb-3 rounded">Go to Orders</a>
-        <a href="/shop" class="btn btn-secondary rounded mb-3">Continue Shopping</a>
+                    <img src="/extras/delivery.jpg" width="400rem" class="img-fluid" alt="">
+                    <div class="mt-4">
+                        <a href="/profile/myOrders" class="btn btn-dark me-2 mb-3 rounded">Go to Orders</a>
+                        <a href="/shop" class="btn btn-secondary rounded mb-3">Continue Shopping</a>
+                    </div>
     </div>
-</div>
 
 
 
 
-<%- include('../user/footer') %>
+    <%- include('../user/footer') %>
