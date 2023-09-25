@@ -1,22 +1,29 @@
-exports.isAdminLoggedIn = (req, res, next) => {
-  try {
-    if (!req.session.admin) {
-      return res.redirect("/admin/login");
+exports.isAdminLoggedIn = (req,res,next)=>{
+    try{
+        if(!req.session.admin){
+            return res.redirect('/admin/login')
+        }
+        next()
+     
     }
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
+    catch(error){
+        // console.log('internal error'+error.message);
+        next(error)
+    }
+ }
 
-exports.isAdminLoggedOut = (req, res, next) => {
-  try {
-    if (req.session.admin) {
-      res.redirect("/admin/dashboard");
+
+ exports.isAdminLoggedOut = (req,res,next)=>{
+    try{
+        if(req.session.admin){
+            res.redirect('/admin/dashboard')
+        }
+       
+            next();
+  
+    }
+    catch(error){
+        next(error);
     }
 
-    next();
-  } catch (error) {
-    next(error);
-  }
-};
+ }

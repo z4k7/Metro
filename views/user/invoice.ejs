@@ -1,156 +1,153 @@
 <%- include('../user/header') %>
 
 
-    <body class="p-3 my-3">
+<body class="p-3 my-3">
 
-        <div class="col-12">
-            <div class="grid invoice">
-                <div class="grid-body">
-                    <div class="invoice-title">
-                        <div class="row">
-                            <div class="d-flex col-12">
-                                <img src="/img/gg-logo.png" alt="" height="35">
-                                <h2 class="mx-3 text-primary">Metro Enterprises | Invoice</h2>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-12 mt-2">
-                                <h2>
-                                    <span class="small text-light">Order ID <%=order._id %></span>
-                                </h2>
-                            </div>
-                        </div>
+<div class="col-12">
+    <div class="grid invoice">
+        <div class="grid-body">
+            <div class="invoice-title">
+                <div class="row">
+                    <div class="d-flex col-12">
+                        <img src="/img/gg-logo.png" alt="" height="35">
+                        <h2 class="mx-3 text-primary">Metro Enterprises | Invoice</h2>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6 text-light">
-                            <address>
-                                <strong>Billed To:</strong><br>
-
-                                <%=order.deliveryAddress.userName %><br>
-                                    <%=order.deliveryAddress.address %><br>
-                                        <%=order.deliveryAddress.town %>&nbsp;<%=order.deliveryAddress.zip %> <br>
-                                                <%=order.deliveryAddress.state %><br>
-                                                    <span title="Phone">Ph:</abbr>
-                                                        <%=order.deliveryAddress.mobile %>
-                            </address>
-                        </div>
-                        <div class="col-6 text-end text-light">
-                            <address>
-                                <strong>Shipped To:</strong><br>
-                                <%=order.deliveryAddress.userName %><br>
-                                    <%=order.deliveryAddress.address %><br>
-                                        <%=order.deliveryAddress.town %>&nbsp;<%=order.deliveryAddress.zip %><br>
-                                                <%=order.deliveryAddress.state %><br>
-                                                    <span title="Phone">Ph:</abbr>
-                                                        <%=order.deliveryAddress.mobile %>
-                            </address>
-                        </div>
-                    </div>
-                    <div class="row d-flex justify-content-end">
-                        <div class="col-6 text-light">
-                            <address>
-                                <strong>Payment Method:</strong><br>
-                                <%= order.paymentMethod %><br><br>
-                            </address>
-                        </div>
-
-
-                        <div class="col-6 text-end text-light">
-                            <address>
-                                <strong>Order Date:</strong><br>
-                                <% const dd=order.date.getDate(); const mm=order.date.getMonth() + 1; const
-                                    yyyy=order.date.getFullYear(); const formattedDate=`${dd}-${mm}-${yyyy}`; %>
-                                    <%=formattedDate %><br>
-                            </address>
-                        </div>
-
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mt-4">
-                            <h3 class="text-primary">ORDER SUMMARY</h3>
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr class="line text-light">
-                                            <td><strong>#</strong></td>
-                                            <td class=""><strong>Products</strong></td>
-                                            <td class="text-center"><strong>Qty</strong></td>
-                                            <td class="text-end"><strong>Rate</strong></td>
-                                            <td class="text-end"><strong>Discount</strong></td>
-                                            <td class="text-end"><strong>Subtotal</strong></td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%order.products.forEach((prod, index)=>{ %>
-                                            <tr>
-                                                <td class="text-light">
-                                                    <%= index +1 %>
-                                                </td>
-                                                <td class="text-light">
-                                                    <%=prod.productName %>
-                                                </td>
-                                                <td class="text-center text-light">
-                                                    <%=prod.quantity %>
-                                                </td>
-                                                <% //let productPrice; //let totalSingle; %>
-                                                    <td class="text-end text-light">₹ <%=prod.productPrice %>
-                                                    </td>
-                                                    <td class="text-end text-light">₹ <%=
-                                                            (prod.productPrice-prod.discountPrice)* prod.quantity %>
-                                                    </td>
-                                                    <td class="text-end text-light"><strong>₹ <%= (prod.discountPrice)*
-                                                                prod.quantity %></strong>
-                                                    </td>
-                                            </tr>
-                                            <% }) %>
-
-
-                                                <tr>
-                                                    <td colspan="4"></td>
-                                                    <td class="text-end text-light"><strong>Coupon Discount</strong>
-                                                    </td>
-                                                    <td class="text-end text-light">
-                                                        <strong>
-                                                            <%=discount?discount:'N /A' %>
-                                                        </strong>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4">
-                                                    </td>
-                                                    <td class="text-end text-light"><strong>Total</strong></td>
-                                                    <td class="text-end text-light"><strong>₹ <%=order.totalPrice %>
-                                                                </strong>
-                                                    </td>
-                                                </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 text-end identity text-primary">
-                            <p>Authorized<br><strong>Metro Enterprises</strong></p>
-                        </div>
-                    </div>
-                    <div class="print text-end">
-                        <a onclick="window.print()" class="btn btn-success rounded"><i class="bi bi-printer-fill ">
-                                Preview</i></a>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <h2>
+                            <span class="small text-light">Order ID <%=order._id %></span>
+                        </h2>
                     </div>
                 </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-6 text-light">
+                    <address>
+                        <strong>Billed To:</strong><br>
+                        <%// console.log(order)%>
+                        <%=order.deliveryAddress.userName %><br>
+                        <%=order.deliveryAddress.address %><br>
+                        <%=order.deliveryAddress.town %>&nbsp;<%=order.deliveryAddress.zip %> <br>
+                        <%=order.deliveryAddress.state %><br>
+                        <span title="Phone">Ph:</abbr> <%=order.deliveryAddress.mobile %>
+                    </address>
+                </div>
+                <div class="col-6 text-end text-light">
+                    <address>
+                        <strong>Shipped To:</strong><br>
+                        <%=order.deliveryAddress.userName %><br>
+                        <%=order.deliveryAddress.address %><br>
+                        <%=order.deliveryAddress.town %>&nbsp;<%=order.deliveryAddress.zip %><br>
+                        <%=order.deliveryAddress.state %><br>
+                        <span title="Phone">Ph:</abbr> <%=order.deliveryAddress.mobile %>
+                    </address>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-end">
+                <div class="col-6 text-light">
+                    <address>
+                        <strong>Payment Method:</strong><br>
+                        <%= order.paymentMethod %><br><br>
+                    </address>
+                </div>
+
+
+                <div class="col-6 text-end text-light">
+                    <address>
+                        <strong>Order Date:</strong><br>
+                        <% 
+                        const dd=order.date.getDate(); 
+                        const mm=order.date.getMonth() + 1; 
+                        const yyyy=order.date.getFullYear(); 
+                        const formattedDate=`${dd}-${mm}-${yyyy}`; 
+                        %>
+                        <%=formattedDate %><br>
+                    </address>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-4">
+                    <h3 class="text-primary">ORDER SUMMARY</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="line text-light">
+                                    <td><strong>#</strong></td>
+                                    <td class=""><strong>Products</strong></td>
+                                    <td class="text-center"><strong>Qty</strong></td>
+                                    <td class="text-end"><strong>Rate</strong></td>
+                                    <td class="text-end"><strong>Discount</strong></td>
+                                    <td class="text-end"><strong>Subtotal</strong></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%order.products.forEach((prod, index)=>{ %>
+                                    <tr>
+                                        <td class="text-light"><%= index +1 %></td>
+                                        <td class="text-light">
+                                            <%=prod.productName %>
+                                        </td>
+                                        <td class="text-center text-light">
+                                            <%=prod.quantity %>
+                                        </td>
+                                        <% 
+                                        //let productPrice;
+                                        //let totalSingle;
+                                        %>
+                                        <td class="text-end text-light">₹ <%=prod.productPrice  %>
+                                        </td>
+                                        <td class="text-end text-light">₹ <%= (prod.productPrice-prod.discountPrice)* prod.quantity %></td>
+                                        <td class="text-end text-light"><strong>₹ <%= (prod.discountPrice)* prod.quantity %></strong>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+
+
+                                        <tr>
+                                            <td colspan="4"></td>
+                                            <td class="text-end text-light"><strong>Coupon Discount</strong></td>
+                                            <td class="text-end text-light">
+                                                <strong>
+                                                    <%=discount?discount:'N/A' %>
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">
+                                            </td>
+                                            <td class="text-end text-light"><strong>Total</strong></td>
+                                            <td class="text-end text-light"><strong>₹ <%=order.totalPrice %></strong>
+                                            </td>
+                                        </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-end identity text-primary">
+                    <p>Authorized<br><strong>Metro Enterprises</strong></p>
+                </div>
+            </div>
+            <div class="print text-end">
+                <a onclick="window.print()" class="btn btn-success rounded"><i class="bi bi-printer-fill "> Preview</i></a>
+            </div>
         </div>
+    </div>
+</div>
 
-    </body>
+</body>
 
-    </html>
+</html>
 
-    <script>
-        $(document).ready(() => {
-            window.onload(print())
-        });
+<script>
+$(document).ready(() => {
+    window.onload(print())
+});
 
-    </script>
+</script>

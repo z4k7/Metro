@@ -24,8 +24,7 @@
     <!-- new fontawesome -->
     <script src="https://kit.fontawesome.com/66145c57ef.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -38,15 +37,17 @@
     <link href="/admin/css/style.css" rel="stylesheet">
 </head>
 <style>
-    text {
+
+    text{
         fill: white;
     }
+   
 </style>
 
 
 <body>
     <div class="container-fluid position-relative d-flex p-0">
-
+        
         <!-- Spinner Start -->
         <div id="spinner"
             class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -71,23 +72,19 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">
-                            <%= adminData.name %>
-                        </h6>
+                        <h6 class="mb-0"><%= adminData.name %></h6>
                         <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/admin/index" class="nav-item nav-link "><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="/admin/index" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-laptop me-2"></i>Products</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Products</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="/admin/products" class="dropdown-item">Products Overview</a>
                             <a href="/admin/addProduct" class="dropdown-item">Add Products</a>
-
+                             
                         </div>
                     </div>
 
@@ -116,16 +113,14 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-
+                
                 <div class="navbar-nav align-items-center ms-auto">
-
+                    
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="/admin/img/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none text-primary d-lg-inline-flex">
-                                <%= adminData.name %>
-                            </span>
+                            <span class="d-none text-primary d-lg-inline-flex"><%= adminData.name %></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <!-- <a href="#" class="dropdown-item">My Profile</a>

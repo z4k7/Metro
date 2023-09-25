@@ -24,13 +24,20 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/user/css/style.css" rel="stylesheet">
-
+  
 </head>
 
 <body>
 
-
-
+     <!-- Spinner Start -->
+     <!-- <div id="spinner"
+            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div> -->
+ <!-- Spinner End -->
+ 
     <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-dark d-lg-none py-1 px-xl-5">
@@ -45,16 +52,13 @@
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-dark d-lg-none dropdown-toggle"
-                            data-toggle="dropdown"><i class="fas fa-solid fa-user text-primary "></i></button>
+                        <button type="button" class="btn btn-sm btn-dark d-lg-none dropdown-toggle" data-toggle="dropdown"><i class="fas fa-solid fa-user text-primary "></i></button>
                         <div class="dropdown-menu bg-dark  dropdown-menu-right">
-                            <a href="/login"> <button class="dropdown-item text-secondary" type="button"> Sign
-                                    in</button></a>
-                            <a href="/signup"><button class="dropdown-item text-secondary" type="button">Sign
-                                    up</button></a>
+                            <a href="/login"> <button class="dropdown-item text-secondary"  type="button"> Sign in</button></a> 
+                            <a href="/signup"><button class="dropdown-item text-secondary" type="button">Sign up</button></a>
                         </div>
                     </div>
-
+                    
                 </div>
                 <div class="d-inline-flex align-items-center d-block d-lg-none">
                     <a href="" class="btn px-0 ml-2">
@@ -80,8 +84,7 @@
             <div class="col-lg-4 col-6 text-left ">
                 <form action="/shop" method="get">
                     <div class="input-group ">
-                        <input type="text" class="form-control bg-dark text-white rounded"
-                            placeholder="Search for products" name="searchQuery">
+                        <input type="text" class="form-control bg-dark text-white rounded" placeholder="Search for products" name="searchQuery">
                         <div class="input-group-append text-white">
                             <span class="input-group-text bg-transparent text-primary rounded">
                                 <i class="fa fa-search"></i>
@@ -111,7 +114,7 @@
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-warning"
                     id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                     <div class="navbar-nav w-100">
-
+                        
                         <a href="/shop?category=BILL+PRINTING" class="nav-item nav-link">Bill Printing</a>
                         <a href="/shop?category=FLOOR+SCALE" class="nav-item nav-link">Floor Scale</a>
                         <a href="/shop?category=HANGING" class="nav-item nav-link">Hanging</a>
@@ -142,10 +145,30 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link">Home</a>
                             <a href="/shop" class="nav-item nav-link ">Shop</a>
-
+                            <!-- <a href="detail.html" class="nav-item nav-link">Shop Detail</a> -->
+                            <!-- <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i
+                                        class="fa fa-angle-down mt-1"></i></a>
+                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                    <a href="/shoppingCart" class="dropdown-item">Shopping Cart</a>
+                                    <a href="/shoppingCart/proceedToCheckout" class="dropdown-item">Checkout</a>
+                                </div>
+                            </div> -->
+                            <!-- <a href="contact.html" class="nav-item nav-link">Contact</a> -->
                         </div>
 
-
+                        <!-- <div class="col-lg-4 col-6 text-left">
+                            <form action="/shop" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for products" name="searchQuery">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text bg-transparent text-primary">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> -->
 
 
 
@@ -153,25 +176,29 @@
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="/wishlist" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
-                                <% if(locals.wishCount){ %>
-                                    <span class="badge text-secondary border border-secondary rounded-circle"
-                                        style="padding-bottom: 2px;">
-                                        <%= wishCount %>
-                                    </span>
-                                    <% } %>
+                                       <% 
+                                        if(locals.wishCount){
+                                           %>
+                                <span class="badge text-secondary border border-secondary rounded-circle"
+                                    style="padding-bottom: 2px;"><%= wishCount %></span>
+                                    <%  
+                                }
+                                %>
                             </a>
-
-
-
+                           
+                           
+                           
                             <a href="/shoppingCart" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
-                                <% if(locals.cartCount){ %>
+                                <% 
+                                if(locals.cartCount){
+                                    %>
 
-                                    <span class="badge text-secondary border border-secondary rounded-circle"
-                                        style="padding-bottom: 2px;">
-                                        <%=cartCount %>
-                                    </span>
-                                    <% } %>
+                                <span class="badge text-secondary border border-secondary rounded-circle"
+                                    style="padding-bottom: 2px;"><%=cartCount %></span>
+                                    <%  
+                                }
+                                %>
 
                             </a>
 
@@ -180,20 +207,32 @@
 
                             <a href="/profile" class="btn px-0 ml-3 mr-3">
                                 <i class="fas fa-solid fa-user text-primary"></i>
-
+                                
                             </a>
 
                             <div class="btn-group">
-                                <% if(isLoggedIn){ %>
+                                <% 
+                                if(isLoggedIn){
+                                    %>
                                     <a href="/logout">Sign Out</a>
-                                    <% }else{ %>
-                                        <a href="/login">Sign in</a>
-                                        <% } %>
+                                    <%
+                                }else{
+                                    %>
+                                    <a href="/login">Sign in</a>
+                                    <%
+                                }
+                                %>
                             </div>
 
 
 
-
+                            <!-- <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-dark dropdown-toggle show " data-toggle="dropdown"><i class="fas fa-solid fa-user text-primary"></i> <i class="fa fa-angle-down" ></i></button>
+                                <div class="dropdown-menu bg-dark dropdown-menu-right">
+                                    <a href="/login"> <button class="dropdown-item text-secondary"  type="button"> Sign In</button></a> 
+                                    <a href="/logout"><button class="dropdown-item text-secondary" type="button">Sign Out</button></a>
+                                </div>
+                            </div> -->
 
 
                         </div>
@@ -202,5 +241,5 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Navbar End -->

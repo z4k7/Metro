@@ -1,107 +1,99 @@
+
 <%- include('../admin/header.ejs') %>
 
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
 
 
-    <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-12">
-          <div class="card bg-secondary my-4">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="bg-success rounded shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between">
-                <h3 class="text-white text-capitalize ps-3">Orders List</h3>
+ <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card bg-secondary my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-success rounded shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between">
+              <h3 class="text-white text-capitalize ps-3">Orders List</h3> 
+              
+              <form class="d-none d-md-flex ms-4 me-4" style="padding-left: 470px;"  method="get">
+                <input class="form-control bg-dark border-0" type="search" placeholder="Search" name="searchQuery">
+            </form> 
 
-                <form class="d-none d-md-flex ms-4 me-4" style="padding-left: 470px;" method="get">
-                  <input class="form-control bg-dark border-0" type="search" placeholder="Search" name="searchQuery">
-                </form>
 
-
-              </div>
             </div>
-            <div class="card-body px-0 pb-2">
-              <div class="table-responsive p-3">
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-3">
 
-                <table class="table align-items-center mb-0" id="sortTable">
+              <table class="table align-items-center mb-0" id="sortTable">
 
-                  <thead>
-                    <tr>
-                      <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Date
-                      </th>
-                      <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7 ps-2">
-                        User</th>
-                      <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Products
-                      </th>
-                      <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Address
-                      </th>
-                      <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Price
-                      </th>
-                      <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Status
-                      </th>
-                      <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Action
-                      </th>
-                    </tr>
-                  </thead>
+                <thead>
+                  <tr>
+                    <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Date</th>
+                    <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7 ps-2">User</th>
+                    <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Products</th>
+                    <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Address</th>
+                    <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Price</th>
+                    <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Status</th>
+                    <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Action</th>
+                  </tr>
+                </thead>
 
-                  <tbody>
+                <tbody>
+                        
+                  <% 
+                    if(ordersData){
+                         
+                        for(const order of ordersData){
+                          
+                         %>
+                            <tr>
 
-                    <% if(ordersData){ for(const order of ordersData){ %>
-                      <tr>
+                                <% 
+                                const dd = order.date.getDate();
+                                const mm = order.date.getMonth() + 1;
+                                const yyyy = order.date.getFullYear();
+                                
+                                const formattedDate = `${dd}-${mm}-${yyyy}`; 
+                                %>
 
-                        <% const dd=order.date.getDate(); const mm=order.date.getMonth() + 1; const
-                          yyyy=order.date.getFullYear(); const formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                                <td class="align-middle text-center text-sm">
+                                    <p class="text-xs font-weight-bold mb-0"><%= formattedDate %></p>
+                                </td>
 
-                          <td class="align-middle text-center text-sm">
-                            <p class="text-xs font-weight-bold mb-0">
-                              <%= formattedDate %>
-                            </p>
-                          </td>
+                                <td class="align-middle text-center text-sm">
+                                    
+                                  
+                                    <h6 class="mb-0 text-white text-sm"><%=order.deliveryAddress.userName %></h6>
+                                    <p class="text-xs text-light font-weight-bold mb-0"><%=order.deliveryAddress.email %></p>
+                                    <p class="text-xs text-light font-weight-bold mb-0"><%= order.deliveryAddress.mobile %></p>
+                                </td>
+                                
+                                <td>
+                                    <% 
+                                    for(const pdt of order.products){
+                                        %>
+                                        <div class="d-flex px-2 py-1">
+                                            <div class="me-1">
+                                                <img style="width: 4rem;" src="/multerImg/<%= pdt.productId.images[0]  %>" alt="">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm"><%= pdt.productName  %></h6>
+                                                <p class="text-xs text-light mb-0">Quantity : <%= pdt.quantity %></p>
+                                                <p class="text-xs text-light mb-0">Price : <%=pdt.discountPrice %></p>
+                                            </div>
+                                        </div>
+                                        <%  
+                                    } 
+                                    %>
+                                </td>
 
-                          <td class="align-middle text-center text-sm">
-
-
-                            <h6 class="mb-0 text-white text-sm">
-                              <%=order.deliveryAddress.userName %>
-                            </h6>
-                            <p class="text-xs text-light font-weight-bold mb-0">
-                              <%=order.deliveryAddress.email %>
-                            </p>
-                            <p class="text-xs text-light font-weight-bold mb-0">
-                              <%= order.deliveryAddress.mobile %>
-                            </p>
-                          </td>
-
-                          <td>
-                            <% for(const pdt of order.products){ %>
-                              <div class="d-flex px-2 py-1">
-                                <div class="me-1">
-                                  <img style="width: 4rem;" src="/multerImg/<%= pdt.productId.images[0]  %>" alt="">
-                                </div>
-                                <div class="d-flex flex-column justify-content-center">
-                                  <h6 class="mb-0 text-sm">
-                                    <%= pdt.productName %>
-                                  </h6>
-                                  <p class="text-xs text-light mb-0">Quantity : <%= pdt.quantity %>
-                                  </p>
-                                  <p class="text-xs text-light mb-0">Price : <%=pdt.discountPrice %>
-                                  </p>
-                                </div>
-                              </div>
-                              <% } %>
-                          </td>
-
-                          <td>
-                            <div class="d-flex px-2 py-1">
-                              <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">
-                                  <%= order.deliveryAddress.userName %>
-                                </h6>
-                                <p class="text-xs text-light mb-0">
-                                  <%= order.deliveryAddress.address %>
-                                </p>
-                                <p class="text-xs text-light mb-0">
-                                  <%=
-                                    order.deliveryAddress.town+' '+order.deliveryAddress.state+' '+order.deliveryAddress.country+' '+order.deliveryAddress.zip
+                                <td>
+                                    <div class="d-flex px-2 py-1">
+                                      <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm"><%= order.deliveryAddress.userName %></h6>
+                                        <p class="text-xs text-light mb-0"><%= order.deliveryAddress.address %></p>
+                                        <p class="text-xs text-light mb-0">
+                                            <%= 
+                                            order.deliveryAddress.town+' '+order.deliveryAddress.state+' '+order.deliveryAddress.country+' '+order.deliveryAddress.zip
                                             %>
                                         </p>
                                         <p class="text-xs text-light mb-0"><%= order.deliveryAddress.email %></p>
@@ -119,178 +111,198 @@
                                 <td class="align-middle text-center text-sm">
                                     <span class="text-light text-xs font-weight-bold"><%= order.status %>
                                         <% 
-                                        if(order.status == ' Order Confirmed' || order.status=='Shipped' ||
-                                    order.status=='Out For Delivery' ){ %>
-                                    <button style="border: none;" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                      class="popupBTN" data-id="<%= order._id  %>"><i class="bi bi-pencil-square"
-                                        style="color: blue;"></i>
-                                    </button>
-                                    <% } %>
+                                        if(order.status == 'Order Confirmed' || order.status == 'Shipped'|| order.status == 'Out For Delivery'){
+                                            %>
+                                            <button style="border: none;" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            class="popupBTN" data-id="<%= order._id  %>"><i class="bi bi-pencil-square"
+                                            style="color: blue;"></i>
+                                            </button>
+                                            <%  
+                                        }
+                                        %>
 
-                                      </span>
-                          </td>
+                                    </span>
+                                </td>
 
-                          <% if(order.status=='Order Confirmed' || order.status=='Shipped' ){ %>
-                            <td class="align-middle text-center">
-                              <a href="#cancelOrderModal" class="btn btn-primary confirmCancelBTN"
-                                data-bs-toggle="modal" data-id="<%= order._id %>">Cancel</a>
-                            </td>
-                            <% }else if(order.status==='Pending Return Approval' ){ %>
-                              <td class="align-middle text-center">
-                                <a href="/admin/approveReturn/<%= order._id %>" class="btn btn-warning">Approve</a>
-                              </td>
-                              <% }} %>
+                                <% 
+                                if(order.status == 'Order Confirmed' || order.status == 'Shipped'){
+                                    %>
+                                    <td class="align-middle text-center">
+                                        <a href="#cancelOrderModal"  class="btn btn-primary confirmCancelBTN"  data-bs-toggle="modal" data-id="<%= order._id %>">Cancel</a>
+                                    </td>
+                                    <%  
+                                }else if(order.status === 'Pending Return Approval'){
+                                  %>
+                                  <td class="align-middle text-center">
+                                      <a href="/admin/approveReturn/<%= order._id %>" class="btn btn-warning">Approve</a>
+                                  </td>
+                                  <%  
+                                }}
+                                %>
+                                
 
 
-
-                                <!-- Modal Start -->
-                                <div class="modal fade " id="exampleModal" tabindex="-1"
-                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
+                        <!-- Modal Start -->
+                        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Change Status</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                          aria-label="Close"></button>
-                                      </div>
-                                      <form action="/admin/changeOrderStatus" method="post">
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <form action="/admin/changeOrderStatus" method="post">
                                         <div class="modal-body">
-                                          <input type="hidden" name="orderId" id="orderId" value="">
-                                          <label for="status">Select delivery status</label><br><br>
-                                          <select name="status" class="form-control" id="status">
-                                            <option value="Shipped">Shipped</option>
-                                            <option value="Out For Delivery">Out For Delivery</option>
-                                            <option value="Delivered">Delivered</option>
-                                          </select>
+                                            <input type="hidden" name="orderId" id="orderId" value="">
+                                            <label for="status">Select delivery status</label><br><br>
+                                            <select name="status" class="form-control" id="status">
+                                                <option value="Shipped">Shipped</option>
+                                                <option value="Out For Delivery">Out For Delivery</option>
+                                                <option value="Delivered">Delivered</option>
+                                            </select>
 
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                          <button type="submit" class="btn btn-primary">Change Status</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Change Status</button>
                                         </div>
-                                      </form>
-                                    </div>
-                                  </div>
+                                    </form>
                                 </div>
-                                <!-- Modal End  -->
+                            </div>
+                        </div>
+                        <!-- Modal End  -->
 
 
-                                <!-- Order Cancel Confirmation Modal Start  -->
-                                <div class="modal fade" id="cancelOrderModal" tabindex="-1"
-                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure?</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                          aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <strong> Do you want to Cancel this Order ?</strong>
-                                        <div class="modal-footer mt-2">
-                                          <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                          <a id="confirmCancelBTN" class="btn btn-primary">Confirm</a>
-                                        </div>
+                       <!-- Order Cancel Confirmation Modal Start  -->
+                          <div class="modal fade" id="cancelOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                             <div class="modal-content">
+                               <div class="modal-header">
+                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure?</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                       <div class="modal-body">
+                                           <strong> Do you want to Cancel this Order ?</strong>
+                                         <div class="modal-footer mt-2">
+                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <a id="confirmCancelBTN" class="btn btn-primary">Confirm</a>
+                                       </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </div>
-                                <!-- Order Cancel Confirmation Modal End  -->
+                                 </div>
+                             </div> 
+                     <!-- Order Cancel Confirmation Modal End  -->
+                              
+                            </tr>
+                         <% 
+                      
+                    }
+                  %>
 
-                      </tr>
-                      <% } %>
-
-                  </tbody>
-                </table>
-              </div>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  
 
+  <div class="mx-3 d-flex justify-content-between">
 
-    <div class="mx-3 d-flex justify-content-between">
+    <div>
+      <ul class="list-unstyled d-flex justify-content-center">
+        <li class="mx-1 p-2 rounded-pill">Limit : </li>
 
-      <div>
-        <ul class="list-unstyled d-flex justify-content-center">
-          <li class="mx-1 p-2 rounded-pill">Limit : </li>
+        <li class="mx-1 p-2 rounded-pill"
+          <% if(limit == 10){  %> style="color: black; background-color: lightblue;"  <% } %> >
+          <a href="?limit=10">10</a>
+        </li>
 
-          <li class="mx-1 p-2 rounded-pill" <% if(limit==10){ %> style="color: black; background-color: lightblue;" <% }
-              %> >
-              <a href="?limit=10">10</a>
-          </li>
+        <li class="mx-1 p-2 rounded-pill"
+        <% if(limit == 25){  %> style="color: black; background-color: lightblue;"  <% } %> >
+        <a href="?limit=25">25</a>
+        </li>  
 
-          <li class="mx-1 p-2 rounded-pill" <% if(limit==25){ %> style="color: black; background-color: lightblue;" <% }
-              %> >
-              <a href="?limit=25">25</a>
-          </li>
+        <li class="mx-1 p-2 rounded-pill"
+          <% if(limit == 50){  %> style="color: black; background-color: lightblue;"  <% } %> >
+          <a href="?limit=50">50</a>
+        </li>
 
-          <li class="mx-1 p-2 rounded-pill" <% if(limit==50){ %> style="color: black; background-color: lightblue;" <% }
-              %> >
-              <a href="?limit=50">50</a>
-          </li>
+        <li class="mx-1 p-2 rounded-pill"
+        <% if(limit == 100){  %> style="color: black; background-color: lightblue;"  <% } %> >
+        <a href="?limit=100">100</a>
+        </li>
 
-          <li class="mx-1 p-2 rounded-pill" <% if(limit==100){ %> style="color: black; background-color: lightblue;" <%
-              } %> >
-              <a href="?limit=100">100</a>
-          </li>
-
-        </ul>
-      </div>
-
-      <!-- Pagination  -->
-      <div class="row">
-        <div class="col-lg-12 d-flex  align-items-center">
-          <div class="product__pagination  d-flex justify-content-end">
-            <% if(pageNum> 1){
-              %>
-              <a class="mx-1 btn" href="?pageNum=<%= pageNum-1 %>&limit=<%= limit %>">Prev
-              </a>
-              <% } for(let i=1; i<=pageCount; i++){ %>
-                <a class="mx-1 btn p-2 rounded-pill" <% if(pageNum===i){ %>
-                  style="color: black; background-color: lightblue;"
-                  <% } %>
-                    href="?pageNum=<%= i %>&limit=<%= limit %>"><%= i %>
-                </a>
-                <% } if(pageNum < pageCount){ %>
-                  <a class="mx-1 btn" href="?pageNum=<%= pageNum+1 %>&limit=<%= limit %>">Next
-                  </a>
-                  <% } %>
-          </div>
-        </div>
-      </div>
+      </ul>
     </div>
 
+                                          <!-- Pagination  -->
+                                          <div class="row">
+                                            <div class="col-lg-12 d-flex  align-items-center">
+                                                <div class="product__pagination  d-flex justify-content-end">
+                                                    <% 
+                                                    if(pageNum > 1){
+                                                      %>
+                                                      <a class="mx-1 btn" 
+                                                        href="?pageNum=<%= pageNum-1 %>&limit=<%= limit %>">Prev
+                                                      </a>
+                                                      <% 
+                                                    }
+                                                    for(let i=1; i<= pageCount; i++){
+                                                        %>
+                                                        <a class="mx-1 btn p-2 rounded-pill" 
+                                                        <% if(pageNum === i){ %> 
+                                                          style="color: black; background-color: lightblue;"
+                                                        <% } %>
+                                                          href="?pageNum=<%= i %>&limit=<%= limit %>"><%= i %>
+                                                        </a>
+                                                        <%  
+                                                    }
+                                                    if(pageNum < pageCount){
+                                                      %>
+                                                      <a class="mx-1 btn" 
+                                                        href="?pageNum=<%= pageNum+1 %>&limit=<%= limit %>">Next
+                                                      </a>
+                                                      <% 
+                                                    }
+                                                    %>
+                                                </div>
+                                            </div>
+                                        </div>
+  </div>
 
 
 
 
-    <%- include('../admin/footer.ejs') %>
 
-  </main>
+  <%- include('../admin/footer.ejs') %>      
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <script>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
     $(document).on("click", ".popupBTN", function () {
-      var cId = $(this).data('id');
-      $(".modal-body #orderId").val(cId);
+        var cId = $(this).data('id');
+        $(".modal-body #orderId").val(cId);  
     });
 
-    $('.confirmCancelBTN').click(function () {
-      var orderId = $(this).data('id');
-      var routeURL = `/admin/cancelOrder/${orderId}?cancelledBy=admin`
-      $(".modal-footer #confirmCancelBTN").attr('href', routeURL);
+    $('.confirmCancelBTN').click( function () {
+        var orderId = $(this).data('id');
+        var routeURL = `/admin/cancelOrder/${orderId}?cancelledBy=admin`
+        $(".modal-footer #confirmCancelBTN").attr('href', routeURL);
     });
-  </script>
+</script>
 
-  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
-  <script>
-    $('#sortTable').DataTable({
+<script>
+  $('#sortTable').DataTable({
       responsive: true
-    });
-  </script>
+  });
+</script>
+
+

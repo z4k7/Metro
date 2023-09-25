@@ -1,36 +1,37 @@
 const Categories = require("../model/categoryModel");
-const Products = require("../model/productModel");
-const Offers = require("../model/offerModel");
-const Admin = require("../model/adminModel");
+const Products = require("../model/productModel")
+const Offers = require("../model/offerModel")
+const Admin = require("../model/adminModel")
 
-const loadCategory = async (req, res, next) => {
+const loadCategory = async (req, res,next) => {
   try {
-    const adminId = req.session.admin;
-    const adminData = await Admin.findOne({ _id: adminId });
-    const category = await Categories.find({}).populate("offer");
-
-    const offerData = await Offers.find({
-      $or: [{ status: "Starting Soon" }, { status: "Available" }],
-    });
-    res.render("category", { category, offerData, adminData });
+    const adminId = req.session.admin
+ const adminData= await Admin.findOne({_id:adminId})
+    const category = await Categories.find({}).populate('offer');
+    
+    const offerData = await Offers.find({ $or: [
+      {status : 'Starting Soon'},
+      {status : 'Available' }
+  ]});
+        res.render('category',{category,offerData,adminData});
+    
   } catch (error) {
     next(error);
   }
 };
 
-const addCategory = async (req, res, next) => {
+const addCategory = async (req, res,next) => {
   try {
     const categoryName = req.body.categoryName.toUpperCase();
-
+    console.log(categoryName);
     if (categoryName) {
       const isExistCategory = await Categories.findOne({ name: categoryName });
 
       if (isExistCategory) {
-        const message = "Category already exists";
-        res.redirect(
-          "/admin/category?status=success&message=" +
-            encodeURIComponent(message)
-        );
+        const message = "Category already exists"
+        res.redirect('/admin/category?status=success&message='+ encodeURIComponent(message));
+        console.log("Category Already Exists");
+        
       } else {
         await new Categories({ name: categoryName }).save();
         res.redirect("/admin/category");
@@ -44,19 +45,25 @@ const addCategory = async (req, res, next) => {
   }
 };
 
-const editCategory = async (req, res, next) => {
+const editCategory = async (req, res,next) => {
   try {
     const id = req.body.categoryId;
-
+    console.log("id : " + id);
     const newName = req.body.categoryName.toUpperCase();
+    // console.log(req);
+    // console.log('file '+ req.file);
 
+    console.log(newName);
     const isCategoryExist = await Categories.findOne({ name: newName });
+    // console.log('iscategory exist'+isCategoryExist);
+    // console.log(req.file.filename);
 
     if (req.file && req.file.filename) {
       console.log(req.file.filename);
-
-      if (!isCategoryExist || isCategoryExist._id == id) {
-        // await Categories.findByIdAndUpdate({_id:id},{$set: {name: newName, image:image}})
+      // const image = req.file.filename
+      if(!isCategoryExist || isCategoryExist._id == id){
+          // console.log('Category name and image changed');
+          // await Categories.findByIdAndUpdate({_id:id},{$set: {name: newName, image:image}})
       }
     } else {
       if (!isCategoryExist) {
@@ -97,101 +104,102 @@ const listCategory = async (req, res, next) => {
   }
 };
 
-const applyCategoryOffer = async (req, res, next) => {
+const applyCategoryOffer = async(req, res, next)=> {
   try {
-    const { offerId, categoryId, override } = req.body;
+    
+    const { offerId, categoryId, override }= req.body
 
     //Setting offerId to offer field of category
     await Categories.findByIdAndUpdate(
-      { _id: categoryId },
+      {_id:categoryId},
       {
-        $set: {
-          offer: offerId,
-        },
+        $set:{
+          offer: offerId
+        }
       }
-    );
+    )
 
-    const offerData = await Offers.findById({ _id: offerId });
-    const products = await Products.find({ category: categoryId });
-
+    const offerData = await Offers.findById({_id:offerId})
+    const products = await Products.find({category: categoryId})
+    
     //applying offer to every product in the same category
-    for (const pdt of products) {
-      const actualPrice = pdt.price;
+      for(const pdt of products){
+        const actualPrice = pdt.price
 
-      let offerPrice = 0;
-      if (offerData.status == "Available") {
-        offerPrice = Math.round(
-          actualPrice - (actualPrice * offerData.discount) / 100
-        );
-      }
+        let offerPrice = 0
+        if(offerData.status == 'Available'){
+          offerPrice = Math.round(actualPrice - ( (actualPrice*offerData.discount)/100 ))
+        }
 
-      if (override) {
-        await Products.updateOne(
-          { _id: pdt._id },
-          {
-            $set: {
-              offerPrice,
-              offerType: "Offers",
-              offer: offerId,
-              offerAppliedBy: "Category",
+        if(override){
+          await Products.updateOne(
+            {_id: pdt._id},
+            {
+              $set:{
+                offerPrice,
+                offerType: 'Offers',
+                offer: offerId,
+                offerAppliedBy:'Category'
+              }
+            }
+          )
+        }else{
+          await Products.updateOne(
+            {
+              _id: pdt._id,
+              offer: { $exists: false}
             },
-          }
-        );
-      } else {
-        await Products.updateOne(
-          {
-            _id: pdt._id,
-            offer: { $exists: false },
-          },
-          {
-            $set: {
-              offerPrice,
-              offerType: "Offers",
-              offer: offerId,
-              offerAppliedBy: "Category",
-            },
-          }
-        );
+            {
+              $set:{
+                offerPrice,
+                offerType: 'Offers',
+                offer:offerId,
+                offerAppliedBy:'Category'
+              }
+            }
+          )
+        }
       }
-    }
-    res.redirect("/admin/category");
+      res.redirect('/admin/category')
   } catch (error) {
-    next(error);
+   next(error)
   }
-};
+}
 
-const removeCategoryOffer = async (req, res, next) => {
+
+const removeCategoryOffer = async(req,res,next)=>{
   try {
-    const { catId } = req.params;
+    const {catId} = req.params
 
     await Categories.findByIdAndUpdate(
-      { _id: catId },
+      {_id:catId},
       {
         $unset: {
-          offer: "",
-        },
+          offer:''
+        }
       }
-    );
+    )
     //Unsetting every product that matches catId
     await Products.updateMany(
       {
         category: catId,
-        offerAppliedBy: "Category",
+        offerAppliedBy: 'Category'
       },
       {
-        $unset: {
-          offer: "",
-          offerType: "",
-          offerPrice: "",
-          offerAppliedBy: "",
-        },
+        $unset:{
+          offer:'',
+          offerType: '',
+          offerPrice: '',
+          offerAppliedBy: ''
+        }
       }
-    );
-    res.redirect("/admin/category");
+    )
+    res.redirect('/admin/category')
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
+
 
 module.exports = {
   loadCategory,
@@ -199,5 +207,5 @@ module.exports = {
   editCategory,
   listCategory,
   applyCategoryOffer,
-  removeCategoryOffer,
+  removeCategoryOffer
 };

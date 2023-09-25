@@ -1,29 +1,28 @@
 <%- include('../user/header.ejs') %>
 
 
-    <!-- Breadcrumb Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <div class="col-12">
-                <nav class="breadcrumb bg-dark mb-30 rounded">
-                    <a class="breadcrumb-item text-primary" href="/">Home</a>
-                    <a class="breadcrumb-item text-primary" href="/shop">Shop</a>
-                    <a class="breadcrumb-item text-primary" href="#">Shopping Cart</a>
+   <!-- Breadcrumb Start -->
+   <div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-dark mb-30 rounded">
+                <a class="breadcrumb-item text-primary" href="/">Home</a>
+                <a class="breadcrumb-item text-primary" href="/shop">Shop</a>
+                <a class="breadcrumb-item text-primary" href="#">Shopping Cart</a>
 
-
-                </nav>
-            </div>
+                
+            </nav>
         </div>
     </div>
-    <!-- Breadcrumb End -->
+</div>
+<!-- Breadcrumb End -->
 
 
     <!-- Cart Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
             <div class="col-lg-8 table-responsive  mb-5">
-                <table style="background-color:rgb(61, 70, 77);"
-                    class="table table-light table-borderless table-hover  text-center mb-0">
+                <table style="background-color:rgb(61, 70, 77);" class="table table-light table-borderless table-hover  text-center mb-0">
                     <thead class="thead-dark ">
                         <tr class="rounded">
                             <th>Image</th>
@@ -36,26 +35,33 @@
                     </thead>
                     <tbody class="align-middle bg-dark ">
 
-                        <% let totalPrice=0 let totalDiscount=0 let currPrice; if(cartItems.length){ for(let
-                            i=0;i<cartItems.length; i++){ %>
-                            <tr>
-                                <td class="align-middle "><img class="rounded"
-                                        src="/multerImg/<%= cartItems[i].productId.images[0] %>" alt=""
-                                        style="width: 50px;"></td>
-
-                                <!-- Quantity -->
-
-                                <td style="padding-top: 25px; display: flex;" class="text-white ">
-                                    <%= cartItems[i].productId.name %>
+                        <% let totalPrice=0 
+                        let totalDiscount=0 
+                        let currPrice; 
+                        if(cartItems.length){ 
+                            for(let i=0;i<cartItems.length; i++){ %>
+                             <tr>
+                                <td class="align-middle "><img class="rounded" src="/multerImg/<%= cartItems[i].productId.images[0] %>"
+                                        alt="" style="width: 50px;"></td>
+                                   
+                                    <!-- Quantity -->
+                                   
+                                        <td style="padding-top: 25px; display: flex;" class="text-white "> <%= cartItems[i].productId.name %>
                                 </td>
 
                                 <!-- Single price -->
 
                                 <td class="align-middle text-white">
-                                    <% if(cartItems[i].productId.offerPrice){
-                                        currPrice=cartItems[i].productId.offerPrice }else{
-                                        currPrice=cartItems[i].productId.price } %>
-                                        ₹<%= currPrice %>
+                                    <% 
+                                                    if(cartItems[i].productId.offerPrice){
+                                                        console.log('product has offer')
+                                                        currPrice = cartItems[i].productId.offerPrice
+                                                    }else{
+                                                        currPrice = cartItems[i].productId.price
+                                                    }
+                                                    //discountPercentage = Math.floor(100 - ( (currPrice*100)/cartItems[i].productId.price ));
+                                                    %>
+                                                    ₹<%= currPrice %>
                                 </td>
 
                                 <!-- Quantity -->
@@ -66,22 +72,19 @@
                                         <!-- Quantity minus -->
 
                                         <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-primary btn-minus rounded">
+                                            <button class="btn btn-sm btn-primary btn-minus rounded" >
                                                 <i class="fa fa-minus " id="<%= cartItems[i]._id %>minus"
                                                     onclick="updateCart(-1,'<%= cartItems[i].productId._id%>','<%= cartItems[i]._id %>')"></i>
                                             </button>
                                         </div>
+                                       
 
+                                            <!-- Quantity Value -->
+                                            <span class="mx-2 quantity form-control form-control-sm bg-secondary border-0 text-center rounded"  id="<%= cartItems[i]._id %>" data-max-quantity="<%= cartItems[i].productId.quantity %>">
+                                                <%= cartItems[i].quantity %>
+                                            </span>
 
-                                        <!-- Quantity Value -->
-                                        <span
-                                            class="mx-2 quantity form-control form-control-sm bg-secondary border-0 text-center rounded"
-                                            id="<%= cartItems[i]._id %>"
-                                            data-max-quantity="<%= cartItems[i].productId.quantity %>">
-                                            <%= cartItems[i].quantity %>
-                                        </span>
-
-                                        <!-- Quantity plus -->
+                                            <!-- Quantity plus -->
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm btn-primary btn-plus rounded">
                                                 <i class="fa fa-plus" id="<%= cartItems[i]._id %>plus"
@@ -93,67 +96,61 @@
 
                                 <!-- Total Price -->
 
+                                <% console.log(currPrice) %>
+                                <td id="totalSingle<%= cartItems[i]._id %>" class="align-middle text-white">₹<%= currPrice*cartItems[i].quantity  %></td>
 
-                                <td id="totalSingle<%= cartItems[i]._id %>" class="align-middle text-white">₹<%=
-                                        currPrice*cartItems[i].quantity %>
-                                </td>
-
-                                <% totalPrice +=cartItems[i].productId.price*cartItems[i].quantity
-                                    if(cartItems[i].productId.offerPrice){ totalDiscount=(cartItems[i].productId.price -
-                                    cartItems[i].productId.offerPrice)*cartItems[i].quantity }else{ totalDiscount
-                                    +=(cartItems[i].productId.price - cartItems[i].productId.discountPrice)
-                                    *cartItems[i].quantity } %>
-
-
-
-
-
-                                    <!-- Remove Item -->
-                                    <td class="align-middle">
-                                        <form action="/shoppingCart/removeItem/<%= cartItems[i].productId._id %>"
-                                            method="post">
-                                            <button class="btn btn-sm btn-danger rounded" type="submit">
-                                                <i class="fa fa-times"></i>
-                                            </button>
+                               <% 
+                               totalPrice += cartItems[i].productId.price*cartItems[i].quantity
+                               if(cartItems[i].productId.offerPrice){
+                                totalDiscount = (cartItems[i].productId.price - cartItems[i].productId.offerPrice)*cartItems[i].quantity
+                               }else{
+                                totalDiscount += (cartItems[i].productId.price - cartItems[i].productId.discountPrice) *cartItems[i].quantity
+                               }
+                               
+                               %>
+                               
+                               
+                               
+                               
+                               
+                                <!-- Remove Item -->
+                                <td class="align-middle">
+                                    <form action="/shoppingCart/removeItem/<%= cartItems[i].productId._id %>" method="post">
+                                    <button class="btn btn-sm btn-danger rounded" type="submit">
+                                        <i class="fa fa-times"></i>
+                                    </button>
                                         </form>
-                                    </td>
-                            </tr>
-                            <% } }else{ %>
-                                <tr>
-                                    <td>
-                                        <a href="/shop">
-                                            <h5 class="text-white"> <strong>Add items to the cart</strong></h5>
-                                        </a>
+                                        </td>
+                             </tr>
+                             <% } 
+                               }else{ %>
+                                <tr >
+                                    <td >
+                                       <a href="/shop"> <h5 class="text-white">  <strong>Add items to the cart</strong></h5> </a>
                                     </td>
                                 </tr>
                                 <% } %>
-
-
-
+                    
+                    
+                    
                     </tbody>
                 </table>
             </div>
             <div class="col-lg-4">
-
+                
                 <h5 class="section-title position-relative text-white text-uppercase mb-3"><span class=" pr-3">Cart
                         Summary</span></h5>
                 <div class="bg-dark p-30 mb-5 rounded">
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
-                            <h6 class="text-white">Subtotal</h6>
-
-                            <span id="totalPrice">
-                                <h6 class="text-danger">₹<%= totalPrice %>
-                                </h6>
-                            </span>
+                            <h6 class="text-white" >Subtotal</h6>
+                            <%// console.log(totalPrice)%>
+                          <span id="totalPrice" >  <h6 class="text-danger">₹<%= totalPrice %></h6></span>
                         </div>
 
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium text-white">Discount</h6>
-                            <span id="totalDiscount">
-                                <h6 class="font-weight-medium text-success">- ₹<%= totalDiscount %>
-                                </h6>
-                            </span>
+                           <span id="totalDiscount"> <h6 class="font-weight-medium text-success" >- ₹<%= totalDiscount %></h6></span>
                         </div>
                     </div>
 
@@ -161,18 +158,18 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="text-white">Total</h5>
-                            <span id="amount">
-                                <h5 class="text-warning"> ₹<%= totalPrice - totalDiscount %>
-                                </h5>
-                            </span>
+                           <span id="amount"> <h5 class="text-warning" > ₹<%= totalPrice - totalDiscount %> </h5></span>
                         </div>
 
-                        <% if(cartItems.length){ %>
+                        <% 
+                        if(cartItems.length){
+                            %>
 
-                            <a href="/shoppingCart/proceedToCheckout"><button
-                                    class="btn btn-block btn-primary font-weight-bold my-3 py-3 rounded">Proceed To
-                                    Checkout</button></a>
-                            <% } %>
+                        <a href="/shoppingCart/proceedToCheckout"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3 rounded">Proceed To
+                            Checkout</button></a>
+                            <%  
+                        }
+                        %>
                     </div>
                 </div>
             </div>
@@ -184,80 +181,80 @@
 
     <%- include('../user/footer') %>
 
-        <script>
-            function updateCart(operation, prodId, spanId) {
-                let quantity = document.getElementById(spanId)
-                let parsedQuantity = parseInt(quantity.innerText)
+    <script>
+        function updateCart(operation, prodId, spanId){
+            let quantity = document.getElementById(spanId)
+            let parsedQuantity = parseInt(quantity.innerText)
 
-                let minQuantity = 1
-                let maxQuantity = parseInt(quantity.dataset.maxQuantity)
+            let minQuantity = 1 
+            let maxQuantity = parseInt(quantity.dataset.maxQuantity)
 
-                maxQuantity = Math.min(maxQuantity, 10)
+            maxQuantity = Math.min(maxQuantity,10)
 
-                if (operation == 1 && parsedQuantity < maxQuantity) {
-                    parsedQuantity++
-                } else if (operation == -1 && parsedQuantity > 1) {
-                    parsedQuantity--
-                }
+            if(operation == 1 && parsedQuantity < maxQuantity){
+                parsedQuantity++
+            }else if(operation == -1 && parsedQuantity>1){
+                parsedQuantity--
+            }
 
-                quantity.innerText = parsedQuantity
+            quantity.innerText = parsedQuantity
 
-                ajaxConnection(parsedQuantity, prodId, spanId)
+            ajaxConnection(parsedQuantity, prodId, spanId)
 
-                // btn dis
-                var plusBtn = document.getElementById(`${spanId}plus`)
-                var minusBtn = document.getElementById(`${spanId}minus`)
+            // btn dis
+            var plusBtn = document.getElementById(`${spanId}plus`)
+            var minusBtn = document.getElementById(`${spanId}minus`)
+            plusBtn.disabled = true
+            minusBtn.disabled = true
+
+            if(!parsedQuantity=== 1){
                 plusBtn.disabled = true
+            }else{
+                plusBtn.disabled = false
+            }
+
+            if(!parsedQuantity == 10 || !parsedQuantity == maxQuantity){
                 minusBtn.disabled = true
-
-                if (!parsedQuantity === 1) {
-                    plusBtn.disabled = true
-                } else {
-                    plusBtn.disabled = false
-                }
-
-                if (!parsedQuantity == 10 || !parsedQuantity == maxQuantity) {
-                    minusBtn.disabled = true
-                } else {
-                    minusBtn.disabled = false
-                }
-
-                // Error Message
-                let messageElement = document.getElementById(`${spanId}msg`)
-
-                if (parsedQuantity == 10) {
-                    messageElement.innerText = "Max quantity reached"
-                } else if (parsedQuantity == maxQuantity) {
-                    messageElement.innerText = "Stock limit reached"
-                } else {
-                    messageElement.innerText = ""
-                }
+            }else{
+                minusBtn.disabled = false 
             }
 
-            // ajax
-            function ajaxConnection(amt, prodId, spanId) {
-                $.ajax({
-                    method: 'put',
-                    url: '/updateCart',
-                    data: { amt, prodId },
-                    success: (res) => {
-                        if (res.status == true) {
-                            $(`#totalSingle${spanId}`).html(`₹${res.data.totalSingle}`)
-                            $(`#totalPrice`).html(`₹${res.data.totalPrice}`).css('color', 'red')
-                            $(`#totalDiscount`).html(`₹${res.data.totalDiscount}`).css('color', 'green')
+            // Error Message
+            let messageElement = document.getElementById(`${spanId}msg`)
 
-                            $(`#amount`).html(`₹${res.data.totalPrice - res.data.totalDiscount}`).css('color', 'yellow')
+            if(parsedQuantity == 10){
+                messageElement.innerText = "Max quantity reached"
+            }else if( parsedQuantity == maxQuantity){
+                messageElement.innerText= "Stock limit reached"
+            }else{
+                messageElement.innerText =""
+            }
+        }
 
+        // ajax
+        function ajaxConnection(amt, prodId, spanId){
+            $.ajax({
+                method: 'put',
+                url: '/updateCart',
+                data: {amt,prodId},
+                success: (res)=> {
+                    if(res.status == true){
+                        $(`#totalSingle${spanId}`).html(`₹${res.data.totalSingle}`)
+                        $(`#totalPrice`).html(`₹${res.data.totalPrice}`).css('color','red') 
+                        $(`#totalDiscount`).html(`₹${res.data.totalDiscount}`).css('color','green') 
+                        console.log(res.data.totalDiscount)
+                        $(`#amount`).html(`₹${res.data.totalPrice - res.data.totalDiscount}`).css('color','yellow') 
+ 
 
-                            document.getElementById(`${spanId}plus`).disabled = false
-                            document.getElementById(`${spanId}minus`).disabled = false
-                        } else if (res.status == false) {
-                            $(`#${spanId}msg`).html(res.data)
-                        }
+                        document.getElementById(`${spanId}plus`).disabled = false
+                        document.getElementById(`${spanId}minus`).disabled= false
+                    }else if(res.status == false){
+                        $(`#${spanId}msg`).html(res.data)
                     }
+                }
 
-                })
-            }
+            })
+        }
 
 
-        </script>
+    </script>

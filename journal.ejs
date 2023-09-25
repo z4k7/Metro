@@ -22,29 +22,15 @@
 	<link rel="stylesheet" type="text/css" href="/user/css/login.css">
 </head>
 
-<body style="background-color: gold;">
-
-	<div class="container-fluid bg-dark " >
-		<div class="">
-		
-		</div>
-		<div class="animate__animated animate__rubberBand" style=" border-bottom: 1px solid rgb(207, 202, 202);">
-	  <span style="color: white;
-		  font-size: 45px;
-		  font-weight: bold;" >METRO</span> <span style="font-size: 20px ;color: gold;
-		  font-weight: 400;">ENTERPRISES</span></div>
-	  </div>
-
-
-
-	<div class="container" >
-		<div class="d-flex justify-content-center h-100" >
-			<div class="card " style="background-color: gold !important; border: none; margin-top: 50px !important;" >
+<body>
+	<div class="container">
+		<div class="d-flex justify-content-center h-100">
+			<div class="card">
 
 				<div class="bg-dark  rounded p-4 p-sm-10 my-4 mx-3">
 
-					<div class="card-header  text-center rounded" >
-						<h3 class="text-warning">Sign In</h3>
+					<div class="card-header text-center">
+						<h3>Sign In</h3>
 
 					</div>
 					<div class="card-body">
@@ -60,9 +46,9 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
-								<input type="password" id="password" name="password" class="form-control rounded "
+								<input type="password" id="password" name="password" class="form-control"
 									placeholder="password">
-									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password " ></span>
+								
 								
 							</div>
 
@@ -94,9 +80,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	
 	<script src="/validations/signupValidation.js"></script>
 	<!-- <script>
         const togglePassword = document.querySelector('#togglePassword')
@@ -109,20 +92,6 @@
             this.classList.toggle('bi-eye-slash-fill')
         });
     </script> -->
-
-<script>
-	$(".toggle-password").click(function() {
-
-$(this).toggleClass("fa-eye fa-eye-slash");
-var input = $($(this).attr("toggle"));
-if (input.attr("type") == "password") {
-  input.attr("type", "text");
-} else {
-  input.attr("type", "password");
-}
-});
-</script>
-
 </body>
 
 </html>

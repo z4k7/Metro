@@ -1,19 +1,20 @@
+
 <%- include('../user/header') %>
 
 
-    <section class="bg-dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 mb-4 mb-sm-5">
-                    <div class="card card-style1 border-0">
-                        <div class="card-body bg-dark p-1-9 p-sm-2-3 p-md-6 p-lg-7">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 mb-4 mb-lg-0">
-                                    <img src="/user/img/arthur.png" alt="User image">
-                                </div>
-                                <div class="col-lg-6 px-xl-10">
-                                    <div class="bg-primary  p-3 mb-4 rounded"> <!-- py-1-9 px-1-9 px-sm-6 mb-1-9 -->
-                                        <% const fullName=userData.fname+' '+userData.lname %>
+<section class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div class="card card-style1 border-0">
+                    <div class="card-body bg-dark p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 mb-4 mb-lg-0">
+                                <img src="/user/img/arthur.png" alt="User image">
+                            </div>
+                            <div class="col-lg-6 px-xl-10">
+                                 <div class="bg-primary  p-3 mb-4 rounded">   <!-- py-1-9 px-1-9 px-sm-6 mb-1-9 -->
+                                    <% const fullName = userData.fname+' '+userData.lname %>
                                     <h3 class="h2 text-dark  mb-0"><%= fullName %></h3>
                                 </div>
                                 <ul class="list-unstyled mb-1-9">
@@ -76,10 +77,18 @@
 <script>
     // Function to copy the referral code to clipboard
     function copyReferralCode() {
-        const referralCodeValue = document.getElementById(' referralCode').value; const
-            tempInput = document.createElement('input');
-        document.body.appendChild(tempInput); tempInput.value = referralCodeValue;
-        tempInput.select(); document.execCommand('copy');
-        document.body.removeChild(tempInput); // Optionally, you can show a
-                                            notification to indicate the code has been copied alert('Referral code
-                                            copied to clipboard!'); } </script>
+        const referralCodeValue = document.getElementById('referralCode').value;
+
+        const tempInput = document.createElement('input');
+        document.body.appendChild(tempInput);
+        tempInput.value = referralCodeValue;
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        // Optionally, you can show a notification to indicate the code has been copied
+        alert('Referral code copied to clipboard!');
+    }
+  </script>
+
+

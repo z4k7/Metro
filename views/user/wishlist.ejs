@@ -1,82 +1,87 @@
+ 
 <%- include('../user/header.ejs') %>
+ 
+ <!-- Shopping Cart Section Begin -->
+  <section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shopping__cart__table ">
 
-    <!-- Shopping Cart Section Begin -->
-    <section class="shopping-cart spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shopping__cart__table ">
-
-                        <table class="bg-dark col-lg-12 rounded">
-                            <thead>
-                                <tr>
-                                    <!-- <th>Image</th> -->
-                                    <th class="text-primary bg-dark">Products</th>
-                                    <!-- <th>Total</th> -->
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if(wishlist && wishlist.length){ wishlist.forEach((pdt)=> {
+                    <table class="bg-dark col-lg-12 rounded">
+                        <thead>
+                            <tr>
+                                <!-- <th>Image</th> -->
+                                <th class="text-primary bg-dark">Products</th>
+                                <!-- <th>Total</th> -->
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% 
+                            if(wishlist && wishlist.length){
+                                wishlist.forEach((pdt) => {
                                     %>
                                     <tr>
                                         <td class="product__cart__item">
                                             <div class="row">
-                                                <div class=" col-lg-4 product__cart__item__pic ">
+                                            <div class=" col-lg-4 product__cart__item__pic ">
 
-                                                    <img width="100px" class="rounded"
-                                                        src="/multerImg/<%= pdt.images[0] %>" alt="Product image">
-                                                </div>
-                                                <div class="col-lg-8 product__cart__item__text ">
-                                                    <h6 class="text-white">
-                                                        <%= pdt.name %>
-                                                    </h6>
-                                                    <h6 class="text-white">
-                                                        <%= pdt.brand %>
-                                                    </h6>
-                                                    <% let currPrice; if(pdt.offerPrice){ currPrice=pdt.offerPrice
-                                                        }else{ currPrice=pdt.discountPrice } let
-                                                        discountPercentage=Math.floor(100 - ( (currPrice*100)/pdt.price
-                                                        )); %>
-                                                        <h5 class="text-white">&#8377;<%= currPrice %>
-                                                        </h5>
-                                                </div>
+                                                <img width="100px" class="rounded" src="/multerImg/<%= pdt.images[0] %>" alt="Product image">
                                             </div>
+                                            <div class="col-lg-8 product__cart__item__text ">
+                                                <h6 class="text-white"><%= pdt.name %></h6>
+                                                <h6 class="text-white"><%= pdt.brand %></h6>
+                                                <% 
+                                                let currPrice;
+                                                if(pdt.offerPrice){
+                                                   // console.log('product has offer'+hello)
+                                                    currPrice = pdt.offerPrice
+                                                }else{
+                                                    currPrice =  pdt.discountPrice
+                                                }
+                                                let discountPercentage = Math.floor(100 - ( (currPrice*100)/pdt.price ));
+                                                %>
+                                                <h5 class="text-white">&#8377;<%= currPrice %></h5>
+                                            </div>
+                                        </div>
                                         </td>
-
+                                    
                                         <td>
-                                            <a class="btn btn-danger rounded "
-                                                href="/removeWishlistItem/<%= pdt._id %>?returnPage=wishlist">Remove</a>
+                                            <a class="btn btn-danger rounded " href="/removeWishlistItem/<%= pdt._id %>?returnPage=wishlist">Remove</a>
                                         </td>
                                         <td>
-                                            <a class="btn btn-success rounded" href="/shop/addToCart/<%= pdt._id %>">Add
-                                                To Cart</a>
+                                            <a class="btn btn-success rounded" href="/shop/addToCart/<%= pdt._id %>">Add To Cart</a>
                                         </td>
                                     </tr>
-                                    <% }) }else{ %>
-                                        <tr>
-                                            <td>
-                                                <h5 class="text-white"> <strong> <a href="/shop">No wishes yet! Make a
-                                                            new wish...</a></strong> </h5>
-                                            </td>
-                                        </tr>
-                                        <% } %>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn mb-3">
-                                <a class="btn btn-primary rounded" href="/shop"> Continue Shopping </a>
-                            </div>
+                                    <%  
+                                })
+                            }else{
+                                %>
+                                <tr>
+                                    <td>
+                                        <h5 class="text-white"> <strong> <a href="/shop">No wishes yet! Make a new wish...</a></strong> </h5>
+                                    </td>
+                                </tr>
+                                <%  
+                            }
+                            %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="continue__btn mb-3">
+                            <a class="btn btn-primary rounded" href="/shop">  Continue Shopping </a>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Shopping Cart Section End -->
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
 
 
-    <%- include('../user/footer.ejs') %>
+<%- include('../user/footer.ejs') %>
