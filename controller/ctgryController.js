@@ -5,6 +5,8 @@ const Admin = require("../model/adminModel")
 
 const loadCategory = async (req, res,next) => {
   try {
+    const status = req.query.status || "";
+    const message = req.query.message || "";
     const adminId = req.session.admin
  const adminData= await Admin.findOne({_id:adminId})
     const category = await Categories.find({}).populate('offer');
@@ -13,7 +15,7 @@ const loadCategory = async (req, res,next) => {
       {status : 'Starting Soon'},
       {status : 'Available' }
   ]});
-        res.render('category',{category,offerData,adminData});
+        res.render('category',{category,offerData,adminData,message,status});
     
   } catch (error) {
     next(error);
@@ -34,11 +36,12 @@ const addCategory = async (req, res,next) => {
         
       } else {
         await new Categories({ name: categoryName }).save();
-        res.redirect("/admin/category");
+        const message= "Category Added"
+        res.redirect("/admin/category?status=success&message="+ encodeURIComponent(message));
       }
     } else {
-      console.log("Enter Category Name");
-      res.redirect("/admin/category");
+      const message="Enter Category Name"
+      res.redirect("/admin/category?status=success&message="+ encodeURIComponent(message));
     }
   } catch (error) {
     next(error);

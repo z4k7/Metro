@@ -286,29 +286,23 @@ const loadShop= async (req,res,next)=>{
               { brand: { $regex: searchQuery, $options: 'i' } }
           ]
         }).populate('offer').limit(limit * 1).skip((page - 1) * limit).sort(sort);
-      
-      // Iterate through the pdtsData array
-      // pdtsData.forEach(product => {
-      //   if (product.offer && product.offer.name) {
-      //     console.log(product.offer.name);
-      //   } else {
-      //     console.log('No offer applied for this product.');
-      //   }
-      // });
+   
       
 
-    
-// console.log(pdtsData);
+ 
       const productsCount = await Products.find({
           category:categoryStrings,
           discountPrice:{$gt: minPrice, $lt: maxPrice},
           isListed:true,
           name:{$regex: ''+searchQuery,$options:'i'}
       }).countDocuments()
-      // console.log(productsCount);
-      // console.log(Math.ceil(productsCount/limit));
     
-      // console.log("HI", pdtsData);
+      let removeFilter = 'false'
+      if(req.query && !req.query.page){
+          removeFilter = 'true'
+      };
+
+
 
       res.render('shop',{searchQuery,categoryToFront,price,sortToFront,
           productsCount,
@@ -317,7 +311,8 @@ const loadShop= async (req,res,next)=>{
           page,
           categoryToArray,
           isLoggedIn,
-          pdtsData
+          pdtsData,
+          removeFilter
       });  
 
     } catch (error) {

@@ -71,12 +71,12 @@ const postSignup = async (req, res,next) => {
         mobile,
         password,
         referral,
-        message: "Please check your email",
+        message: "OTP Sent!",
       });
     } else {
       console.log("Password not matching");
-      res.render("signup", { message: "Passwords not matching" });
-    }
+      res.render("signup");
+    } 
   } catch (error) {
     next(error.message);
   }
@@ -961,8 +961,12 @@ const updatePassword = async (req, res) => {
 
 const resendOTP = async (req, res,next) => {
   try {
-    const { email } = req.session.userData;
-    const otp = getOTP()
+    let email;
+    const referral = req.body.referral
+    if(req.session.userData){
+
+       email  = req.session.userData.email;
+       const otp = getOTP()
     // const referral = req.session.userData.referral
     req.session.OTP = otp;
     console.log(email,otp, "Check")
@@ -971,6 +975,20 @@ const resendOTP = async (req, res,next) => {
       req.session.OTP = null; // Or delete req.session.otp;
   }, 60000); 
    return res.render('verifyOtp',{message:'', email:req.session.userData})
+
+    }else if(req.session.email) {
+      email = req.session.email
+      const otp = getOTP()
+      // const referral = req.session.userData.referral
+      req.session.OTP = otp;
+      console.log(email,otp, "Check")
+      await  generateOtp(email, otp);
+      setTimeout(() => {
+        req.session.OTP = null; // Or delete req.session.otp;
+    }, 60000); 
+      return res.render('otpVerification',{message:'',email: req.session.email,referral})
+    }
+    
   } catch (error) {
     next(error);
   }

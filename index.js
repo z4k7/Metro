@@ -21,7 +21,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 
 app.use(nocache())
 

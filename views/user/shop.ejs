@@ -1,4 +1,7 @@
 
+
+
+
 <%- include('../user/header.ejs') %>
 
     <!-- Breadcrumb Start -->
@@ -26,7 +29,7 @@
                 <!-- Filter Start -->
                 <!-- Price Start -->
                 
-                <div class="bg-dark text-primary p-4 mb-30 rounded">
+                <div class="bg-dark text-primary p-4 mb-30 rounded   hide-on-xs">
                     <h5 class="section-title position-relative text-uppercase mb-3"><span class="text-white pr-3">Filter
                         by price</span></h5>
                     
@@ -82,6 +85,18 @@
                            <% }) %> 
 
                         <input class="btn btn-primary  rounded" type="submit" value="Apply Filter">
+
+                        <% 
+                        if(removeFilter === 'true'){
+                            %>
+                          
+
+                            <input type="button" class="btn btn-danger text-dark  rounded" onclick="window.location.href='/shop?page=1'" value="Remove Filter" >
+
+
+                            <%  
+                        }
+                        %>
                     
                     <!-- Category End -->
                     <!-- Filter End -->
@@ -101,10 +116,104 @@
             <div class="col-lg-9 col-md-8">
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div>
-                                <!-- <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button> -->
-                                <!-- <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button> -->
+                        <div class="d-flex align-items-center justify-content-between mb-4 sm-flex">
+                            <div class="sm-sort">
+
+
+                                
+                                <button class="btn btn-primary d-lg-none rounded smlbtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Filter</button>
+
+                                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                                <div class="offcanvas-header bg-primary">
+                                 <h5 class="offcanvas-title " id="offcanvasWithBothOptionsLabel">FILTER</h5>
+                                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+
+                                <div class="offcanvas-body bg-dark">
+
+
+
+                                       <!-- Filter Small Start -->
+                                      <!-- Price Start -->
+                
+                                                        <div class="bg-dark text-primary p-4 mb-30 rounded  ">
+                                                            <h5 class="section-title position-relative text-uppercase mb-3"><span class="text-white pr-3">Filter
+                                                                by price</span></h5>
+                                                            
+                                                            <form>
+                                                                
+                                                                <div
+                                                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                                                    <label class="" for="price-1">UPTO ₹10000</label>
+                                                                    <input type="checkbox" <% if(price.includes('10000')){%> checked <%} %> class="" name="price" value="10000" id="price-1">
+                                                                    <span class="badge border font-weight-normal"></span>
+                                                                </div>
+                                                                <div
+                                                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                                                    <label class="" for="price-2">₹10000 - ₹15000</label>
+                                                                    <input type="checkbox" <% if(price.includes('15000')){%> checked <%} %> class="" name="price" value="15000" id="price-2">
+                                                                    <span class="badge border font-weight-normal"></span>
+                                                                </div>
+                                                                <div
+                                                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                                                    <label class="" for="price-3">₹15000 - ₹20000</label>
+                                                                    <input type="checkbox" <% if(price.includes('20000')){%> checked <%} %> class="" id="price-3" name="price" value="20000">
+                                                                    <span class="badge border font-weight-normal"></span>
+                                                                </div>
+                                                                <div
+                                                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                                                    <label class="" for="price-4" >₹20000 - ₹25000</label>
+                                                                    <input type="checkbox" <% if(price.includes('25000')){%> checked <%} %> class="" id="price-4" name="price" value="25000">
+                                                                    <span class="badge border font-weight-normal"></span>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-5">
+                                                                    <label class="" for="price-5">MORE THAN ₹25000</label>
+                                                                    <input type="checkbox" <% if(price.includes('25001')){%> checked <%} %>    id="price-5" name="price" value="25001">
+                                                                    <span class="badge border font-weight-normal"></span>
+                                                                </div>
+
+                                                                <!-- Price End -->
+
+                                                                <!-- Category Start -->
+
+                                                                <h5 class="section-title position-relative text-uppercase mb-3"><span class="text-white pr-3">Filter
+                                                                    by Category</span></h5>
+
+                                                                    <% categoryToArray.forEach((x)=>{ %>
+                                                                        
+                                                                            <div
+                                                                            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                                                            <label class=""> <%= x %></label>
+                                                                            <input type="checkbox" <% if(categoryToFront.includes(x)){%>checked<%} %> name="category" value="<%= x %>" class="mb-2">
+                                                                            <span class="badge border font-weight-normal"></span>
+                                                                        </div>
+                                                                    
+                                                                        
+                                                                <% }) %> 
+
+                                                                <input class="btn btn-primary  rounded" type="submit" value="Apply Filter">
+
+                                                                <% 
+                                                                if(removeFilter === 'true'){
+                                                                    %>
+                                                                   
+
+                                                                    <input type="button" class="btn btn-danger text-dark  rounded" onclick="window.location.href='/shop?page=1'" value="Remove Filter" >
+
+
+                                                                    <%  
+                                                                }
+                                                                %>
+                                                            
+                                                            <!-- Category End -->
+                                                            <!-- Filter Small End -->
+                                  
+
+
+                                </div>
+                                </div>
+                                  
+
                             </div>
                             <div class="ml-2">
                                 <div class="btn-group">
@@ -116,16 +225,10 @@
                                         <a class="dropdown-item page-item" data-do-sort="-1" href="#">Price High to Low</a>
                                     </div>
                                 </div>
-                                <!-- <div class="btn-group ml-2">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                        data-toggle="dropdown">Showing</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">10</a>
-                                        <a class="dropdown-item" href="#">20</a>
-                                        <a class="dropdown-item" href="#">30</a>
-                                    </div>
-                                </div> -->
+                                
                             </div>
+                            </div>
+                            
                         </div>
                     </div>
 
@@ -186,14 +289,7 @@
                                         <h6 class="text-muted  ml-2"><del>₹<%= pdtsData[i].price %> </del></h6>
                                         <strong class=" d-flex align-items-center  justify-content-center ml-3 " style="color: green;"><%= discountPercentage %>% off</strong>
                                     </div>
-                                    <div class="d-flex align-items-center justify-content-center mb-1">
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small><%= pdtsData[i].quantity %></small>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

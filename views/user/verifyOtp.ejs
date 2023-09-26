@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User-Login</title>
+    <title>Profile OTP</title>
     <!--Made with love by Mutiullah Samim -->
 
     <!--Bootsrap 4 CDN-->
@@ -83,14 +83,10 @@
             <!-- Countdown End -->
             <div class="card-footer rounded bg-dark">
               <div class="d-flex  justify-content-center links" id="resendOTPmsg">
-                Still didn't receive?
-                <!-- <button class="border-0" style="color: blue;" onclick="resendOTP('<%= email %>')">Resend OTP</button> -->
-                <!-- <a href="/resendOTP"> Resend OTP</a> -->
-
-
-              
-                  <span class="d-block mobile-text text-danger fw-bold fs-3 " id="countdown" style="margin-top: 50px;"></span>
-                  <a href="/resendOTP"><span class="d-block  mobile-text" id="resend"></span></a>
+                
+   
+                  <a href="/resendOTP"><span class="d-block  mobile-text" id="resend"> </span></a>
+                  <p id="msg" class="text-warning" style="margin-bottom: 0px;">  </p>
          
     
               </div>
@@ -106,25 +102,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
 
-    <!-- <script>
-        function resendOTP(email){
-            $.ajax({
-                url:'/resendOTP',
-                method: 'post',
-                data:{ email },
-                success: (res) => {
-                    if(res.isResend){
-                        $('#resendOTPmsg').html('OTP Resent Successfully :)')
-                    }else{
-                        $('#resendOTPmsg').html('Error Occured while resending :( ')
-                    }
-                }
-            })
-        }
-        $('#resendOTPBTN').click(() => {
-
-        })
-    </script> -->
+ 
 
 
 
@@ -142,7 +120,7 @@
               setTimeout(function () {
                   timer(remaining);
               }, 1000);
-              document.getElementById("resend").innerHTML = `
+              document.getElementById("msg").innerHTML = `Please Check Your Mail
           `;
               return;
           }
@@ -152,6 +130,7 @@
           document.getElementById("resend").innerHTML = `
         <span class="fw-bold cursor" onclick="timer(10)">Resend Otp
         </span>`;
+        document.getElementById("msg").innerHTML=""
   
   
       }

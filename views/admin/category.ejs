@@ -17,7 +17,11 @@
             <div
                   class="bg-success rounded shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between">
               <h3 class="text-white text-capitalize ps-3">CATEGORIES</h3>
-              
+              <%if(status !=='undefined' ) {%>
+                <h5 class="text-center text-warning">
+                  <%= message %>
+                </h5>
+                <%}%>
               <form class="fixed-end d-flex align-content-center" action="/admin/category" method="POST">
                 <input id="newCatName" class="rounded" type="text" name="categoryName" placeholder="Category Name" style="margin-right: 9px; margin-bottom: 17px;">
                 <button type="submit" class="btn text-dark bg-warning me-3" style="margin-right: 9px; margin-bottom: 17px;" onclick="return validateCategory()">Add</button>

@@ -8,8 +8,8 @@ const cPasswordError = document.getElementById("confirmPasswordErr")
 
 
 const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z])$/
-const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-const mobileRegex = /^(\+\d{1,3}[- ]?)?\d{10}$/
+const emailRegex = /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/
+const mobileRegex = /^[6-9]\d{9}$/
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
 
 //fname
@@ -83,14 +83,14 @@ function validatePassword() {
     if (password.length === 0) {
         passwordError.innerHTML = "Password required!";
         return false;
-    }else if(password.length < 2){
-        passwordError.innerHTML = 'Password must contain 3 characters'
-        return true
+    }else if(password.length < 8){
+        passwordError.innerHTML = 'Password must contain 8 characters'
+        return false
     }
 
     if (!password.match(passwordRegex)) {
-        passwordError.innerHTML = ''
-        return true
+        passwordError.innerHTML = "Password must contain a Upper case, Lower case and Number"
+        return false
     }
     passwordError.innerHTML = ''
     return true

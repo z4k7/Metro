@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User-Login</title>
+    <title>Signup OTP</title>
     <!--Made with love by Mutiullah Samim -->
 
     <!--Bootsrap 4 CDN-->
@@ -32,13 +32,23 @@
     <!--Custom styles-->
     <link rel="stylesheet" type="text/css" href="/user/css/login.css" />
   </head>
-  <body>
+  <body style="background-color: gold;">
+
+    <div class="container-fluid bg-dark " >
+      <div class="animate__animated animate__rubberBand" style=" border-bottom: 1px solid rgb(207, 202, 202);">
+    <span style="color: white;
+        font-size: 45px;
+        font-weight: bold;" >METRO</span> <span style="font-size: 20px ;color: gold;
+        font-weight: 400;">ENTERPRISES</span>
+        </div>
+    </div>
     <div class="container">
       <div class="d-flex justify-content-center h-100">
-        <div class="card">
-          <div class="bg-dark rounded p-4 p-sm-10 my-4 mx-3">
-            <div class="card-header text-center">
-              <h3>OTP Verification</h3>
+        
+        <div class="card" style="background-color: white">
+          <div class="bg-white rounded p-4 p-sm-10 my-4 mx-3">
+            <div class="card-header text-center  bg-dark">
+              <h3 class="text-warning">OTP Verification</h3>
             </div>
             <div class="card-body">
               <form action="/verifyotp" method="post">
@@ -59,17 +69,31 @@
 
                 <div class="form-group text-center">
                   <input type="submit" value="Submit" class="btn login_btn" />
-                  <p><%= message %></p>
+                  <p class="text-danger"><%= message %></p>
+              <span class="d-block mobile-text text-danger fw-bold fs-3 " id="countdown" style="margin-top: 30px;"></span>
+
                 </div>
               </form>
             </div>
-            <div class="card-footer">
-              <div class="d-flex justify-content-center links" id="resendOTPmsg">
-                Still didn't receive?<button class="border-0" style="color: blue;" onclick="resendOTP('<%= email %>')">Resend OTP</button>
+            <div class="card-footer bg-dark rounded">
+
+              <div class="d-flex justify-content-center links " id="resendOTPmsg">
+                
+
+                
+                <a href="/resendOTP"><span class="d-block  mobile-text" id="resend"></span></a>
+       
+                <p id="msg" class="text-warning">  </p>
+  
+
               </div>
             </div>
           </div>
-        </div>
+
+
+        <!-- </div> -->
+
+
       </div>
     </div>
 
@@ -79,25 +103,39 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
 
-    <script>
-        function resendOTP(email){
-            $.ajax({
-                url:'/resendOTP',
-                method: 'post',
-                data:{ email },
-                success: (res) => {
-                    if(res.isResend){
-                        $('#resendOTPmsg').html('OTP Resent Successfully :)')
-                    }else{
-                        $('#resendOTPmsg').html('Error Occured while resending :( ')
-                    }
-                }
-            })
-        }
-        // $('#resendOTPBTN').click(() => {
+  
 
-        // })
-    </script>
+
+    
+    <script>
+      let timerOn = true;
+      function timer(remaining) {
+          var m = Math.floor(remaining / 60);
+          var s = remaining % 60;
+          m = m < 10 ? "0" + m : m;
+          s = s < 10 ? "0" + s : s;
+          document.getElementById("countdown").innerHTML = ` ${m} : ${s}`;
+          remaining -= 1;
+          if (remaining >= 0 && timerOn) {
+              setTimeout(function () {
+                  timer(remaining);
+              }, 1000);
+              document.getElementById("msg").innerHTML = `Please Check Your Mail
+          `;
+              return;
+          }
+          if (!timerOn) {
+              return;
+          }
+          document.getElementById("resend").innerHTML = `
+        <span class="fw-bold cursor" onclick="timer(10)">Resend Otp
+        </span>`;
+        document.getElementById("msg").innerHTML=""
+  
+  
+      }
+      timer(30);
+  </script>
 
   </body>
 </html>

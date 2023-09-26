@@ -13,6 +13,20 @@
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/signup.css">
 </head>
+<!-- <style>
+        .field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+.container{
+  padding-top:50px;
+  margin: auto;
+}
+</style>    -->
 
 <body>
 
@@ -125,8 +139,15 @@
                                     <i class="fa fa-lock text-muted"></i>
                                 </span>
                             </div>
-                            <input id="password" type="password" name="password" placeholder="Password"
-                                class="form-control bg-white border-left-0 border-md  border-change ">
+
+                           
+                                <input id="password" type="password" name="password" placeholder="Password"
+                                class="form-control bg-white border-left-0 border-md  border-change rounded " style="position: relative;">
+
+                                <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password " style="position: absolute; left: 516px; bottom: 21px;"></span>
+
+                           
+                            
 
                         </div>
 
@@ -140,9 +161,17 @@
                                     <i class="fa fa-lock text-muted"></i>
                                 </span>
                             </div>
-                            <input id="confirmpassword" type="password" name="confirmPassword"
+
+                            
+                            
+                                <input id="confirmPassword" type="password" name="confirmPassword"
                                 placeholder="Confirm Password"
-                                class="form-control bg-white border-left-0 border-md  border-change ">
+                                class="form-control bg-white border-left-0 border-md  border-change rounded"  style="position: relative;">
+                                <span toggle="#confirmPassword" class="fa fa-fw fa-eye field-icon toggle-password " style="position: absolute; left: 516px; bottom: 21px;" ></span>
+
+                            
+                            
+                                
 
                         </div>
 
@@ -181,7 +210,21 @@
     </div>
 
 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+    
+    <!-- Template Javascript -->
+    <script src="/user/js/main.js"></script>
+    <script src="/user/js/shopPagination.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
@@ -190,6 +233,20 @@
         crossorigin="anonymous"></script>
 
     <script src="/validations/signupValidation.js"></script>
+
+
+    <script>
+        $(".toggle-password").click(function() {
+    
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+    });
+    </script>
 </body>
 
 </html>
