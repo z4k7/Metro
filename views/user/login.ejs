@@ -1,30 +1,40 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-	<title>User-Login </title>
-	<!--Made with love by Mutiullah Samim -->
+    <meta charset="utf-8">
+    <title>Metro-Login</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
 
-	<!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="/user/css/login.css">
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="admin/css/style.css" rel="stylesheet">
 </head>
 
 <body style="background-color: gold;">
 
-	<div class="container-fluid bg-dark " >
+
+    <div class="container-fluid bg-dark " >
 		<div class="">
 		
 		</div>
@@ -36,83 +46,86 @@
 	  </div>
 
 
+    <div class="container-fluid position-relative d-flex p-0">
+        
 
-	<div class="container" >
-		<div class="d-flex justify-content-center h-100" >
-			<div class="card " style="background-color: gold !important; border: none; margin-top: 50px !important;" >
+        <!-- Sign In Start -->
+        <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
 
-				<div class="bg-dark  rounded p-4 p-sm-10 my-4 mx-3">
+                  <form action="/login" method="post">
+                    <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                        <div class="d-flex align-items-center mb-3">
+                            
+                            <h3 class="text-warning ">Sign In</h3>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                            <label for="email">Email address</label>
+                            <small id="emailErr" class="error text-center text-danger"></small>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+							<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password " ></span>
+                            <label for="password">Password</label>
+                            <small id="passwordErr" class="error text-center text-danger"></small>
+                        </div>
 
-					<div class="card-header  text-center rounded" >
-						<h3 class="text-warning">Sign In</h3>
+                        <div class="text-center ">
+                            <% if(typeof message !=='undefined' ){ %>
+                                <p class="text-danger fw-bold">
+                                    <%=message%>
+                                </p>
+                                <% } %>
+                        </div>
 
-					</div>
-					<div class="card-body">
-						<form action="/login" method="post">
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="email" id="email" name="email" class="form-control" placeholder="username">
-								
-							</div>
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
-								</div>
-								<input type="password" id="password" name="password" class="form-control rounded "
-									placeholder="password">
-									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password " ></span>
-								
-							</div>
-
-							<div class="form-group text-center">
-								<input type="submit" value="Login" class="btn  login_btn" onclick="return validateLogin()">
-							</div>
-							<small id="emailErr" class="error text-center text-danger"></small> <br>
-							<small id="passwordErr" class="error text-center text-danger"></small>
-							<div class="text-center ">
-								<% if(typeof message !=='undefined' ){ %>
-									<p class="text-danger fw-bold">
-										<%=message%>
-									</p>
-									<% } %>
-							</div>
-
-						</form>
-					</div>
-					<div class="card-footer">
-						<div class="d-flex justify-content-center links">
-							Don't have an account?<a href="/signup">Sign Up</a>
-						</div>
-						<div class="d-flex justify-content-center">
-					<a href="/forgot-password">Forgot your password?</a>
-				
-				</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <div class="d-flex align-items-center  mb-4">
+                            <a class="text-warning" href="/forgot-password">Forgot Password ?</a>
+                        </div>
 
 
+                        <button type="submit" class="btn btn-warning py-3 w-100 mb-4" onclick="return validateLogin()">Sign In</button>
+
+
+                        <p class="text-center mb-0">Don't have an Account? <a class="text-info" href="/signup">Sign Up</a></p>
+                    </div>
+
+                  </form>
+                </div>
+            </div>
+        </div>
+        <!-- Sign In End -->
+    </div>
+
+    <script src="/validations/signupValidation.js"></script>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+	<script>
+		$(".toggle-password").click(function() {
 	
-	<script src="/validations/signupValidation.js"></script>
-
-
-<script>
-	$(".toggle-password").click(function() {
-
-$(this).toggleClass("fa-eye fa-eye-slash");
-var input = $($(this).attr("toggle"));
-if (input.attr("type") == "password") {
-  input.attr("type", "text");
-} else {
-  input.attr("type", "password");
-}
-});
-</script>
-
+	$(this).toggleClass("fa-eye fa-eye-slash");
+	var input = $($(this).attr("toggle"));
+	if (input.attr("type") == "password") {
+	  input.attr("type", "text");
+	} else {
+	  input.attr("type", "password");
+	}
+	});
+	</script>
 </body>
 
 </html>

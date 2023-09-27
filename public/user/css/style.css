@@ -9726,6 +9726,111 @@ a.text-dark:hover, a.text-dark:focus {
   opacity: 1;
 }
 
+.b2top{
+  width: 50px !important
+}
 
-/* Password Toggler */
+/* NEW */
+
+/* Apply styles for screens smaller than or equal to the "xs" breakpoint (very small screens) */
+@media (max-width: 767px) {
+  .hide-on-xs {
+    display: none 
+  }
+}
+
+@media (max-width: 767px) {
+ .sm-sort{
+    display: flex !important;
+    justify-content:space-between !important;
+ }
+ .sm-flex{
+    display: block !important;
+    
+ }
+
+ .smlbtn{
+    padding: 0px 25px 0px 25px;
+    }
+    .imgDiv{
+        display: flex;
+  justify-content: center;
+    }
+    .usrImg{
+        width: auto;
+        height: 300px
+        
+    }
+
+    .myOr{
+        margin-right: 10px;
+        font-size: small;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+
+
+        
+    }
+    .edPr{
+        margin-right: 10px;
+        font-size: small;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+
+        
+    }
+    .chPw{
+        margin-right: 10px;
+        font-size: small;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+
+        
+    }
+    .waHi{
+        margin-right: 10px;
+        font-size: small;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+
+        
+    }
+    .reCo{
+        
+        font-size: small;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+
+        
+    }
+    .adr{
+        font-size: small;
+    }
+    .maAdr{
+        font-size: medium;
+    }
+    .adAdr{
+        font-size: small;
+    }
+
+    .tSmall{
+      font-size: xx-small;
+    }
+
+    .sQuant{
+      font-size: x-small;
+    }
+
+    
+}
 

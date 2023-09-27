@@ -62,8 +62,8 @@ function validateMinPurchase(){
     }else if(minPurchase < 500 ){
         minPurchaseError.innerHTML = 'Min Purchase amount must be >500'
         return false
-    }else if(minPurchase > 10000 ){
-        minPurchaseError.innerHTML = 'Min Purchase amount must be <10000'
+    }else if(minPurchase > 30000 ){
+        minPurchaseError.innerHTML = 'Min Purchase amount must be <30000'
         return false
     }
 

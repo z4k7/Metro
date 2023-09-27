@@ -9,8 +9,8 @@
                 <div class="card card-style1 border-0">
                     <div class="card-body bg-dark p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                         <div class="row align-items-center">
-                            <div class="col-lg-6 mb-4 mb-lg-0">
-                                <img src="/user/img/arthur.png" alt="User image">
+                            <div class="col-lg-6 mb-4 mb-lg-0 imgDiv">
+                                <img class="usrImg" src="/user/img/arthur.png" alt="User image">
                             </div>
                             <div class="col-lg-6 px-xl-10">
                                  <div class="bg-primary  p-3 mb-4 rounded">   <!-- py-1-9 px-1-9 px-sm-6 mb-1-9 -->
@@ -48,22 +48,22 @@
             </div>
             <div class="col-lg-12 mb-4 mb-sm-5">
                 <div class="d-flex justify-content-around">
-                    <a href="/profile/myOrders" class="btn btn-primary rounded" >
+                    <a href="/profile/myOrders" class="btn myOr btn-primary rounded" >
                         My Orders
                     </a>
 
-                    <a href="/profile/edit" class="btn btn-primary rounded" >
+                    <a href="/profile/edit" class="btn edPr btn-primary rounded" >
                         Edit Profile
                     </a>
-                    <a href="/profile/changePassword" class="btn btn-primary rounded" >
+                    <a href="/profile/changePassword" class="btn chPw btn-primary rounded" >
                         Change Password
                     </a>
-                    <a href="/profile/walletHistory" class="btn btn-primary rounded" >
+                    <a href="/profile/walletHistory" class="btn waHi btn-primary rounded" >
                         Wallet History
                     </a>
                     <div>
                         <input type="hidden" id="referralCode" value="<%= userData.referralCode %>" readonly>
-                        <button onclick="copyReferralCode()" class="btn btn-primary rounded">Click here to copy refferal code</button>
+                        <button onclick="copyReferralCode()" class="btn reCo btn-primary rounded">Refferal Code</button>
                     </div>
                 </div>
             </div>

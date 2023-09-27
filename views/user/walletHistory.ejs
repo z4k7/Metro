@@ -3,17 +3,17 @@
 <section>
     <div class="row bg-dark">
     
-        <div class="row mt-3 pl-lg-5 p-2 mx-auto k">
+        <div class="row mt-3 pl-lg-5 p-2 mx-auto k d-flex justify-content-center align-items-center">
             <a class="btn btn-primary rounded fw-bold address " style="width: 250px;" data-toggle="modal" data-target="#form">Add to wallet</a>
         </div>
     
-        <table class="table align-items-center mb-0" id="sortTable">
+        <table class="table  mb-0" id="sortTable">
     
-            <thead>
-              <tr>
-                <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Amount</th>
-                <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">Date</th>
-                <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7">From</th>
+            <thead >
+              <tr >
+                <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7 bg-dark">Amount</th>
+                <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7 bg-dark">Date</th>
+                <th class="text-center text-uppercase text-primary text-xxs font-weight-bolder opacity-7 bg-dark">From</th>
               </tr>
             </thead>
             
@@ -24,11 +24,11 @@
                         %>
                         <tr>
     
-                            <td class="align-middle text-center text-sm">
+                            <td class="align-middle text-center text-sm bg-dark">
                                 <p class="text-xs text-success font-weight-bold mb-0"><%= payment.amount %></p>
                             </td>
     
-                            <td class="align-middle text-center text-sm">
+                            <td class="align-middle text-center text-sm bg-dark">
                                 <% 
                                 const dd = payment.date.getDate();
                                 const mm = payment.date.getMonth() + 1;
@@ -39,7 +39,7 @@
                                 <p class="text-xs text-white font-weight-bold mb-0"><%= formattedDate %></p>
                             </td>
                             
-                            <td class="align-middle text-center text-sm">
+                            <td class="align-middle text-center text-sm bg-dark">
                                 <p class="text-xs text-white font-weight-bold mb-0"><%= payment.message %></p>
                             </td>
                         </tr>
@@ -196,7 +196,7 @@
  
 
  <!-- Back to Top -->
-<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+<a href="#" class="btn btn-primary back-to-top b2top"><i class="fa fa-angle-double-up "></i></a>
 
 
 <!-- JavaScript Libraries -->
