@@ -46,16 +46,16 @@ const postSignup = async (req, res,next) => {
   try {
     const { fname, lname, email, mobile, password, confirmPassword,referral } = req.body;
 
-    // console.log("hello");
+    
     if (password == confirmPassword) {
       const userData = await User.findOne({ email });
       if (userData) {
-        console.log("User already exists");
+        
         return res.render("signUp", { message: "User already exists" });
       }
       const OTP = (req.session.OTP = getOTP());
-      console.log(OTP);
-      // req.session.save();
+     
+      
       req.session.fname = fname;
       req.session.lname = lname;
       req.session.email = email;
@@ -74,7 +74,7 @@ const postSignup = async (req, res,next) => {
         message: "OTP Sent!",
       });
     } else {
-      console.log("Password not matching");
+      
       res.render("signup");
     } 
   } catch (error) {
@@ -85,7 +85,7 @@ const postSignup = async (req, res,next) => {
 // For sending mail
 const sendVerifyMail = async (fname, lname, email, OTP,next) => {
   try {
-    console.log(email)
+   
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -117,7 +117,7 @@ const sendVerifyMail = async (fname, lname, email, OTP,next) => {
 
 const generateOtp = async(email,otp)=>{
   try {
-    console.log(email)
+    
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -197,7 +197,7 @@ const verifyMail = async (req, res,next) => {
       { $set: { is_verified: 1 } }
     );
 
-    // console.log(updateInfo);
+   
     res.render("email-verified");
   } catch (error) {
     next(error.message);
@@ -213,10 +213,9 @@ const postVerifyOtp = async (req, res,next) => {
     const referral = req.body.referral.trim()
     
     const { fname, lname, email, mobile, password } = req.session;
-    // console.log(sharedOtp);
-    // console.log(enteredOtp);
+   
     if (enteredOtp === sharedOtp) {
-      // console.log(typeof enteredOtp, typeof sharedOtp);
+      
       const secPassword = await securePassword(password);
       const referralCode = await getReferralCode()
       const currDate=new Date()
@@ -268,7 +267,7 @@ const formattedDate = `${day}-${month}-${year}`;
       req.session.userId = newUserData._id;
       res.redirect("/login");
     } else {
-      console.log("Incorrect OTP");
+     
       res.render("otpVerification", { fname, lname, email, mobile, password,referral,message:'Incorrect OTP' });
     }
   } catch (error) {
@@ -286,7 +285,7 @@ const VerifyOtp = async (req, res,next) => {
     }
     if (req.session.userData) {
       const { email} = req.session.userData;
-      console.log(email ,"User")
+      
       return res.render('update-password', { email });
     }
 
@@ -339,14 +338,14 @@ const postLogin = async (req, res,next) => {
 
           res.redirect("/");
         } else {
-          console.log("Sorry, You are blocked by the admin");
+          
           res.render("login", {
             message: "Sorry, You are blocked by the admin",
           });
           return;
         }
       } else {
-        console.log("Invalid Password");
+       
         res.render("login", { message: "Invalid Password" });
       }
     } else {
@@ -366,54 +365,19 @@ const logoutUser = async (req, res,next) => {
   }
 };
 
-// const forgotPassword = async (req, res,next) => {
-//   try {
-//     console.log("loaded forgot password");
-//     const userMail = await User.findById(
-//       { _id: req.session.userId },
-//       { email: 1, _id: 0 }
-//     );
-//     console.log(userMail.email)
-//     const OTP = (req.session.OTP = getOTP());
-//     sendVerifyMail(userMail.email, OTP);
-//     setTimeout(() => {
-//       req.session.OTP = null; // Or delete req.session.otp;
-//       console.log('otp time out');
-//   }, 1000); 
-//     res.render("forgotPassword",{ error: req.flash('error') });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
-// const verifyOTPforgotPass = async (req, res,next) => {
-//   try {
-//     const userOTP = req.body.OTP;
-//     const adminOTP = req.session.OTP;
-//     if (userOTP == adminOTP) {
-//       console.log("OTP matched :) ");
-//       res.render("resetPassword");
-//     } else {
-//       console.log("OTP not matching .... :(");
-//       res.redirect("/profile/forgotPassword");
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 // Shopping Cart Begin
 const loadShoppingCart = async (req, res,next) => {
   try {
     const userId = req.session.userId;
-    // console.log(userId);
+    
     const userData = await User.findById({ _id: userId }).populate(
       "cart.productId"
       );
       const cartItems = userData.cart;
-      console.log("debug")
-    // console.log(cartItems);
-    // Code to update cart values if product price is changed by admin after we added pdt into cart
+      
+    
     for (const { productId } of cartItems) {
       await User.updateOne(
         { _id: userId, "cart.productId": productId._id },
@@ -441,7 +405,7 @@ const addToCart = async (req, res,next) => {
     const isproductExist = await userData.cart.findIndex(
       (pdt) => pdt.productId == pdtId
     );
-    console.log("isproductExist :" + isproductExist);
+   
 
     if (isproductExist === -1) {
       const pdtData = await Products.findById({ _id: pdtId });
@@ -472,7 +436,7 @@ const addToCart = async (req, res,next) => {
           },
         }
       );
-      console.log("Product already exist on cart, quantity incremented by 1");
+      
       res.redirect("/shoppingCart");
     }
   } catch (error) {
@@ -481,7 +445,7 @@ const addToCart = async (req, res,next) => {
 };
 
 const updateCart = async (req, res,next) => {
-  // console.log("ivde ethy");
+  
   try {
     const userId = req.session.userId;
     const quantity = parseInt(req.body.amt);
@@ -497,7 +461,7 @@ const updateCart = async (req, res,next) => {
   }else{
     totalSingle = quantity * pdtData.price;
   }
-    console.log("Im here");
+    
     if (stock >= quantity) {
       await User.updateOne(
         { _id: userId, "cart.productId": prodId },
@@ -522,7 +486,7 @@ const updateCart = async (req, res,next) => {
         totalDiscount += (pdt.productPrice - pdt.discountPrice) * pdt.quantity;
 
       }
-      console.log(totalDiscount);
+      
       });
       res.json({
         status: true,
@@ -544,7 +508,7 @@ const removeCartItem = async (req, res,next) => {
     const pdtId = req.params.id;
     const userId = req.session.userId;
 
-    console.log("Remove cart item" + pdtId + "from" + userId);
+    
 
     const userData = await User.findOneAndUpdate(
       { _id: userId, "cart.productId": pdtId },
@@ -558,7 +522,7 @@ const removeCartItem = async (req, res,next) => {
     );
     req.session.cartCount--;
 
-    // console.log(userData);
+    
     res.redirect("/shoppingCart");
   } catch (error) {
     next(error);
@@ -570,12 +534,12 @@ const removeCartItem = async (req, res,next) => {
 
 const loadProfile = async (req, res,next) => {
   try {
-    console.log("profile loaded");
+   
     const userId = req.session.userId;
 
     const userData = await User.findById({ _id: userId });
     const userAddress = await Addresses.findOne({ userId: userId });
-    // console.log(userData)
+    
     res.render("profileAddress", { userData, userAddress, isLoggedIn: true });
   } catch (error) {
     next(error);
@@ -587,7 +551,7 @@ const loadEditProfile = async (req, res,next) => {
     id = req.session.userId;
 
     const userData = await User.findById({ _id: id });
-    // console.log(userData);
+    
     res.render("editProfile", { userData,isLoggedIn:true });
   } catch (error) {
     next(error);
@@ -619,7 +583,7 @@ const postEditProfile = async (req, res,next) => {
 // Change Password
 const loadChangePassword = async (req, res,next) => {
   try {
-    console.log("loaded change password page");
+    
     res.render("changePass",{isLoggedIn:true});
   } catch (error) {
     next(error);
@@ -628,24 +592,24 @@ const loadChangePassword = async (req, res,next) => {
 
 const postChangePassword = async (req, res,next) => {
   try {
-    console.log("posted change password");
+   
 
     const userId = req.session.userId;
     const { oldPassword, newPassword, confirmPassword } = req.body;
 
-    console.log("oldPassword" + oldPassword + "\n newPassord" + newPassword);
+   
 
     if (newPassword !== confirmPassword) {
-      console.log("newPassword and confirmPassword not matching :(");
+       
       return res.redirect("/profile/changePassword");
     }
 
     const userData = await User.findById({ _id: userId });
 
     const passwordMatch = await bcrypt.compare(oldPassword, userData.password);
-    console.log("passwordMatch : " + passwordMatch);
+    
     if (passwordMatch) {
-      console.log("old password matched");
+      
       const sPassword = await securePassword(newPassword);
       await User.findByIdAndUpdate(
         { _id: userId },
@@ -655,10 +619,10 @@ const postChangePassword = async (req, res,next) => {
           },
         }
       );
-      console.log("password updated");
+      
       return res.redirect("/profile");
     } else {
-      console.log("incorrect password");
+      
       return res.redirect("/profile/changePassword");
     }
   } catch (error) {
@@ -668,47 +632,13 @@ const postChangePassword = async (req, res,next) => {
 // Change Password End
 
 
-// Reset Password Start
-// const loadResetPassword = async (req, res,next) => {
-//   try {
-//     res.render("resetPassword");
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
-// const postResetPassword = async (req, res,next) => {
-//   try {
-//     const { newPassword, confirmPassword } = req.body;
-//     if (newPassword !== confirmPassword) {
-//       console.log("Entered Passwords are not matching");
-//       return res.redirect("/profile/resetPassword");
-//     } else {
-//       const userId = req.session.userId;
-//       const sPassword = await securePassword(newPassword);
-//       await User.findByIdAndUpdate(
-//         { _id: userId },
-//         {
-//           $set: {
-//             password: sPassword,
-//           },
-//         }
-//       );
-//       console.log("password updated");
-//       return res.redirect("/profile");
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-// Reset Password End
 
 // Wallet Start
 
 const loadWalletHistory = async(req,res,next)=>{
   try {
-    console.log("wallet loaded");
+    
     const userId = req.session.userId
     const userData= await User.findById({_id:userId})
     const walletHistory = userData.walletHistory.reverse()
@@ -720,7 +650,7 @@ const loadWalletHistory = async(req,res,next)=>{
 
 const addMoneyToWallet = async(req,res,next)=>{
   try {
-    console.log("Adding money to wallet");
+   
     const {amount}= req.body
     const id = crypto.randomBytes(8).toString('hex')
 
@@ -746,7 +676,7 @@ const verifyWalletPayment = async(req,res,next)=>{
     const userId= req.session.userId
     const details = req.body
     const amount= parseInt(details.order.amount)/100
-    // console.log(details)
+   
     let hmac = crypto.createHmac('sha256',process.env.KEY_SECRET)
         
     hmac.update(
@@ -757,7 +687,7 @@ const verifyWalletPayment = async(req,res,next)=>{
     );
         hmac = hmac.digest('hex');
         if(hmac === details.response.razorpay_signature){ 
-            console.log('order verified updating wallet');
+            
 
             const walletHistory = {
                 date: new Date(),
@@ -790,7 +720,7 @@ const verifyWalletPayment = async(req,res,next)=>{
 
 const loadWishlist = async(req,res,next)=>{
   try{
-    console.log('loading wishlist')
+   
     const userId = req.session.userId
     const isLoggedIn = Boolean(req.session.userId)
     const userData = await User.findById({_id:userId}).populate('wishlist')
@@ -804,22 +734,19 @@ const loadWishlist = async(req,res,next)=>{
 
 const addToWishlist = async(req,res,next)=>{
   try {
-    // console.log("im here");
+    
     const productId = req.query.id
     const userId = req.session.userId
     const userData= await User.findOne({_id:userId})
-    // console.log(productId);
+    
     if(!userData.wishlist.includes(productId)){
       userData.wishlist.push(productId)
       await userData.save()
       req.session.wishCount++
     }
-    // let{returnPage}=req.query
-    // if(returnPage == 'shop'){
+    
       res.redirect('/shop')
-    // }else if(returnPage == 'productOverview'){
-    //   res.redirect(`/shop/productOverview/${productId}`)
-    // }
+    
   } catch (error) {
     next(error)
   }
@@ -866,7 +793,7 @@ const getForgotPassword = (req, res) => {
 const postForgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
-   console.log(email, "its me");
+   
 
   
     if (email.trim()  === '' ) {
@@ -885,14 +812,14 @@ const postForgotPassword = async (req, res) => {
   const  otp  = req.session.OTP
 
     req.session.userData = { email, otp }; // Store email and OTP in the session
-console.log( req.session.userData)
+
     await  generateOtp(email, otp);
     setTimeout(() => {
       req.session.OTP = null; 
   }, 60000); 
     res.render('verifyOtp', { email, message: '' });
   } catch (error) {
-    console.error(error);
+   
     req.flash('error', 'An error occurred during password reset');
     res.redirect('/forgot-password');
   }
@@ -935,29 +862,11 @@ const updatePassword = async (req, res) => {
   }
 };
 
-// const resendOTP = async(req,res,next)=>{
-//   try {
-//     console.log('In resend otp controller');
-//     const {email} =  req.session.userData
-//     const OTP = req.session.OTP = getOTP()
-//     console.log('resending otp' +OTP+ 'to' +email);
-//     setTimeout(() => {
-//       req.session.OTP = null;
-//       console.log('otp timeout');      
-//     }, 600000);
-//     await generateOtp(email,OTP)
-
-//     res.json({isResend: true})
-
-//   } catch (error) {
-//     next(error)
-    
-//   }
-// }
 
 
 
-//faizu resend
+
+
 
 const resendOTP = async (req, res,next) => {
   try {
@@ -967,9 +876,9 @@ const resendOTP = async (req, res,next) => {
 
        email  = req.session.userData.email;
        const otp = getOTP()
-    // const referral = req.session.userData.referral
+    
     req.session.OTP = otp;
-    console.log(email,otp, "Check")
+    
     await  generateOtp(email, otp);
     setTimeout(() => {
       req.session.OTP = null; // Or delete req.session.otp;
@@ -979,9 +888,9 @@ const resendOTP = async (req, res,next) => {
     }else if(req.session.email) {
       email = req.session.email
       const otp = getOTP()
-      // const referral = req.session.userData.referral
+      
       req.session.OTP = otp;
-      console.log(email,otp, "Check")
+      
       await  generateOtp(email, otp);
       setTimeout(() => {
         req.session.OTP = null; // Or delete req.session.otp;

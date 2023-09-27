@@ -3,7 +3,7 @@ const Orders = require('../model/orderModel')
 
 const findIncome = async(startDate = new Date('1990-01-01'), endDate = new Date()) => {
     try {
-        // console.log(startDate, endDate);
+       
 
         const ordersData = await Orders.find(
             {

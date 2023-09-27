@@ -5,7 +5,7 @@ const { logoutUser } = require('./userController')
 const loadAddAddress = async(req,res,next)=>{
     try {
         const returnPage = req.query.returnPage
-        console.log('returnPage:' +returnPage);
+        
         res.render('addAddress', {isLoggedIn:true, returnPage})
     } catch (error) {
     next(error)        
@@ -30,7 +30,7 @@ const postAddAddress = async(req,res,next)=>{
                     }
                 }
                 )
-                console.log('Address added to database');
+               
 
                 switch(returnPage){
                     case 'profile':
@@ -46,7 +46,7 @@ const postAddAddress = async(req,res,next)=>{
                 addresses : [newAddress]
             }).save()
 
-            console.log('Address Saved on Database');
+            
 
             switch(returnPage){
                 case 'profile':
@@ -65,11 +65,11 @@ const postAddAddress = async(req,res,next)=>{
 const loadEditAddress = async(req,res,next)=>{
     try {
 
-        console.log("edit address called");
+       
         const addressId = req.params.id;
-        console.log("session", req.session)
+        
         const userId = req.session.userId;
-        console.log("userid", userId)
+       
 
         const addressData = await Addresses.findOne({userId, 'addresses._id':addressId})
         const address = addressData.addresses.find(obj => obj._id.toString()===addressId)
@@ -101,7 +101,7 @@ const postEditAddress = async(req,res,next)=>{
                 }
             }
         )
-        console.log('Address Edited');
+        
         res.redirect('/profile')
     } catch (error) {
         next(error) ;
@@ -113,7 +113,7 @@ const deleteAddress = async(req,res,next)=>{
         const addressId = req.params.id;
         const userId = req.session.userId;
 
-        console.log('loaded delete address')
+        
 
         await Addresses.updateOne(
             {userId, 'addresses._id': addressId},
@@ -123,7 +123,7 @@ const deleteAddress = async(req,res,next)=>{
                 }
             }
         )
-        console.log('address deleted');
+       
         res.redirect('/profile')
     } catch (error) {
         next(error) ;

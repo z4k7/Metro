@@ -60,10 +60,10 @@ const postUserStatus = async (req, res, next) => {
   try {
     const userId = req.params.id;
     
-    // console.log(userData);
+    
     const userData = await User.findById({ _id: userId });
     if (userData) {
-      console.log("updating status");
+      
       if (userData.blocked === true) {
         await User.findByIdAndUpdate(
           { _id: userId },
@@ -138,7 +138,7 @@ const getDashboard = async(req,res, next) => {
       ]);
 
       const displayYears = [];  //use map if possible
-      // console.log(totalYears);
+      
       totalYears.forEach((year) => {
           displayYears.push(year._id.createdAt)
       });

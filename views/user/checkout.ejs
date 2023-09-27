@@ -323,9 +323,9 @@ $('#checkout-form').submit((e) => {
                location.href = '/orderSuccess?result=success'
            }
            else if(res.status == 'Razorpay'){
-            console.log("order", res.order);
+            
                razorpayPayment(res.order)
-               console.log("hiiii");
+               
            }else if(res.status == 'Wallet'){
                location.href = '/orderSuccess?result=success'
            }
@@ -335,7 +335,7 @@ $('#checkout-form').submit((e) => {
 
 
 function razorpayPayment(order){
-    console.log(order, "kooy");
+    
         var options = {
             "key": "rzp_test_qGRSv44k8kFQ38", // Enter the Key ID generated from the Dashboard
             "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -345,7 +345,7 @@ function razorpayPayment(order){
             "image": "https://example.com/your_logo",
             "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             "handler": function (response){
-                console.log(response,order, "heyy");
+               
                 verifyPayment(response,order)
             },
             "prefill": {
@@ -362,7 +362,7 @@ function razorpayPayment(order){
         };
         var rzp1 = new Razorpay(options);
 document.getElementById('rzp-button1').onclick = function(e){
-    console.log("hloi");
+    
     rzp1.open();
     e.preventDefault();
 }
@@ -370,8 +370,7 @@ document.getElementById('rzp-button1').onclick = function(e){
 
 
 function verifyPayment(response,order){
-   console.log(response,order);
-   console.log('in verify payment function in checkout');
+   
    $.ajax({
        url:'/verifyPayment',
        method:'post',
@@ -380,7 +379,7 @@ function verifyPayment(response,order){
            order
        },
        success:(res) => {
-           console.log(res);
+           
            if(res.status == true){
                location.href = '/orderSuccess?result=success'
            }else{

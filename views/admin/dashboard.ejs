@@ -431,10 +431,6 @@
   var categorySalesData = document.getElementById('categorySales').innerHTML;
   var categorySales = categorySalesData.split(',')
 
-//   console.log('categoryNamesData : '+typeof categoryNamesData);
-//   console.log('categoryNamesData : '+categoryNamesData);
-//   console.log('categoryNames : '+typeof categoryNames);
-//   console.log('categoryNames : '+categoryNames);
 
 
   function generateRandomColor() {
@@ -523,7 +519,7 @@
     var paymentCountData = document.getElementById('paymentCount').innerHTML;
     var paymentCount = paymentCountData.split(',').map(item => Number(item.trim()));
     paymentCount.map((data) => parseInt(data))
-    // console.log(paymentCount);
+    
 
     var options = {
         series: paymentCount,

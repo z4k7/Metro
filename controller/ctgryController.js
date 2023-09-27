@@ -25,14 +25,14 @@ const loadCategory = async (req, res,next) => {
 const addCategory = async (req, res,next) => {
   try {
     const categoryName = req.body.categoryName.toUpperCase();
-    console.log(categoryName);
+    
     if (categoryName) {
       const isExistCategory = await Categories.findOne({ name: categoryName });
 
       if (isExistCategory) {
         const message = "Category already exists"
         res.redirect('/admin/category?status=success&message='+ encodeURIComponent(message));
-        console.log("Category Already Exists");
+        
         
       } else {
         await new Categories({ name: categoryName }).save();
@@ -51,26 +51,22 @@ const addCategory = async (req, res,next) => {
 const editCategory = async (req, res,next) => {
   try {
     const id = req.body.categoryId;
-    console.log("id : " + id);
+    
     const newName = req.body.categoryName.toUpperCase();
-    // console.log(req);
-    // console.log('file '+ req.file);
+    
 
-    console.log(newName);
+    
     const isCategoryExist = await Categories.findOne({ name: newName });
-    // console.log('iscategory exist'+isCategoryExist);
-    // console.log(req.file.filename);
+   
 
     if (req.file && req.file.filename) {
-      console.log(req.file.filename);
-      // const image = req.file.filename
+     
       if(!isCategoryExist || isCategoryExist._id == id){
-          // console.log('Category name and image changed');
-          // await Categories.findByIdAndUpdate({_id:id},{$set: {name: newName, image:image}})
+          
       }
     } else {
       if (!isCategoryExist) {
-        console.log("Category name changed");
+        
         await Categories.findByIdAndUpdate(
           { _id: id },
           { $set: { name: newName } }

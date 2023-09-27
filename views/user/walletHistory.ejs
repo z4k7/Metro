@@ -106,17 +106,17 @@
                 e.preventDefault()
                 err.innerHTML = 'Amount cannot be negative!'
             }
-            console.log("function called");
+            
             $.ajax({
                 url: '/profile/addMoneyToWallet',
                 method: 'post',
                 data: { amount },
                 success: (res) => {
                     if(res.status){
-                        console.log('opening razorpay');
+                        
                         razorpayPayment(res.payment)
                     }else{
-                        console.log('status false redirecting to walletHistory');
+                        
                         location.href = '/walletHistory'
                     }
                 }
@@ -125,7 +125,7 @@
         });
     
         function razorpayPayment(order){
-            console.log('in razorpay payment');
+            
             var options = {
                 "key": "rzp_test_qGRSv44k8kFQ38", // Enter the Key ID generated from the Dashboard
                 "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -149,14 +149,13 @@
                     "color": "#3399cc"
                 }
             };
-            console.log('new Razorpay');
+            
             var rzpl = new Razorpay(options)
             rzpl.open()
         }
     
         function verifyPayment(response,order){
-            console.log(response,order);
-            console.log("im Here");
+            
             $.ajax({
                 url:'/verifyWalletPayment',
                 method:'post',
@@ -165,7 +164,7 @@
                     order
                 },
                 success:(res) => {
-                    console.log(res);
+                    
                     if(res.status == true){
                         location.href = '/profile/walletHistory'
                     }else{

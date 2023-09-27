@@ -63,11 +63,11 @@ const placeOrder = async(req, res, next) => {
       const userData = await User.findById({_id:userId}).populate('cart.productId')
       const cart = userData.cart
       const walletAmount = req.session.walletAmount = parseInt(userData.wallet)
-      console.log(walletAmount);
+      
       req.session.cart = cart;
 
       let products = []
-      // console.log(cart)
+      
 
       cart.forEach((pdt) => {
           let discountPrice;
@@ -78,7 +78,7 @@ const placeOrder = async(req, res, next) => {
           }else{
               discountPrice = pdt.discountPrice,
               totalDiscount = (pdt.productPrice-pdt.discountPrice)*pdt.quantity
-              // console.log(pdt.productPrice,"herere");
+             
           }
           const product = {
               productId: pdt.productId._id,
@@ -91,7 +91,7 @@ const placeOrder = async(req, res, next) => {
               status: 'Order Confirmed'
           }
 
-          // console.log(product,"123");
+          
           products.push(product)
       })
 
@@ -135,10 +135,10 @@ const placeOrder = async(req, res, next) => {
           req.session.isWalletSelected = isWalletSelected;
           req.session.totalPrice = totalPrice;
 
-          // console.log("totalPrice:",totalPrice);
+         
           
           if(paymentMethod === 'COD'){
-              console.log('Payment method is COD');
+            
 
               await new Orders({
                   userId, 
@@ -187,7 +187,7 @@ const placeOrder = async(req, res, next) => {
               res.json({status : 'COD'})
 
           }else if(paymentMethod === 'Razorpay'){
-              console.log('Payment method razorpay');
+              
 
               if(isWalletSelected){
                   totalPrice = totalPrice - walletAmount
@@ -198,18 +198,18 @@ const placeOrder = async(req, res, next) => {
                   currency:'INR',
                   receipt: "hello"
               }
-              // console.log(options,"132123")
+             
 
 
               instance.orders.create(options, (err, order) => {
                   if(err){
-                      console.log(err);
+                     
                   }else{
                       res.json({ status: 'Razorpay', order:order })
                   }
 
               })
-              // console.log('instance created :>');
+              
           }else if(paymentMethod == 'Wallet'){
 
               await new Orders({
@@ -281,7 +281,7 @@ const placeOrder = async(req, res, next) => {
 
 
       }else{
-          console.log('Cart is empty');
+         
           res.redirect('/shop')
       }
 
@@ -295,10 +295,9 @@ const verifyPayment = async (req, res,next) => {
   try {
     const userId = req.session.userId;
     const details = req.body;
-    console.log(details.response.razorpay_signature);
+    
     const keys = Object.keys(details)
-    console.log(keys);
-    console.log('in verify payment');
+    
 
     const crypto = require("crypto");
     let hmac = crypto.createHmac("sha256", process.env.KEY_SECRET);
@@ -310,9 +309,7 @@ const verifyPayment = async (req, res,next) => {
 
     );
     hmac = hmac.digest("hex");
-    // console.log(hmac);
-    // console.log(typeof hmac);
-    // console.log(typeof details.response.razorpay_signature);
+    
     if (hmac === details.response.razorpay_signature) {
       let totalPrice = req.session.totalPrice;
       let couponCode = "";
@@ -384,16 +381,12 @@ const verifyPayment = async (req, res,next) => {
 
 const loadMyOrders = async (req, res,next) => {
   try {
-    console.log("Loaded my orders");
+    
     const userId = req.session.userId;
     const orderData = await Orders.find({ userId })
       .populate("products.productId")
       .sort({ date: -1 });
-    // console.log(orderData);
-    // if(orderData){
-    //     const product = orderData[0].products
-    // }
-    // console.log('Products of first order : \n\n\n'+product);
+   
     res.render("myOrders", {
       isLoggedIn: true,
       page: "My Orders",
@@ -407,14 +400,14 @@ const loadMyOrders = async (req, res,next) => {
 
 const loadViewOrderDetails = async (req, res,next) => {
   try {
-    console.log("loaded view order details page");
+   
     const orderId = req.params.orderId;
     const userId = req.session.userId;
 
     const orderData = await Orders.findById({ _id: orderId }).populate(
       "products.productId"
     );
-    // console.log(orderData);
+    
 
     let status;
     switch (orderData.status) {
@@ -459,7 +452,7 @@ const loadViewOrderDetails = async (req, res,next) => {
 const loadOrderSuccess = async (req, res,next) => {
   try {
     const result = req.query.result;
-    console.log("loaded Order Success");
+    
     const isLoggedIn = Boolean(req.session.userId);
 
     res.render("orderSuccess", { isLoggedIn, result });
@@ -487,13 +480,12 @@ const loadOrdersList = async (req, res,next) => {
         const totalOrderCount = await Orders.find({}).count()
         let pageCount = Math.ceil( totalOrderCount / limit)
 
-        console.log(Orders);
+       
     const searchQuery=req.query.searchQuery || ''
 
     const ordersData = await Orders.find({'deliveryAddress.userName':{$regex:''+ searchQuery,$options:'i'}}).populate("userId").populate("products.productId").sort({ createdAt: -1 }).skip( (pageNum - 1)*limit ).limit(limit);
        
-    // const userData = await Orders.findOne({}).populate("userId")
-  //  console.log(userData);
+    
 
     res.render("ordersList", { ordersData, page: "Orders List",pageCount, pageNum, limit,adminData });
   } catch (error) {
@@ -505,11 +497,11 @@ const loadOrdersList = async (req, res,next) => {
 
 const changeOrderStatus = async(req,res, next) => {
   try {
-      // console.log('loaded change order status');
+     
       const orderId = req.body.orderId
       const status = req.body.status
       const orderData = await Orders.findById({_id: orderId})
-      // console.log(status);
+      
       for (const pdt of orderData.products){
 
           if(pdt.status !== 'Delivered' && 
@@ -522,7 +514,7 @@ const changeOrderStatus = async(req,res, next) => {
           }
 
       };
-      console.log('orderData saving');
+      
       await orderData.save();
       await updateOrderStatus(orderId, next);
 
@@ -680,7 +672,7 @@ const cancelOrder = async(req,res, next) => {
       const userId = orderData.userId
 
 
-      // console.log(cancelledBy);
+      
       let refundAmount = 0;
       if(cancelledBy == 'user'){
 
@@ -705,7 +697,7 @@ const cancelOrder = async(req,res, next) => {
                       }
                   );
 
-                  console.log('pdt.status set to Cancelled');
+                  
               }
 
           };
@@ -954,9 +946,9 @@ const loadInvoice = async(req,res, next) => {
       const isLoggedIn = Boolean(req.session.userId)
       const order = await Orders.findById({_id: orderId})
       var discount;
-      console.log('order:',order);
+      
       if(order.couponCode){
-          // discount = Math.floor(order.totalPrice/( 1- (order.couponDiscount/100)))
+          
           discount= order.couponDiscount
       }
 

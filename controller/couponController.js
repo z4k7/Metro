@@ -21,7 +21,7 @@ const loadAddCoupon = async(req, res, next) => {
         const adminId = req.session.admin
  const adminData= await Admin.findOne({_id:adminId})
         const couponTypes = Coupons.schema.path('discountType').enumValues
-        console.log(couponTypes);
+       
         res.render('addCoupon',{page:'Coupons', couponTypes,adminData })
     } catch (error) {
         next(error)
@@ -30,7 +30,7 @@ const loadAddCoupon = async(req, res, next) => {
 
 const postAddCoupon = async(req, res, next) => {
     try {
-        console.log("postAddCoupon loaded");
+       
         const { discountAmount, discountType, maxDiscountAmount, minPurchase, expiryDate, description } = req.body;
         const code = req.body.code.toUpperCase()
 
@@ -41,15 +41,14 @@ const postAddCoupon = async(req, res, next) => {
             couponCount = parseInt(req.body.couponCount)
         }
         
-        console.log('coupon Count : '+couponCount);
-        console.log(' type of coupon Count : '+typeof couponCount);
+       
         const isCodeExist = await Coupons.findOne({code})
         if(!isCodeExist){
             await new Coupons({
                 code, discountAmount, discountType, maxDiscountAmount, minPurchase, expiryDate, description, couponCount
             }).save()
         }else{
-            console.log('Code already exist');
+            
         }
 
         res.redirect('/admin/coupons')
@@ -75,7 +74,7 @@ const loadEditCoupon = async(req, res, next) => {
 
 const postEditCoupon = async(req, res, next) => {
     try {
-        console.log('posting edit coupon');
+        
         const couponId = req.params.couponId;
         const { discountAmount, discountType, maxDiscountAmount, minPurchase, expiryDate, description, couponCount } = req.body;
         const code = req.body.code.toUpperCase()

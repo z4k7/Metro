@@ -69,7 +69,7 @@ function validateMobile() {
 
 
 function validatePincode() {
-    console.log('working pincode');
+    
     let pincode = document.getElementById('zip').value.trim()
 
     if (pincode.length === 0 ) {

@@ -7,7 +7,7 @@ exports.isAdminLoggedIn = (req,res,next)=>{
      
     }
     catch(error){
-        // console.log('internal error'+error.message);
+        
         next(error)
     }
  }

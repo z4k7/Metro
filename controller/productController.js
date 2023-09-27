@@ -32,7 +32,7 @@ const loadProduct = async (req, res, next) => {
       {status : 'Starting Soon'},
       {status : 'Available' }
   ]})
-    // console.log(pdtsData);
+    
     res.render("products", {pdtsData,offerData,pageCount,pageNum,limit,adminData});
   } catch (error) {
     next(error);
@@ -53,7 +53,7 @@ const loadAddProduct = async (req, res,next) => {
 
 const addProductDetails = async (req, res,next) => {
   try {
-console.log(req.body)
+
 
     const {
       brand,
@@ -65,7 +65,7 @@ console.log(req.body)
       dprice,
       description,
     } = req.body;
-    // console.log(req.files);
+    
 
     let images = [];
     for (let file of req.files) {
@@ -73,7 +73,7 @@ console.log(req.body)
     }
  
     const catData = await Categories.find({ name: category });
-    // console.log(catData);
+    
     const prodData = await new Products({
       brand,
       name: productName,
@@ -97,10 +97,10 @@ const loadEditProduct = async (req, res,next) => {
     const adminId = req.session.admin
  const adminData= await Admin.findOne({_id:adminId})
     const _id = req.params.id;
-    // console.log(id);
+    
     const pdtData = await Products.findById({_id}).populate("category");
     const catData = await Categories.find({isListed: true });
-// console.log(pdtData);
+
     res.render("editProducts", { pdtData, catData,adminData});
   } catch (error) {
     next(error);
@@ -129,16 +129,16 @@ const postEditProduct = async (req, res,next) => {
       for (let file of req.files) {
         newImages.push(file.filename);
       }
-      // console.log("id: " + id);
+      
       await Products.findOneAndUpdate(
         { _id: id },
         { $push: { images: { $each: newImages } } }
       );
     }
 
-    // console.log("category: " + category);
+    
     const catData = await Categories.findOne({ name: category });
-    // console.log(catData);
+    
     await Products.findByIdAndUpdate(
       { _id: id },
       {
@@ -167,7 +167,7 @@ const deleteProduct = async (req, res,next) => {
     const id = req.params.id;
     const prodData = await Products.findById({_id:id})
 
-    // console.log(prodData);
+    
     if(prodData.isListed){
         await Products.findByIdAndUpdate({_id:id}, {$set: {isListed: false}})
     }else{
@@ -186,19 +186,18 @@ const deleteImage = async(req,res,next)=>{
 
         await Products.findOneAndUpdate({_id:id}, {$pull:{images: imageURL}})
 
-        console.log('imageURL : ' +imageURL+ 'type :'+typeof imageURL);
+        
 
         const imgFolder = path.join(__dirname, '../public/admin/productImages')
 
         const files = fs.readdirSync(imgFolder)
 
         for(const file of files){
-            console.log('file: ' +file);
-            console.log('imageURL: ', +imageURL);
+            
             if(file===imageURL){
                 const filePath = path.join(imgFolder,file)
                 fs.unlinkSync(filePath)
-                console.log('deleted '+filePath);
+                
                 break;
             }
         }
@@ -236,8 +235,7 @@ const loadShop= async (req,res,next)=>{
       cat === 'all' ?(cat = [...categoryToArray],categoryToFront = '') : (cat = cat ,categoryToFront=cat);
       const categoryNeed = await Categories.find({name:{$in:cat}},{_id:1});
       const categoryStrings = categoryNeed.map(category => category._id.toString());
-      // console.log(categoryToFront, "ctf");
-      //   console.log(typeof(price), "top");
+      
       //price setting up 
       if(price == 10000){
           minPrice = 0
@@ -255,7 +253,7 @@ const loadShop= async (req,res,next)=>{
           if(typeof price === 'string'){
               minPrice = price - 4999
               maxPrice =parseInt(price)
-              // console.log(minPrice,maxPrice)
+              
           }
           else{
               maxPrice = Math.max(...price);
@@ -326,8 +324,7 @@ const loadProductOverview = async(req,res,next)=>{
     try {
         
         const id = req.params.id;
-        //  console.log(id);
-        //  const isLoggedIn = Boolean(req.session.userId)
+        
          const pdtData = await Products.findById({_id:id})
          res.render('detail',{isLoggedIn: true,pdtData})
 

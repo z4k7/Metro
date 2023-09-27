@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('.page-item').click(function(){
         const clickedButton = this;
-        console.log("Pagination");
+        
         const pageNo = clickedButton.dataset.pageNo;
         const sort = clickedButton.dataset.doSort
 

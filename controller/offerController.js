@@ -69,7 +69,7 @@ const loadEditOffer = async(req,res,next)=>{
 
 const postEditOffer = async(req,res,next)=>{
     try {
-        console.log('posting edit offer');
+        
         const offerId = req.params.offerId
         const {discount, startingDate, expiryDate} = req.body
         const name = req.body.name.toUpperCase()
