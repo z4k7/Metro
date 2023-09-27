@@ -89,7 +89,7 @@ const sendVerifyMail = async (fname, lname, email, OTP, next) => {
       requireTLS: true,
       auth: {
         user: "sachinkp1997@gmail.com",
-        pass: jkumilboppheokss,
+        pass: process.env.PASSWORD,
       },
     });
 
