@@ -1,139 +1,148 @@
-const Addresses= require('../model/addressModel')
-const Users = require('../model/userModel')
-const { logoutUser } = require('./userController')
+const Addresses = require("../model/addressModel");
+const Users = require("../model/userModel");
+const { logoutUser } = require("./userController");
 
-const loadAddAddress = async(req,res,next)=>{
-    try {
-        const returnPage = req.query.returnPage
-        
-        res.render('addAddress', {isLoggedIn:true, returnPage})
-    } catch (error) {
-    next(error)        
-    }
-}
+const loadAddAddress = async (req, res, next) => {
+  try {
+    const returnPage = req.query.returnPage;
 
-const postAddAddress = async(req,res,next)=>{
-    try {
-        const userId = req.session.userId
-        const  {name, email, mobile, town, state, country, zip, address}= req.body
-        const returnPage = req.params.returnPage
+    res.render("addAddress", { isLoggedIn: true, returnPage });
+  } catch (error) {
+    next(error);
+  }
+};
 
-        const newAddress = {userName:name, email, mobile, town, state, country, zip, address}
+const postAddAddress = async (req, res, next) => {
+  try {
+    const userId = req.session.userId;
+    const { name, email, mobile, town, state, country, zip, address } =
+      req.body;
+    const returnPage = req.params.returnPage;
 
-        const isUserHasAddress = await Addresses.findOne({userId:userId})
+    const newAddress = {
+      userName: name,
+      email,
+      mobile,
+      town,
+      state,
+      country,
+      zip,
+      address,
+    };
 
-        if(isUserHasAddress){
-            await Addresses.updateOne({userId:userId},
-                {
-                    $addToSet:{
-                        addresses: newAddress
-                    }
-                }
-                )
-               
+    const isUserHasAddress = await Addresses.findOne({ userId: userId });
 
-                switch(returnPage){
-                    case 'profile':
-                        res.redirect('/profile')
-                        break;
-                        case 'checkout':
-                            res.redirect('/shoppingCart/proceedToCheckout')
-                            break;
-                }
-        }else{
-            await new Addresses({
-                userId,
-                addresses : [newAddress]
-            }).save()
-
-            
-
-            switch(returnPage){
-                case 'profile':
-                    res.redirect('/profile')
-                    break;
-                    case 'checkout':
-                        res.redirect('/shoppingCart/proceedToCheckout')
-                        break;
-            }
+    if (isUserHasAddress) {
+      await Addresses.updateOne(
+        { userId: userId },
+        {
+          $addToSet: {
+            addresses: newAddress,
+          },
         }
-    } catch (error) {
-        next(error) ;
+      );
+
+      switch (returnPage) {
+        case "profile":
+          res.redirect("/profile");
+          break;
+        case "checkout":
+          res.redirect("/shoppingCart/proceedToCheckout");
+          break;
+      }
+    } else {
+      await new Addresses({
+        userId,
+        addresses: [newAddress],
+      }).save();
+
+      switch (returnPage) {
+        case "profile":
+          res.redirect("/profile");
+          break;
+        case "checkout":
+          res.redirect("/shoppingCart/proceedToCheckout");
+          break;
+      }
     }
-}
+  } catch (error) {
+    next(error);
+  }
+};
 
-const loadEditAddress = async(req,res,next)=>{
-    try {
+const loadEditAddress = async (req, res, next) => {
+  try {
+    const addressId = req.params.id;
 
-       
-        const addressId = req.params.id;
-        
-        const userId = req.session.userId;
-       
+    const userId = req.session.userId;
 
-        const addressData = await Addresses.findOne({userId, 'addresses._id':addressId})
-        const address = addressData.addresses.find(obj => obj._id.toString()===addressId)
+    const addressData = await Addresses.findOne({
+      userId,
+      "addresses._id": addressId,
+    });
+    const address = addressData.addresses.find(
+      (obj) => obj._id.toString() === addressId
+    );
 
-        res.render('editAddress',{address, isLoggedIn:true,userId})
-    } catch (error) {
-        next(error) ;
-    }
-}
+    res.render("editAddress", { address, isLoggedIn: true, userId });
+  } catch (error) {
+    next(error);
+  }
+};
 
-const postEditAddress = async(req,res,next)=>{
-    try {
-        const addressId = req.params.id;
-        const userId = req.session.userId
-        const {name, email, mobile, town, state, country, zip, address} = req.body
+const postEditAddress = async (req, res, next) => {
+  try {
+    const addressId = req.params.id;
+    const userId = req.session.userId;
+    const { name, email, mobile, town, state, country, zip, address } =
+      req.body;
 
-        await Addresses.updateOne(
-            {userId,'addresses._id':addressId},
-            {
-                $set:{
-                    'addresses.$.userName': name,
-                    'addresses.$.email': email,
-                    'addresses.$.mobile': mobile,
-                    'addresses.$.town': town,
-                    'addresses.$.state': state,
-                    'addresses.$.country': country,
-                    'addresses.$.zip': zip,
-                    'addresses.$.address': address
-                }
-            }
-        )
-        
-        res.redirect('/profile')
-    } catch (error) {
-        next(error) ;
-    }
-}
+    await Addresses.updateOne(
+      { userId, "addresses._id": addressId },
+      {
+        $set: {
+          "addresses.$.userName": name,
+          "addresses.$.email": email,
+          "addresses.$.mobile": mobile,
+          "addresses.$.town": town,
+          "addresses.$.state": state,
+          "addresses.$.country": country,
+          "addresses.$.zip": zip,
+          "addresses.$.address": address,
+        },
+      }
+    );
 
-const deleteAddress = async(req,res,next)=>{
-    try {
-        const addressId = req.params.id;
-        const userId = req.session.userId;
+    res.redirect("/profile");
+  } catch (error) {
+    next(error);
+  }
+};
 
-        
+const deleteAddress = async (req, res, next) => {
+  try {
+    const addressId = req.params.id;
+    const userId = req.session.userId;
 
-        await Addresses.updateOne(
-            {userId, 'addresses._id': addressId},
-            {
-                $pull:{
-                    addresses: {_id: addressId}
-                }
-            }
-        )
-       
-        res.redirect('/profile')
-    } catch (error) {
-        next(error) ;
-    }
-}
+    await Addresses.updateOne(
+      { userId, "addresses._id": addressId },
+      {
+        $pull: {
+          addresses: { _id: addressId },
+        },
+      }
+    );
+
+    res.redirect("/profile");
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
-    loadAddAddress,
-    postAddAddress,
-    loadEditAddress,
-    postEditAddress,
-    deleteAddress
-}
+  loadAddAddress,
+  postAddAddress,
+  loadEditAddress,
+  postEditAddress,
+  deleteAddress,
+};
