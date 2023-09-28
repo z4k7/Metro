@@ -43,6 +43,7 @@ function validateLName() {
 
 // email
 function validateEmail() {
+  
   let email = document.getElementById("email").value.trim();
   if (email.length === 0) {
     emailError.innerHTML = "Email required!";
@@ -112,6 +113,8 @@ function validateConfirmPassword() {
   return true;
 }
 
+
+
 // signup
 function validateSignUp() {
   return (
@@ -124,13 +127,7 @@ function validateSignUp() {
   );
 }
 
-// login
-function validateLogin() {
-  return validateEmail() && validatePassword();
-}
 
-function validateProfile() {
-  return (
-    validateFName() && validateLName() && validateMobile() && validateDOB()
-  );
-}
+
+
+

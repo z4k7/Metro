@@ -14,18 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/css/signup.css">
 </head>
 
-<style>
-
-    .pEye{
-        margin-left: -20px;
-  z-index: 5;
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-    }
-</style>
-
-<body >
+<body>
 
     <!-- Navbar-->
     <header class="header">
@@ -128,50 +117,34 @@
 
 
                         <!-- Password -->
-       
-
-                        <div class="text-danger text-center">
-                            <small id="passwordErr" class="error"></small>
-                        </div>
+                        <div class="text-danger text-center"><small id="passwordErr" class="error"></small></div>
                         <div class="input-group col-lg-6 mb-3">
                             <div class="input-group-prepend">
-                                <span class="border-px input-group-text bg-white px-4 border-md border-right-0"
+                                <span class="  border-px  input-group-text bg-white px-4 border-md border-right-0"
                                     style="padding: 1.375rem .75rem;">
                                     <i class="fa fa-lock text-muted"></i>
                                 </span>
                             </div>
                             <input id="password" type="password" name="password" placeholder="Password"
-                                class="form-control bg-white border-md border-change pr-5" style="border-right:none" >
-                            <div class="input-group-append">
-                                <span class="input-group-text bg-white border-md border-change ">
-                                    <i class="fa fa-fw fa-eye toggle-password pEye" onclick="togglePasswordVisibility()"></i>
-                                </span>
-                            </div>
+                                class="form-control bg-white border-left-0 border-md  border-change ">
+
                         </div>
-                        
 
                         <!-- Password Confirmation -->
-
-                        <div class="text-danger text-center">
-                            <small id="confirmPasswordErr" class="error"></small>
+                        <div class="text-danger text-center"> <small id="confirmPasswordErr" class="error"></small>
                         </div>
                         <div class="input-group col-lg-6 mb-3">
                             <div class="input-group-prepend">
-                                <span class="border-px input-group-text bg-white px-4 border-md border-right-0"
+                                <span class=" border-px  input-group-text bg-white px-4 border-md border-right-0"
                                     style="padding: 1.375rem .75rem;">
                                     <i class="fa fa-lock text-muted"></i>
                                 </span>
                             </div>
-                            <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password"
-                                class="form-control bg-white border-left-0 border-md border-change  " style="border-right:none" >
-                            <div class="input-group-append">
-                                <span class="input-group-text bg-white border-left-0 border-md border-change ">
-                                    <i class="fa fa-fw fa-eye toggle-password pEye" onclick="toggleConfirmPasswordVisibility()"></i>
-                                </span>
-                            </div>
-                        </div>
-                        
+                            <input id="confirmpassword" type="password" name="confirmPassword"
+                                placeholder="Confirm Password"
+                                class="form-control bg-white border-left-0 border-md  border-change ">
 
+                        </div>
 
                         <!-- Referral Code -->
                         <div class="form-outline mb-3 row">
@@ -208,21 +181,7 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        
-    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    
-    <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-    
-    <!-- Template Javascript -->
-    <script src="/user/js/main.js"></script>
-    <script src="/user/js/shopPagination.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
@@ -230,49 +189,7 @@
         integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
         crossorigin="anonymous"></script>
 
-    
-
-
-    
-
-<script>
-    function togglePasswordVisibility() {
-        var passwordInput = document.getElementById("password");
-        var eyeIcon = document.querySelector(".toggle-password");
-    
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            eyeIcon.classList.remove("fa-eye");
-            eyeIcon.classList.add("fa-eye-slash");
-        } else {
-            passwordInput.type = "password";
-            eyeIcon.classList.remove("fa-eye-slash");
-            eyeIcon.classList.add("fa-eye");
-        }
-    }
-    </script>
-
-<script>
-    function toggleConfirmPasswordVisibility() {
-        var confirmPasswordInput = document.getElementById("confirmPassword");
-        var eyeIcon = document.querySelector(".toggle-password");
-    
-        if (confirmPasswordInput.type === "password") {
-            confirmPasswordInput.type = "text";
-            eyeIcon.classList.remove("fa-eye");
-            eyeIcon.classList.add("fa-eye-slash");
-        } else {
-            confirmPasswordInput.type = "password";
-            eyeIcon.classList.remove("fa-eye-slash");
-            eyeIcon.classList.add("fa-eye");
-        }
-    }
-    </script>
-    
-   
-        
-    
+    <script src="/validations/signupValidation.js"></script>
 </body>
-<script src="/validations/signupValidation.js"></script>
 
 </html>
