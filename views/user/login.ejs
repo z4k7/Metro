@@ -31,6 +31,15 @@
     <link href="admin/css/style.css" rel="stylesheet">
 </head>
 
+<style>
+    @media (max-width: 768px) {
+        .resp{
+            padding-top: 10px;
+            min-height: 60vh !important
+        }
+    }
+</style>
+
 <body style="background-color: gold;">
 
 
@@ -51,7 +60,7 @@
 
         <!-- Sign In Start -->
         <div class="container-fluid">
-            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+            <div class="row h-75 align-items-center resp justify-content-center" style="min-height: 89vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
 
                   <form action="/login" method="post">
