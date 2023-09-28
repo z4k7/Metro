@@ -84,11 +84,11 @@ const sendVerifyMail = async (fname, lname, email, OTP, next) => {
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      requireTLS: true,
+      port: 465,
+      secure: true,
+      // requireTLS: true,
       auth: {
-        user: "sachinkp1997@gmail.com",
+        user: "metroz4k7@gmail.com",
         pass: process.env.PASSWORD,
       },
     });
@@ -107,7 +107,7 @@ const sendVerifyMail = async (fname, lname, email, OTP, next) => {
       }
     });
   } catch (error) {
-    next(error.message);
+    console.log(error.message);
   }
 };
 
@@ -115,11 +115,10 @@ const generateOtp = async (email, otp) => {
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      requireTLS: true,
+      port: 465,
+      secure: true,
       auth: {
-        user: "sachinkp1997@gmail.com",
+        user: "metroz4k7@gmail.com",
         pass: process.env.PASSWORD,
       },
     });
