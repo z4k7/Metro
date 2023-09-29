@@ -31,7 +31,7 @@ function validateDiscount() {
       "Discount cannot be a negative number or zero";
     return false;
   } else if (discount > 90) {
-    discountAmountError.innerHTML = "Upto 90% discount is possible";
+    discountAmountError.innerHTML = "Upto 90% discount only possible";
     return false;
   }
   discountAmountError.innerHTML = "";
@@ -41,8 +41,8 @@ function validateDiscount() {
 function validateMaxDiscount() {
   const maxDiscount = document.getElementById("maxDiscountAmount").value;
 
-  if (maxDiscount < 1000) {
-    maxDiscountAmountError.innerHTML = "Max Discount must be greater than 1000";
+  if (maxDiscount < 500) {
+    maxDiscountAmountError.innerHTML = "Max Discount must be greater than 500";
     return false;
   }
   if (maxDiscount >= 10000) {
@@ -58,11 +58,11 @@ function validateMinPurchase() {
   if (minPurchase <= 0) {
     minPurchaseError.innerHTML = "Min Purchase amount required";
     return false;
-  } else if (minPurchase < 500) {
-    minPurchaseError.innerHTML = "Min Purchase amount must be >500";
+  } else if (minPurchase < 5000) {
+    minPurchaseError.innerHTML = "Min Purchase amount must be greater than 5000";
     return false;
-  } else if (minPurchase > 30000) {
-    minPurchaseError.innerHTML = "Min Purchase amount must be <30000";
+  } else if (minPurchase > 100000) {
+    minPurchaseError.innerHTML = "Min Purchase amount must be less than 100000";
     return false;
   }
 
