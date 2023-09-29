@@ -102,8 +102,8 @@ const placeOrder = async (req, res, next) => {
     if (cart.length) {
       //Finding total price
       for (let i = 0; i < products.length; i++) {
-        totalPrice +=  products[i].totalDiscount;
-        
+        totalPrice +=  products[i].totalPrice - products[i].totalDiscount;
+       
       }
 
       let couponCode = "";
