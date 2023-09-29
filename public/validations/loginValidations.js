@@ -41,6 +41,6 @@ function validateEmail() {
 
 
   function validateLogin() {
-    console.log("Login Validation")
+    
     return validateEmail() && validatePassword();
   }

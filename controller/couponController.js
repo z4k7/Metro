@@ -155,12 +155,10 @@ const applyCoupon = async (req, res, next) => {
 
     //finding total cart price
     let totalPrice = 0;
-    let totalDiscountPrice = 0;
+
     cart.forEach((pdt) => {
-      // totalPrice += pdt.productPrice*pdt.quantity
       if (pdt.productId.offerPrice) {
-        totalDiscountPrice +=
-          (pdt.discountPrice - pdt.productId.offerPrice) * pdt.quantity;
+        totalPrice += pdt.productId.offerPrice * pdt.quantity;
       } else {
         totalPrice += pdt.discountPrice * pdt.quantity;
       }
